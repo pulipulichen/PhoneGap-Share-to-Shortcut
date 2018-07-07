@@ -723,6 +723,8 @@ STS_PDF = {
         var _data = _intent.extras["pgb_share_to_shortcut.pulipuli.info.data"];
         _data = "file:///storage/emulated/0/Download/a.pdf";
         alert(_data);
+        
+        
         //_data = _data.replace("///", "/");
         /*
         
