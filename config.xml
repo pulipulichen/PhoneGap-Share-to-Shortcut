@@ -51,7 +51,7 @@ PhoneGap Build Configuration
     <plugin name="cordova-plugin-shortcuts-android" source="npm" />
     
     <!-- https://github.com/pwlin/cordova-plugin-file-opener2 -->
-    <plugin name="cordova-plugin-file-opener2" source="npm" />
+    <plugin name="cordova-plugin-wininsoft-file-opener2" source="npm" />
     
     <!-- -->
     
