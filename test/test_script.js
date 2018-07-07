@@ -721,7 +721,7 @@ STS_PDF = {
     },
     openActivity: function (_intent) {
         var _data = _intent.extras["pgb_share_to_shortcut.pulipuli.info.data"];
-        _data = "file:///storage/emulated/0/Download/a.apk";
+        _data = "file:///storage/emulated/0/Download/a.pdf";
         alert(_data);
         
         function success(message){
@@ -733,7 +733,9 @@ STS_PDF = {
         }
 
         //path = '/storage/emulated/0/Download/abc.apk';
-        Installer.install(_data, success, error);
+        //Installer.install(_data, success, error);
+        navigator.sharefile(_data,"PDF","application/pdf");
+        return;
         
         //_data = _data.replace("///", "/");
         /*
