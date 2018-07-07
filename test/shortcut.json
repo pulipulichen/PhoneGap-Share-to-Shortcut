@@ -1,9 +1,0 @@
-{
-	"extras": {
-		"pgb_share_to_shortcut.pulipuli.info.url": "https://goo.gl/maps/ciEQV6Dr7zo",
-		"pgb_share_to_shortcut.pulipuli.info.action": "app.open.googlemap"
-	},
-	"action": "android.intent.action.VIEW",
-	"flags": 343932928,
-	"component": "ComponentInfo{pgb_share_to_shortcut.pulipuli.info/pgb_share_to_shortcut.pulipuli.info.ShareToShortcut}"
-}
