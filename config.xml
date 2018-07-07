@@ -54,7 +54,10 @@ PhoneGap Build Configuration
     <!-- <plugin name="cordova-plugin-wininsoft-file-opener2" source="npm" /> -->
     
     <!-- https://www.npmjs.com/package/cordova-open -->
-    <plugin name="cordova-open" source="npm" />
+    <!-- <plugin name="cordova-open" source="npm" /> -->
+    
+    <!-- https://github.com/markeeftb/FileOpener -->
+    <plugin spec="https://github.com/markeeftb/FileOpener.git" source="git" />
     
     <!-- -->
     

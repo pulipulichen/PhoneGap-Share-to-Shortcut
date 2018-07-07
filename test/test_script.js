@@ -721,14 +721,27 @@ STS_PDF = {
     },
     openActivity: function (_intent) {
         var _data = _intent.extras["pgb_share_to_shortcut.pulipuli.info.data"];
-        cordova.plugins.fileOpener2.showOpenWithDialog(
-                _data,
-                'application/pdf', 
-        );
+        _data = _data.split("///").join("/");
+        alert(_data);
+        function success(e) {
+        alert('Success' + e);
+        navigator.app.exitApp();
+      }
+
+      function error(code) {
+        if (code === 1) {
+          alert('No file handler found');
+        } else {
+          alert('Undefined error' + code);
+        }
+        navigator.app.exitApp();
+      }
+        
+        open(_data, success, error);
         //alert(_data);
         //alert(_url);
         //window.open(_url, "_system");
-        navigator.app.exitApp();
+        //navigator.app.exitApp();
     },
 };
 
