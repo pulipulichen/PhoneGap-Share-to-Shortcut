@@ -709,26 +709,33 @@ STS_PDF = {
         
         var _data = intent.data;
         
-        var _subject = "PDF";
+        cordova.plugins.fileOpener2.getFilename(
+                _data,
+                {
+                error : function(e){
+                    alert(JSON.stringify(e));
+                }, 
+                success : function(_subject){ 
+                    var _extras = {
+                        "action": _this.action,
+                        "data": _data
+                    };
 
-        var _extras = {
-            "action": _this.action,
-            "data": _data
-        };
-
-        createShortcut(_subject, _extras, _this.icon_type); 
-        navigator.app.exitApp();
+                    createShortcut(_subject, _extras, _this.icon_type); 
+                    navigator.app.exitApp();
+                } 
+            });
     },
     openActivity: function (_intent) {
         var _data = _intent.extras["pgb_share_to_shortcut.pulipuli.info.data"];
         _data = "content://com.google.android.apps.docs.storage.legacy/enc%3Dz_3TVcVLnw9-_Jl4GOuB5rZyZ5nb_-08uYN298WMsc7tXOby%0A";
         //_data = "file:///storage/emulated/0/Download/a.pdf";
-        alert(_data);
+        //alert(_data);
         
-        cordova.plugins.fileOpener2.openApp(
+        cordova.plugins.fileOpener2.open(
             _data, 
             "application/pdf",
-            //"com.xodo.pdf.reader",
+            "com.xodo.pdf.reader",
             {
                 error : function(e){
                     alert(JSON.stringify(e));
