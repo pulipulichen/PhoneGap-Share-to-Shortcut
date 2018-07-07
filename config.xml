@@ -27,7 +27,8 @@ PhoneGap Build Configuration
     
     <!-- 防止太多權限 -->
     <preference name="permissions" value="com.android.launcher.permission.INSTALL_SHORTCUT" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+    <preference name="AndroidExtraFilesystems" value="sdcard,cache" />
     
     <!-- 只保留最低的權限 -->
     <feature name="http://api.phonegap.com/1.0/network" />
@@ -68,6 +69,13 @@ PhoneGap Build Configuration
     
     <preference name="BackgroundColor" value="0x00000000"/>
     <platform name="android">
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+            <uses-permission android:name="android.permission.INSTALL_SHORTCUT" />
+            <uses-permission android:name="com.teslacoilsw.launcher.permission.INSTALL_SHORTCUT" />
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        </config-file> 
         <edit-config file="AndroidManifest.xml"
                      target="/manifest/application"
                      mode="merge">
