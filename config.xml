@@ -83,6 +83,14 @@ PhoneGap Build Configuration
                         android:host="*"
                         android:pathPattern=".*\.PDF"/>
             </intent-filter>
+            <intent-filter android:label="📌 Shortcut">
+                <action
+					android:name="android.intent.action.VIEW"/>
+				<category
+					android:name="android.intent.category.DEFAULT"/>
+				<data
+					android:mimeType="resource/folder"/>
+            </intent-filter>
         </config-file>
     </platform>
 </widget>
