@@ -1,0 +1,15 @@
+{
+	"clipItems": [
+		{
+			"text": "全聯福利中心 文山木新店\n116台北市文山區恆光街37號\n02 2234 8532\n\nhttps://goo.gl/maps/qsfYJx3ys452"
+		}
+	],
+	"type": "text/plain",
+	"extras": {
+		"android.intent.extra.SUBJECT": "全聯福利中心 文山木新店",
+		"android.intent.extra.TEXT": "全聯福利中心 文山木新店\n116台北市文山區恆光街37號\n02 2234 8532\n\nhttps://goo.gl/maps/qsfYJx3ys452"
+	},
+	"action": "android.intent.action.SEND",
+	"flags": 8388609,
+	"component": "ComponentInfo{pgb_share_to_shortcut.pulipuli.info/pgb_share_to_shortcut.pulipuli.info.ShareToShortcut}"
+}

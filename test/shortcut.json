@@ -1,0 +1,9 @@
+{
+	"extras": {
+		"pgb_share_to_shortcut.pulipuli.info.url": "http://www.bilibili.com/video/av24774461",
+		"pgb_share_to_shortcut.pulipuli.info.action": "app.open.bilibili.video"
+	},
+	"action": "android.intent.action.VIEW",
+	"flags": 343932928,
+	"component": "ComponentInfo{pgb_share_to_shortcut.pulipuli.info/pgb_share_to_shortcut.pulipuli.info.ShareToShortcut}"
+}

@@ -1,0 +1,16 @@
+{
+	"clipItems": [
+		{
+			"text": "http://ani.gamer.com.tw/animeVideo.php?sn=10082"
+		}
+	],
+	"type": "text/plain",
+	"extras": {
+		"android.support.v4.app.EXTRA_CALLING_PACKAGE": "tw.com.gamer.android.animad",
+		"android.support.v4.app.EXTRA_CALLING_ACTIVITY": "ComponentInfo{tw.com.gamer.android.animad/tw.com.gamer.android.animad.VideoActivity}",
+		"android.intent.extra.TEXT": "http://ani.gamer.com.tw/animeVideo.php?sn=10082"
+	},
+	"action": "android.intent.action.SEND",
+	"flags": 327680001,
+	"component": "ComponentInfo{pgb_share_to_shortcut.pulipuli.info/pgb_share_to_shortcut.pulipuli.info.ShareToShortcut}"
+}

@@ -1,0 +1,15 @@
+{
+	"clipItems": [
+		{
+			"text": "https://play.google.com/store/apps/details?id=com.wmega.weather"
+		}
+	],
+	"type": "text/plain",
+	"extras": {
+		"android.intent.extra.SUBJECT": "立即體驗「天氣即時預報」",
+		"android.intent.extra.TEXT": "https://play.google.com/store/apps/details?id=com.wmega.weather"
+	},
+	"action": "android.intent.action.SEND",
+	"flags": 461897729,
+	"component": "ComponentInfo{pgb_share_to_shortcut.pulipuli.info/pgb_share_to_shortcut.pulipuli.info.ShareToShortcut}"
+}

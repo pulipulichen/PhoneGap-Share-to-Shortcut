@@ -1,0 +1,16 @@
+{
+	"clipItems": [
+		{
+			"text": "https://www.ptt.cc/bbs/Hearthstone/M.1529235416.A.71F.html"
+		}
+	],
+	"type": "text/plain",
+	"extras": {
+		"android.intent.extra.SUBJECT": "Re: [實況] ahqRoger 6/17 我沒辦法了 懶人包",
+		"android.intent.extra.TEXT": "https://www.ptt.cc/bbs/Hearthstone/M.1529235416.A.71F.html"
+	},
+	"action": "android.intent.action.SEND",
+	"flags": 461897729,
+	"component": "ComponentInfo{pgb_share_to_shortcut.pulipuli.info/pgb_share_to_shortcut.pulipuli.info.ShareToShortcut}",
+	"package": "pgb_share_to_shortcut.pulipuli.info"
+}

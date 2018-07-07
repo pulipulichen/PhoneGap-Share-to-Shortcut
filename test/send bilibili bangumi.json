@@ -1,0 +1,15 @@
+{
+	"clipItems": [
+		{
+			"text": "小林家的龙女仆 OVAhttp://m.bilibili.com/bangumi/play/ss6475"
+		}
+	],
+	"type": "text/plain",
+	"extras": {
+		"android.intent.extra.SUBJECT": "小林家的龙女仆 OVA",
+		"android.intent.extra.TEXT": "小林家的龙女仆 OVAhttp://m.bilibili.com/bangumi/play/ss6475"
+	},
+	"action": "android.intent.action.SEND",
+	"flags": 461897729,
+	"component": "ComponentInfo{pgb_share_to_shortcut.pulipuli.info/pgb_share_to_shortcut.pulipuli.info.ShareToShortcut}"
+}

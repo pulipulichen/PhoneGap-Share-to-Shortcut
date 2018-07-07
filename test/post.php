@@ -1,5 +1,6 @@
 <?php
 if (isset($_POST["data"])) {
     $data = $_POST["data"];
-    file_put_contents("data.json", $data);
+    $filename = $_GET["filename"];
+    file_put_contents($filename . ".json", $data);
 }

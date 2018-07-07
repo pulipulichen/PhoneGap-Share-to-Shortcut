@@ -1,0 +1,14 @@
+{
+	"clipItems": [
+		{
+			"text": "記憶體 Q3 景氣， DRAM 樂觀、 NAND 有雜音 http://finance.technews.tw/2018/07/07/q3-dram-and-nand-flash/"
+		}
+	],
+	"type": "text/plain",
+	"extras": {
+		"android.intent.extra.TEXT": "記憶體 Q3 景氣， DRAM 樂觀、 NAND 有雜音 http://finance.technews.tw/2018/07/07/q3-dram-and-nand-flash/"
+	},
+	"action": "android.intent.action.SEND",
+	"flags": 461897729,
+	"component": "ComponentInfo{pgb_share_to_shortcut.pulipuli.info/pgb_share_to_shortcut.pulipuli.info.ShareToShortcut}"
+}

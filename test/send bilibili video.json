@@ -1,0 +1,15 @@
+{
+	"clipItems": [
+		{
+			"text": "一部尺度超大的動畫！？動畫界的大黑馬？【魚的吐槽】 UP主: YudeQAQ http://www.bilibili.com/video/av24434599"
+		}
+	],
+	"type": "text/plain",
+	"extras": {
+		"android.intent.extra.SUBJECT": "一部尺度超大的動畫！？動畫界的大黑馬？【魚的吐槽】",
+		"android.intent.extra.TEXT": "一部尺度超大的動畫！？動畫界的大黑馬？【魚的吐槽】 UP主: YudeQAQ http://www.bilibili.com/video/av24434599"
+	},
+	"action": "android.intent.action.SEND",
+	"flags": 461897729,
+	"component": "ComponentInfo{pgb_share_to_shortcut.pulipuli.info/pgb_share_to_shortcut.pulipuli.info.ShareToShortcut}"
+}

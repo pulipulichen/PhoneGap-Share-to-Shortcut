@@ -23,4 +23,5 @@ An Android APP for sharing to become a shortcut.
 - bilibili share
 - 巴哈share
 - Google Drive share?
+- file share
 

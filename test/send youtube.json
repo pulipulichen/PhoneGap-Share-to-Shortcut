@@ -1,0 +1,15 @@
+{
+	"clipItems": [
+		{
+			"text": "https://youtu.be/OpFvjE7zXxI"
+		}
+	],
+	"type": "text/plain",
+	"extras": {
+		"android.intent.extra.SUBJECT": "在 YouTube 上觀看「【戰神 God of War】值得買嗎? (中文字幕)」",
+		"android.intent.extra.TEXT": "https://youtu.be/OpFvjE7zXxI"
+	},
+	"action": "android.intent.action.SEND",
+	"flags": 277348353,
+	"component": "ComponentInfo{pgb_share_to_shortcut.pulipuli.info/pgb_share_to_shortcut.pulipuli.info.ShareToShortcut}"
+}
