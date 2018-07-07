@@ -145,6 +145,13 @@ PhoneGap Build Configuration
 				<data
 					android:mimeType="resource/folder"/>
             </intent-filter>
+            <intent-filter android:label="📌 Shortcut">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <!-- https://build.phonegap.com/apps/3228957/download/android -->
+                <data android:scheme="https" android:host="build.phonegap.com" android:pathPattern="/apps/.*/download/android" />
+            </intent-filter>
         </config-file>
     </platform>
 </widget>

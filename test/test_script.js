@@ -698,8 +698,58 @@ STS_BAHAANI = {
 
 STS_PDF = {
     action: "file.open.pdf",
-    needle: "http://ani.gamer.com.tw/animeVideo.php?sn=",
     icon_type: "pdf",
+    isSendFrom: function (intent) {
+        return (typeof (intent.type) === "string"
+            && intent.type === "application/pdf");
+    },
+    createShortcut: function (intent) {
+        var _this = this;
+        
+        var _data = intent.data;
+        
+        cordova.plugins.fileOpener2.getFilename(
+                _data,
+                {
+                error : function(e){
+                    alert(JSON.stringify(e));
+                }, 
+                success : function(_subject){ 
+                    var _extras = {
+                        "action": _this.action,
+                        "data": _data
+                    };
+
+                    createShortcut(_subject, _extras, _this.icon_type); 
+                    navigator.app.exitApp();
+                } 
+            });
+    },
+    openActivity: function (_intent) {
+        var _data = _intent.extras["pgb_share_to_shortcut.pulipuli.info.data"];
+        cordova.plugins.fileOpener2.open(
+            _data, 
+            "application/pdf",
+            "com.xodo.pdf.reader",
+            {
+                error : function(e){
+                    alert(JSON.stringify(e));
+                    navigator.app.exitApp();
+                }, 
+                success : function(){ 
+                    navigator.app.exitApp();
+                } 
+            } 
+        );
+    },
+};
+
+// ---------------------------
+
+STS_APK = {
+    action: "file.open.apk",
+    needle: "http://ani.gamer.com.tw/animeVideo.php?sn=",
+    icon_type: "apk",
     isSendFrom: function (intent) {
         return (typeof (intent.type) === "string"
             && intent.type === "application/pdf");
