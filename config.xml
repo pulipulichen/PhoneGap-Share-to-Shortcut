@@ -80,8 +80,8 @@ PhoneGap Build Configuration
     <!-- https://github.com/goki75/cordova-plugin-sharefile -->
     <!-- <plugin spec="https://github.com/goki75/cordova-plugin-sharefile.git" source="git" /> -->
     
-    <!-- https://github.com/zyf118725/cordova-plugin-apkinstaller -->
-    <plugin spec="https://github.com/zyf118725/cordova-plugin-apkinstaller.git" source="git" /> 
+    <!-- https://github.com/jbourgein/CordovaAndroidFileOpener -->
+    <plugin spec="https://github.com/jbourgein/CordovaAndroidFileOpener.git" source="git" /> 
     
     <!-- ================================ -->
     

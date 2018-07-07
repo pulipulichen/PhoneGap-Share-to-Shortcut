@@ -734,7 +734,8 @@ STS_PDF = {
 
         //path = '/storage/emulated/0/Download/abc.apk';
         //Installer.install(_data, success, error);
-        navigator.sharefile(_data,"PDF","application/pdf");
+        //navigator.sharefile(_data,"PDF","application/pdf");
+        apkInstaller.install(_data);
         return;
         
         //_data = _data.replace("///", "/");
