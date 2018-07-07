@@ -1,7 +1,7 @@
 {
 	"extras": {
-		"pgb_share_to_shortcut.pulipuli.info.url": "http://www.bilibili.com/video/av24774461",
-		"pgb_share_to_shortcut.pulipuli.info.action": "app.open.bilibili.video"
+		"pgb_share_to_shortcut.pulipuli.info.url": "http://finance.technews.tw/2018/07/07/q3-dram-and-nand-flash/",
+		"pgb_share_to_shortcut.pulipuli.info.action": "window.open.feedly"
 	},
 	"action": "android.intent.action.VIEW",
 	"flags": 343932928,

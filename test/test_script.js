@@ -54,6 +54,11 @@ intent_handler = function (intent) {
         STS_FLIPERLINK.createShortcut(intent);
         return;
     }
+    
+    if (STS_FEEDLY.isSendFrom(intent) ) {
+        STS_FEEDLY.createShortcut(intent);
+        return;
+    }
             
     // -----------------------------
     
@@ -285,6 +290,10 @@ openActivity = function (_intent) {
         STS_BILIBILI_VIDEO.openActivity(_intent);
         return;
     }
+    else if (STS_FEEDLY.isActivity(_intent)) {
+        STS_FEEDLY.openActivity(_intent);
+        return;
+    }
     
     var _config = {
         action: _intent.extras["pgb_share_to_shortcut.pulipuli.info.action"],
@@ -460,6 +469,55 @@ STS_FLIPERLINK = {
     },
      isActivity: function (_intent) {
         return (_intent.extras["pgb_share_to_shortcut.pulipuli.info.action"] === STS_FLIPERLINK.action);
+    },
+    openActivity: function (_intent) {
+        var _url = _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"];
+        window.open(_url, "_system");
+        navigator.app.exitApp();
+    },
+};
+
+
+// ------------------------------
+
+STS_FEEDLY = {
+    action: "window.open.feedly",
+    isSendFrom: function (intent) {
+        return (typeof (intent.action) === "string"
+            && intent.action === "android.intent.action.SEND"
+            && typeof (intent.extras) === "object"
+            && typeof (intent.extras["android.intent.extra.SUBJECT"]) === "undefined"
+            && typeof (intent.extras["android.intent.extra.TEXT"]) === "string"
+            && intent.extras["android.intent.extra.TEXT"].startsWith("http") === false
+            && intent.extras["android.intent.extra.TEXT"].indexOf("http") > 1
+            );
+    },
+    createShortcut: function (intent) {
+        var _text = intent.extras["android.intent.extra.TEXT"];
+        
+        var _pos = _text.lastIndexOf("http://");
+        if (_pos === -1) {
+            _pos = _text.lastIndexOf("https://");
+        }
+        
+        var _url  = _text.substring(_pos, _text.length).trim();
+        var _subject = _text.substring(0, _pos).trim();
+        
+        //alert(_url);
+        var _extras = {
+            "action": this.action,
+            "url": _url
+        };
+
+        getFavicon(_url, function(_favicon_url) {
+            getURLtoBase64(_favicon_url, function (_base64) {
+                createShortcut(_subject, _extras, _base64); 
+                navigator.app.exitApp();
+            });
+        });
+    },
+     isActivity: function (_intent) {
+        return (_intent.extras["pgb_share_to_shortcut.pulipuli.info.action"] === this.action);
     },
     openActivity: function (_intent) {
         var _url = _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"];
