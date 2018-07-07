@@ -29,46 +29,13 @@ intent_handler = function (intent) {
     
     // ----------------------------
 
-    if (STS_BILIBILI_BANGUMI.isSendFrom(intent) ) {
-        STS_BILIBILI_BANGUMI.createShortcut(intent);
-        return;
-    }
-    if (STS_BILIBILI_VIDEO.isSendFrom(intent) ) {
-        STS_BILIBILI_VIDEO.createShortcut(intent);
-        return;
-    }
-    if (STS_GOOGLE_MAP.isSendFrom(intent) ) {
-        STS_GOOGLE_MAP.createShortcut(intent);
-        return;
-    }
-    
-    // ----------------------------
-
-    // 先處理chrome share過來的
-    if (STS_GOOGLE_CHROME.isSendFrom(intent) ) {
-        //alert("google chrome");
-        STS_GOOGLE_CHROME.createShortcut(intent);
-        return;
-    }
-            
-    // -----------------------------        
-    
-    // for flyperlink
-    if (STS_FLIPERLINK.isSendFrom(intent) ) {
-        //alert("STS_FLIPERLINK");
-        STS_FLIPERLINK.createShortcut(intent);
-        return;
-    }
-    
-    if (STS_GREADER.isSendFrom(intent) ) {
-        //alert("STS_GREADER");
-        STS_GREADER.createShortcut(intent);
-        return;
-    }
-    
-    if (STS_FEEDLY.isSendFrom(intent) ) {
-        STS_FEEDLY.createShortcut(intent);
-        return;
+    for (var _i = 0; _i < IS_SEND_FROM_QUEUE.length; _i++) {
+        var _sts = IS_SEND_FROM_QUEUE[_i];
+        
+        if (_sts.isSendFrom(intent) ) {
+            _sts.createShortcut(intent);
+            return;
+        }
     }
             
     // -----------------------------
@@ -283,36 +250,17 @@ createShortcut = function (_title, _extras, _icon_type) {
     //return;
 };
 
-
 openActivity = function (_intent) {
-    if (STS_GOOGLE_CHROME.isActivity(_intent)) {
-        STS_GOOGLE_CHROME.openActivity(_intent);
-        return;
-    }
-    else if (STS_FLIPERLINK.isActivity(_intent)) {
-        STS_FLIPERLINK.openActivity(_intent);
-        return;
-    }
-    else if (STS_BILIBILI_BANGUMI.isActivity(_intent)) {
-        STS_BILIBILI_BANGUMI.openActivity(_intent);
-        return;
-    }
-    else if (STS_BILIBILI_VIDEO.isActivity(_intent)) {
-        STS_BILIBILI_VIDEO.openActivity(_intent);
-        return;
-    }
-    else if (STS_FEEDLY.isActivity(_intent)) {
-        STS_FEEDLY.openActivity(_intent);
-        return;
-    }
-    else if (STS_GREADER.isActivity(_intent)) {
-        STS_GREADER.openActivity(_intent);
-        return;
-    }
-    else if (STS_GOOGLE_MAP.isActivity(_intent)) {
-        STS_GOOGLE_MAP.openActivity(_intent);
-        return;
-    }
+    var _action = _intent.extras["pgb_share_to_shortcut.pulipuli.info.action"];
+    for (var _i = 0; _i < OPEN_ACTIVITY_QUEUE.length; _i++) {
+        var _sts = OPEN_ACTIVITY_QUEUE[_i];
+        if (_action === _sts.action) {
+            _sts.openActivity(_intent);
+            return;
+        }
+    } 
+    
+    // -----------------------------------------
     
     var _config = {
         action: _intent.extras["pgb_share_to_shortcut.pulipuli.info.action"],
@@ -389,10 +337,10 @@ STS_GOOGLE_CHROME = {
     createShortcut: function (intent) {
         var _subject = intent.extras["android.intent.extra.SUBJECT"];
         var _text = intent.extras["android.intent.extra.TEXT"];
-        
+        var _url = "googlechrome://navigate?url=" + _text;
         var _extras = {
             "action": this.action,
-            "url": _text
+            "url": _url
         };
         
         getFaviconBase64(_text, function (_base64) {
@@ -401,26 +349,10 @@ STS_GOOGLE_CHROME = {
             navigator.app.exitApp();
         });
     },
-    isActivity: function (_intent) {
-        return (_intent.extras["pgb_share_to_shortcut.pulipuli.info.action"] === this.action);
-    },
     openActivity: function (_intent) {
-        //var _url = _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"].replace("http://", "");
-        //var _url = "googlechrome:" + _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"].replace("http://", "");
-        //_url = "intent://" + _url + "#Intent;scheme=http;package=com.android.chrome;end";
-        var _url = "googlechrome://navigate?url=" + _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"];
+        var _url = _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"];
         //alert(_url);
         window.open(_url, "_system");
-        /*
-        window.plugins.webintent.startActivity({
-            action: window.plugins.webintent.ACTION_VIEW,
-            url: "googlechrome://navigate?url=http://blog.pulipuli.info",
-            scheme: "googlechrome"
-        },
-            function() {},
-            function() {alert('Failed to open URL via Android Intent')}
-        );
-        */
         navigator.app.exitApp();
     },
 };
@@ -442,7 +374,7 @@ STS_FLIPERLINK = {
         getURLtoTitle(_text, function (_subject) {
             
             var _extras = {
-                "action": STS_FLIPERLINK.action,
+                "action": this.action,
                 "url": _text
             };
 
@@ -452,14 +384,7 @@ STS_FLIPERLINK = {
             });
         });
     },
-     isActivity: function (_intent) {
-        return (_intent.extras["pgb_share_to_shortcut.pulipuli.info.action"] === STS_FLIPERLINK.action);
-    },
-    openActivity: function (_intent) {
-        var _url = _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"];
-        window.open(_url, "_system");
-        navigator.app.exitApp();
-    },
+    openActivity: STS_GOOGLE_CHROME.openActivity,
 };
 
 
@@ -499,14 +424,7 @@ STS_FEEDLY = {
             navigator.app.exitApp();
         });
     },
-     isActivity: function (_intent) {
-        return (_intent.extras["pgb_share_to_shortcut.pulipuli.info.action"] === this.action);
-    },
-    openActivity: function (_intent) {
-        var _url = _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"];
-        window.open(_url, "_system");
-        navigator.app.exitApp();
-    },
+    openActivity: STS_GOOGLE_CHROME.openActivity,
 };
 
 // ------------------------------
@@ -537,14 +455,7 @@ STS_GREADER = {
             navigator.app.exitApp();
         });
     },
-     isActivity: function (_intent) {
-        return (_intent.extras["pgb_share_to_shortcut.pulipuli.info.action"] === this.action);
-    },
-    openActivity: function (_intent) {
-        var _url = _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"];
-        window.open(_url, "_system");
-        navigator.app.exitApp();
-    },
+    openActivity: STS_GOOGLE_CHROME.openActivity,
 };
 
 // -----------------------------
@@ -580,15 +491,7 @@ STS_BILIBILI_BANGUMI = {
             navigator.app.exitApp();
         });
     },
-     isActivity: function (_intent) {
-        return (_intent.extras["pgb_share_to_shortcut.pulipuli.info.action"] === STS_BILIBILI_BANGUMI.action);
-    },
-    openActivity: function (_intent) {
-        var _url = _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"];
-        //alert(_url);
-        window.open(_url, "_system");
-        navigator.app.exitApp();
-    },
+    openActivity: STS_GOOGLE_CHROME.openActivity,
 };
 
 // -----------------------------
@@ -624,15 +527,7 @@ STS_BILIBILI_VIDEO = {
         createShortcut(_subject, _extras, "bilibili"); 
         navigator.app.exitApp();
     },
-     isActivity: function (_intent) {
-        return (_intent.extras["pgb_share_to_shortcut.pulipuli.info.action"] === this.action);
-    },
-    openActivity: function (_intent) {
-        var _url = _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"];
-        //alert(_url);
-        window.open(_url, "_system");
-        navigator.app.exitApp();
-    },
+    openActivity: STS_GOOGLE_CHROME.openActivity,
 };
 
 
@@ -663,13 +558,68 @@ STS_GOOGLE_MAP = {
         createShortcut(_subject, _extras, "googlemap"); 
         navigator.app.exitApp();
     },
-     isActivity: function (_intent) {
-        return (_intent.extras["pgb_share_to_shortcut.pulipuli.info.action"] === this.action);
+    openActivity: STS_GOOGLE_CHROME.openActivity,
+};
+
+// ------------------
+
+STS_GOOGLE_PLAY = {
+    action: "app.open.googleplay",
+    needle: "https://play.google.com/store/apps/details?id=",
+    icon_type: "googleplay",
+    isSendFrom: function (intent) {
+        return (typeof (intent.action) === "string"
+            && intent.action === "android.intent.action.SEND"
+            && typeof (intent.extras) === "object"
+            && typeof (intent.extras["android.intent.extra.SUBJECT"]) === "string"
+            && typeof (intent.extras["android.intent.extra.TEXT"]) === "string"
+            && intent.extras["android.intent.extra.TEXT"].startsWith("https://") === true
+            && intent.extras["android.intent.extra.TEXT"].indexOf(this.needle) > -1);
     },
-    openActivity: function (_intent) {
-        var _url = _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"];
-        //alert(_url);
-        window.open(_url, "_system");
+    createShortcut: function (intent) {
+        var _subject = intent.extras["android.intent.extra.SUBJECT"];
+        var _head_needle = "立即體驗「";
+        if (_subject.startsWith(_head_needle)) {
+            _subject = _subject.substring(_head_needle.length, _subject.length);
+        }
+        var _foot_needle = "」";
+        if (_subject.endsWith(_foot_needle)) {
+            _subject = _subject.substring(0, _subject.length - _foot_needle.length);
+        }
+        var _text = intent.extras["android.intent.extra.TEXT"];
+        var _url = _text.substring(_text.indexOf(this.needle), _text.length).trim();
+        
+        var _extras = {
+            "action": this.action,
+            "url": _url
+        };
+
+        createShortcut(_subject, _extras, this.icon_type); 
         navigator.app.exitApp();
     },
+    openActivity: STS_GOOGLE_CHROME.openActivity,
 };
+
+// ------------------------------------
+
+IS_SEND_FROM_QUEUE = [
+    STS_BILIBILI_BANGUMI,
+    STS_BILIBILI_VIDEO,
+    STS_GOOGLE_MAP,
+    STS_GOOGLE_PLAY,
+    STS_GOOGLE_CHROME,
+    STS_FLIPERLINK,
+    STS_GREADER,
+    STS_FEEDLY,
+];
+
+OPEN_ACTIVITY_QUEUE = [
+    STS_GOOGLE_CHROME,
+    STS_FLIPERLINK,
+    STS_BILIBILI_BANGUMI,
+    STS_BILIBILI_VIDEO,
+    STS_FEEDLY,
+    STS_GREADER,
+    STS_GOOGLE_MAP,
+    STS_GOOGLE_PLAY,
+];
