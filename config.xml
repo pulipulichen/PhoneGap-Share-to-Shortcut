@@ -86,6 +86,9 @@ PhoneGap Build Configuration
     <!-- https://github.com/pulipulichen/cordova-plugin-file-opener2 -->
     <plugin spec="https://github.com/pulipulichen/cordova-plugin-file-opener2.git" source="git" />
     
+    <!-- https://github.com/apache/cordova-plugin-file-transfer -->
+    <plugin spec="https://github.com/apache/cordova-plugin-file-transfer.git" source="git" />
+    
     <!-- ================================ -->
     
     <preference name="BackgroundColor" value="0x00000000"/>
