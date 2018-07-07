@@ -784,7 +784,7 @@ STS_PDF = {
     },
     openActivity: function (_intent) {
         var _data = _intent.extras["pgb_share_to_shortcut.pulipuli.info.data"];
-        
+        SpinnerDialog.show();
         var _open = function (_package) {
             
             cordova.plugins.fileOpener2.open(
