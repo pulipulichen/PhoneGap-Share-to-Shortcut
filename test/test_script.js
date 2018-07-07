@@ -752,20 +752,34 @@ STS_PDF = {
     },
     openActivity: function (_intent) {
         var _data = _intent.extras["pgb_share_to_shortcut.pulipuli.info.data"];
-        cordova.plugins.fileOpener2.open(
-            _data, 
-            "application/pdf",
-            "com.xodo.pdf.reader",
-            {
-                error : function(e){
-                    alert(JSON.stringify(e));
-                    navigator.app.exitApp();
-                }, 
-                success : function(){ 
-                    navigator.app.exitApp();
+        
+        var _open = function (_package) {
+            
+            cordova.plugins.fileOpener2.open(
+                _data, 
+                "application/pdf",
+                _package,
+                {
+                    error : function(e){
+                        alert(JSON.stringify(e));
+                        navigator.app.exitApp();
+                    }, 
+                    success : function(){ 
+                        navigator.app.exitApp();
+                    } 
                 } 
-            } 
-        );
+            );
+        };
+        
+        cordova.plugins.fileOpener2.appIsInstalled("com.xodo.pdf.reader", {
+            success : function(res) {
+                if (res.status === 0) {
+                    _open("");
+                } else {
+                    _open("com.xodo.pdf.reader");
+                }
+            }
+        });
     },
 };
 
