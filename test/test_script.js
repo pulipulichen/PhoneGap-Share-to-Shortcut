@@ -29,8 +29,8 @@ intent_handler = function (intent) {
     
     // ----------------------------
 
-    for (var _i = 0; _i < IS_SEND_FROM_QUEUE.length; _i++) {
-        var _sts = IS_SEND_FROM_QUEUE[_i];
+    for (var _i = 0; _i < STS_QUEUE.length; _i++) {
+        var _sts = STS_QUEUE[_i];
         
         if (_sts.isSendFrom(intent) ) {
             _sts.createShortcut(intent);
@@ -252,8 +252,8 @@ createShortcut = function (_title, _extras, _icon_type) {
 
 openActivity = function (_intent) {
     var _action = _intent.extras["pgb_share_to_shortcut.pulipuli.info.action"];
-    for (var _i = 0; _i < OPEN_ACTIVITY_QUEUE.length; _i++) {
-        var _sts = OPEN_ACTIVITY_QUEUE[_i];
+    for (var _i = 0; _i < STS_QUEUE.length; _i++) {
+        var _sts = STS_QUEUE[_i];
         if (_action === _sts.action) {
             _sts.openActivity(_intent);
             return;
@@ -479,6 +479,14 @@ STS_BILIBILI_BANGUMI = {
         getURLtoTitle(_url, function (_subject) {
             _subject = _subject.replace("_番剧_bilibili_哔哩哔哩", "");
             _subject = _subject.replace("_番剧_哔哩哔哩", "");
+            
+            // 超时空要塞 Frontier：第1话_番剧_bilibili_哔哩哔哩
+            //alert(_subject);
+            var _pos = _subject.lastIndexOf("：第");
+            var _number = _subject.substring(_pos + 2, _subject.length-1).trim();
+            var _title = _subject.substring(0, _pos).trim();
+            _subject = "[" + _number + "] " + _title;
+            
             _text = _text.substring(_text.indexOf(_needle) + _needle.length, _text.length);
             _text = "bilibili://bangumi/season/" + _text + "?url_from_h5=1";
             //alert(_text);
@@ -640,28 +648,62 @@ STS_YOUTUBE = {
     openActivity: STS_GOOGLE_CHROME.openActivity,
 };
 
+
+// ------------------
+
+STS_BAHAANI = {
+    action: "app.open.bahaani",
+    needle: "http://ani.gamer.com.tw/animeVideo.php?sn=",
+    icon_type: "bahaani",
+    isSendFrom: function (intent) {
+        return (typeof (intent.action) === "string"
+            && intent.action === "android.intent.action.SEND"
+            && typeof (intent.extras) === "object"
+            && typeof (intent.extras["android.intent.extra.SUBJECT"]) === "undefined"
+            && typeof (intent.extras["android.intent.extra.TEXT"]) === "string"
+            && intent.extras["android.intent.extra.TEXT"].startsWith(this.needle) === true
+            && intent.extras["android.intent.extra.TEXT"].indexOf(this.needle) > -1);
+    },
+    createShortcut: function (intent) {
+        var _url = intent.extras["android.intent.extra.TEXT"];
+        var _this = this;
+        //aler(_url);
+        getURLtoTitle(_url, function (_subject) {
+            // 驚爆危機 Invisible Victory[10] - 巴哈姆特動畫瘋
+            var _foot_needle = " - 巴哈姆特動畫瘋";
+            if (_subject.endsWith(_foot_needle)) {
+                _subject = _subject.substring(0, _subject.length - _foot_needle.length);
+            }
+            
+            // 把編號跟名稱對調
+            var _pos = _subject.lastIndexOf("[");
+            var _number = _subject.substring(_pos, _subject.length).trim();
+            var _title = _subject.substring(0, _pos).trim();
+            _subject = _number + " " + _title;
+
+            var _extras = {
+                "action": _this.action,
+                "url": _url
+            };
+
+            createShortcut(_subject, _extras, _this.icon_type); 
+            navigator.app.exitApp();
+        });
+    },
+    openActivity: STS_GOOGLE_CHROME.openActivity,
+};
+
 // ------------------------------------
 
-IS_SEND_FROM_QUEUE = [
+STS_QUEUE = [
     STS_BILIBILI_BANGUMI,
     STS_BILIBILI_VIDEO,
     STS_GOOGLE_MAP,
     STS_GOOGLE_PLAY,
     STS_YOUTUBE,
+    STS_BAHAANI,
     STS_GOOGLE_CHROME,
     STS_FLIPERLINK,
     STS_GREADER,
     STS_FEEDLY,
-];
-
-OPEN_ACTIVITY_QUEUE = [
-    STS_GOOGLE_CHROME,
-    STS_FLIPERLINK,
-    STS_BILIBILI_BANGUMI,
-    STS_BILIBILI_VIDEO,
-    STS_FEEDLY,
-    STS_GREADER,
-    STS_GOOGLE_MAP,
-    STS_GOOGLE_PLAY,
-    STS_YOUTUBE,
 ];
