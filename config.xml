@@ -83,7 +83,8 @@ PhoneGap Build Configuration
     <!-- https://github.com/jbourgein/CordovaAndroidFileOpener -->
     <!-- <plugin spec="https://github.com/DFranzen/cordova-FileStorage.git" source="git" /> -->
     
-    <plugin spec="https://github.com/caoguanjie/cordova-plugin-file-opener2.git" source="git" />
+    <!-- https://github.com/pulipulichen/cordova-plugin-file-opener2 -->
+    <plugin spec="https://github.com/pulipulichen/cordova-plugin-file-opener2.git" source="git" />
     
     <!-- ================================ -->
     

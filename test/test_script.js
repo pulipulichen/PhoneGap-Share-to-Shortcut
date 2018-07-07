@@ -744,7 +744,15 @@ function error (errorMsg) {
     alert(errorMsg);
 }
         
-        FileStorage.open(success, error, _data);
+        cordova.plugins.fileOpener2.open(
+            _data, 
+            "application/pdf",
+            "com.xodo.pdf.reader",
+            {
+                error : function(){ }, 
+                success : function(){ } 
+            } 
+        );
         return;
         
         //_data = _data.replace("///", "/");
