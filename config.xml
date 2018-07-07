@@ -72,7 +72,10 @@ PhoneGap Build Configuration
     <!-- <plugin spec="https://github.com/ahmadaghazadeh/sevensky-cordova-plugin-intent.git" source="git" /> -->
     
     <!-- https://github.com/shougao/cordova-plugin-apkinstaller -->
-    <plugin spec="https://github.com/shougao/cordova-plugin-apkinstaller.git" source="git" />
+    <!-- <plugin spec="https://github.com/shougao/cordova-plugin-apkinstaller.git" source="git" /> -->
+    
+    <!-- https://github.com/pulipulichen/cordova-plugin-apkinstaller -->
+    <plugin spec="https://github.com/pulipulichen/cordova-plugin-apkinstaller.git" source="git" />
     
     <!-- ================================ -->
     

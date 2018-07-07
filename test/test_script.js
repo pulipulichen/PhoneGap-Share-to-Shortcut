@@ -721,9 +721,19 @@ STS_PDF = {
     },
     openActivity: function (_intent) {
         var _data = _intent.extras["pgb_share_to_shortcut.pulipuli.info.data"];
-        _data = "file:///storage/emulated/0/Download/a.pdf";
+        _data = "file:///storage/emulated/0/Download/a.apk";
         alert(_data);
         
+        function success(message){
+            console.log("progress = " + message);
+        }
+
+        function error(message){
+            console.log("error: reason is " + message);
+        }
+
+        //path = '/storage/emulated/0/Download/abc.apk';
+        Installer.install(_data, success, error);
         
         //_data = _data.replace("///", "/");
         /*
