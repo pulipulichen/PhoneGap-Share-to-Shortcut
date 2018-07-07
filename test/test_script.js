@@ -2,8 +2,14 @@ intent_handler = function (intent) {
     //alert("換了 可以嗎？");
     //alert(JSON.stringify(intent));
     $.post("http://pc.pulipuli.info/phonegap-build-projects/PhoneGapBuild-ShareToShortcut/test/post.php", {
-        data: JSON.stringify(intent)
+        data: JSON.stringify(intent, null, "\t")
     });
+    
+    if (typeof(intent.extras) === "object" 
+            && typeof(intent.extras["pgb_share_to_shortcut.pulipuli.info.action"]) === "string" ) {
+        openActivity(intent);
+        return;
+    }
     
     /*
     var shortcut = {
@@ -27,12 +33,12 @@ intent_handler = function (intent) {
     }
     */
     var shortcut = {
-        id: 'my_shortcut_4',
-        shortLabel: '1432Short description',
+        id: 'my_shortcut_7',
+        shortLabel: '1503 Short description',
         //longLabel: 'Longer string describing the shortcut',
-        //iconBitmap: '<Bitmap for the shortcut icon, base64 encoded>', // Defaults to the main application icon
+        iconBitmap: ICON_BASE64["search"], // Defaults to the main application icon
         intent: {
-            action: 'android.intent.action.WEB_SEARCH',
+            //action: 'android.intent.action.WEB_SEARCH',
             /*
             categories: [
                 'android.intent.category.TEST', // Built-in Android category
@@ -44,10 +50,11 @@ intent_handler = function (intent) {
             extras: {
                 //'android.intent.extra.SUBJECT': 'Hello world!', // Built-in Android extra (string)
                 //'MY_BOOLEAN': true, // Custom extras are also supported (boolean, number and string only)
-                "query": "Pokemon Go"
+                "action": 'android.intent.action.WEB_SEARCH',
+                "extras.query": "Pokemon go"
             }
         }
-    }
+    };
     
     window.plugins.Shortcuts.addPinned(shortcut, function() {
         window.alert('Shortcut pinned successfully');
@@ -213,13 +220,24 @@ intent_handler = function (intent) {
 };
 
 
-openActivity = function () {
+openActivity = function (_intent) {
     var _config = {
-        action: "android.intent.action.WEB_SEARCH",
-        extras: {
-            "query": "",
-        }
+        action: _intent.extras["pgb_share_to_shortcut.pulipuli.info.action"],
+        extras: {}
     };
+    
+    // parsing extras
+    var _intent_extras = _intent.extras;
+    for (var _i in _intent_extras) {
+        if (_i === "pgb_share_to_shortcut.pulipuli.info.action"
+                || _i.startsWith("extras.") === false) {
+            continue;
+        }
+        
+        var _key = _i.substring(_i.indexOf(".") + 1, _i.length);
+        var _value = _intent_extras[_i];
+        _config.extras[_key] = _value;
+    }
 
     try {
         window.plugins.webintent.startActivity(_config,
