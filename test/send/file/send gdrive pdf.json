@@ -1,0 +1,7 @@
+{
+	"type": "application/pdf",
+	"action": "android.intent.action.VIEW",
+	"flags": 277348352,
+	"component": "ComponentInfo{pgb_share_to_shortcut.pulipuli.info/pgb_share_to_shortcut.pulipuli.info.ShareToShortcut}",
+	"data": "content://com.google.android.apps.docs.storage.legacy/enc%3Dz_3TVcVLnw9-_Jl4GOuB5rZyZ5nb_-08uYN298WMsc7tXOby%0A"
+}

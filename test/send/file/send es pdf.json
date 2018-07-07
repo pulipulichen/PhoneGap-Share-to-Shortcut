@@ -1,0 +1,7 @@
+{
+	"type": "application/pdf",
+	"action": "android.intent.action.VIEW",
+	"flags": 276824064,
+	"component": "ComponentInfo{pgb_share_to_shortcut.pulipuli.info/pgb_share_to_shortcut.pulipuli.info.ShareToShortcut}",
+	"data": "file:///storage/emulated/0/Download/Pages%20from%20Seixas%20and%20Peck_2004.pdf"
+}

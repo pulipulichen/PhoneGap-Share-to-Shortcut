@@ -49,6 +49,11 @@ PhoneGap Build Configuration
     <!-- https://www.npmjs.com/package/cordova-plugin-shortcuts-android -->
     <plugin name="cordova-plugin-shortcuts-android" source="npm" />
     
+    <!-- https://github.com/pwlin/cordova-plugin-file-opener2 -->
+    <plugin spec="https://github.com/pwlin/cordova-plugin-file-opener2.git" source="git" />
+    
+    <!-- ------------------------------------------ -->
+    
     <preference name="BackgroundColor" value="0x00000000"/>
     <platform name="android">
         <edit-config file="AndroidManifest.xml"

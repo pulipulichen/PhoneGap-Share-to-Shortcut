@@ -693,9 +693,49 @@ STS_BAHAANI = {
     openActivity: STS_GOOGLE_CHROME.openActivity,
 };
 
+
+// ------------------
+
+STS_PDF = {
+    action: "file.open.pdf",
+    needle: "http://ani.gamer.com.tw/animeVideo.php?sn=",
+    icon_type: "pdf",
+    isSendFrom: function (intent) {
+        return (typeof (intent.type) === "string"
+            && intent.type === "application/pdf");
+    },
+    createShortcut: function (intent) {
+        var _this = this;
+        
+        var _data = intent.data;
+        
+        var _subject = "PDF";
+
+        var _extras = {
+            "action": _this.action,
+            "data": _data
+        };
+
+        createShortcut(_subject, _extras, _this.icon_type); 
+        navigator.app.exitApp();
+    },
+    openActivity: function (_intent) {
+        var _data = _intent.extras["pgb_share_to_shortcut.pulipuli.info.data"];
+        cordova.plugins.fileOpener2.showOpenWithDialog(
+                _data,
+                'application/pdf', 
+        );
+        //alert(_data);
+        //alert(_url);
+        //window.open(_url, "_system");
+        navigator.app.exitApp();
+    },
+};
+
 // ------------------------------------
 
 STS_QUEUE = [
+    STS_PDF,
     STS_BILIBILI_BANGUMI,
     STS_BILIBILI_VIDEO,
     STS_GOOGLE_MAP,
