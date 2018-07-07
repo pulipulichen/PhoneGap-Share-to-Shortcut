@@ -721,36 +721,22 @@ STS_PDF = {
     },
     openActivity: function (_intent) {
         var _data = _intent.extras["pgb_share_to_shortcut.pulipuli.info.data"];
-        _data = "file:///storage/emulated/0/Download/a.pdf";
+        _data = "content://com.google.android.apps.docs.storage.legacy/enc%3Dz_3TVcVLnw9-_Jl4GOuB5rZyZ5nb_-08uYN298WMsc7tXOby%0A";
+        //_data = "file:///storage/emulated/0/Download/a.pdf";
         alert(_data);
-        
-        function success(message){
-            console.log("progress = " + message);
-        }
-
-        function error(message){
-            console.log("error: reason is " + message);
-        }
-
-        //path = '/storage/emulated/0/Download/abc.apk';
-        //Installer.install(_data, success, error);
-        //navigator.sharefile(_data,"PDF","application/pdf");
-        //apkInstaller.install(_data);
-        function success (uri) {
-    alert(uri);
-}
-
-function error (errorMsg) {
-    alert(errorMsg);
-}
         
         cordova.plugins.fileOpener2.open(
             _data, 
             "application/pdf",
-            "com.xodo.pdf.reader",
+            //"com.xodo.pdf.reader",
             {
-                error : function(){ }, 
-                success : function(){ } 
+                error : function(e){
+                    alert(JSON.stringify(e));
+                    navigator.app.exitApp();
+                }, 
+                success : function(){ 
+                    navigator.app.exitApp();
+                } 
             } 
         );
         return;
