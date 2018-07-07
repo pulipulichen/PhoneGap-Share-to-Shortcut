@@ -124,3 +124,28 @@ getFavicon = function (_url, _callback) {
         _callback(_favicon_url);
     });
 };
+
+getURLtoBase64 = function (url, callback) {
+    if (url === null) {
+        callback("search");
+        return;
+    }
+    
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            callback(reader.result.replace(/^data:image\/(png|jpg|jpeg|x-icon);base64,/, ""));
+        };
+        reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.responseType = 'blob';
+    xhr.send();
+};
+
+getFaviconBase64 = function (url, callback) {
+    getFavicon(url, function (favicon_url) {
+        getURLtoBase64(favicon_url, callback);
+    });
+};

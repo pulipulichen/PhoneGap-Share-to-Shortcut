@@ -344,20 +344,6 @@ hasString = function (_item) {
             && _item.trim() !== "");
 };
 
-getURLtoBase64 = function (url, callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.onload = function() {
-        var reader = new FileReader();
-        reader.onloadend = function() {
-            callback(reader.result.replace(/^data:image\/(png|jpg|jpeg|x-icon);base64,/, ""));
-        };
-        reader.readAsDataURL(xhr.response);
-    };
-    xhr.open('GET', url);
-    xhr.responseType = 'blob';
-    xhr.send();
-};
-
 getURLtoTitle = function (_url, _callback) {
     $.ajax({
         url: _url,
@@ -413,13 +399,11 @@ STS_GOOGLE_CHROME = {
                 navigator.app.exitApp();
             });
             */
-            getFavicon(_text, function(_favicon_url) {
-                getURLtoBase64(_favicon_url, function (_base64) {
-                    _icon_type = _base64;
-                    //alert(_icon_type);
-                    createShortcut(_subject, _extras, _icon_type); 
-                    navigator.app.exitApp();
-                });
+            getFaviconBase64(_favicon_url, function (_base64) {
+                _icon_type = _base64;
+                //alert(_icon_type);
+                createShortcut(_subject, _extras, _icon_type); 
+                navigator.app.exitApp();
             });
         }
         else {
@@ -472,11 +456,9 @@ STS_FLIPERLINK = {
                 "url": _text
             };
 
-            getFavicon(_text, function(_favicon_url) {
-                getURLtoBase64(_favicon_url, function (_base64) {
-                    createShortcut(_subject, _extras, _base64); 
-                    navigator.app.exitApp();
-                });
+            getFaviconBase64(_text, function (_base64) {
+                createShortcut(_subject, _extras, _base64); 
+                navigator.app.exitApp();
             });
         });
     },
@@ -522,11 +504,9 @@ STS_FEEDLY = {
             "url": _url
         };
 
-        getFavicon(_url, function(_favicon_url) {
-            getURLtoBase64(_favicon_url, function (_base64) {
-                createShortcut(_subject, _extras, _base64); 
-                navigator.app.exitApp();
-            });
+        getFaviconBase64(_url, function (_base64) {
+            createShortcut(_subject, _extras, _base64); 
+            navigator.app.exitApp();
         });
     },
      isActivity: function (_intent) {
@@ -561,19 +541,11 @@ STS_GREADER = {
             "url": _text
         };
         
-        alert(_text);
-        
-        try {
-            getFavicon(_text, function(_favicon_url) {
-                getURLtoBase64(_favicon_url, function (_base64) {
-                    //alert(_icon_type);
-                    createShortcut(_subject, _extras, _base64); 
-                    navigator.app.exitApp();
-                });
-            });
-        } catch (e) {
-            alert(e);
-        }
+        getFaviconBase64(_text, function (_base64) {
+            //alert(_icon_type);
+            createShortcut(_subject, _extras, _base64); 
+            navigator.app.exitApp();
+        });
     },
      isActivity: function (_intent) {
         return (_intent.extras["pgb_share_to_shortcut.pulipuli.info.action"] === this.action);

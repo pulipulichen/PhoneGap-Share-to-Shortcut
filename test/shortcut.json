@@ -1,7 +1,7 @@
 {
 	"extras": {
-		"pgb_share_to_shortcut.pulipuli.info.url": "http://finance.technews.tw/2018/07/07/q3-dram-and-nand-flash/",
-		"pgb_share_to_shortcut.pulipuli.info.action": "window.open.feedly"
+		"pgb_share_to_shortcut.pulipuli.info.url": "https://www.ptt.cc/bbs/Hearthstone/M.1529138413.A.154.html",
+		"pgb_share_to_shortcut.pulipuli.info.action": "window.open.greader"
 	},
 	"action": "android.intent.action.VIEW",
 	"flags": 343932928,
