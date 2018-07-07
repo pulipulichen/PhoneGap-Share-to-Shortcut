@@ -721,23 +721,17 @@ STS_PDF = {
     },
     openActivity: function (_intent) {
         var _data = _intent.extras["pgb_share_to_shortcut.pulipuli.info.data"];
-        _data = _data.split("///").join("/");
         alert(_data);
-        function success(e) {
-        alert('Success' + e);
-        navigator.app.exitApp();
-      }
-
-      function error(code) {
-        if (code === 1) {
-          alert('No file handler found');
-        } else {
-          alert('Undefined error' + code);
+        try {
+            window.plugins.fileOpener.open(_data, function (e) {
+                alert(e);
+            }, function (e) {
+                alert(e);
+            });
         }
-        navigator.app.exitApp();
-      }
-        
-        open(_data, success, error);
+        catch (e) {
+            alert(e);
+        }
         //alert(_data);
         //alert(_url);
         //window.open(_url, "_system");

@@ -27,6 +27,7 @@ PhoneGap Build Configuration
     
     <!-- 防止太多權限 -->
     <preference name="permissions" value="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     
     <!-- 只保留最低的權限 -->
     <feature name="http://api.phonegap.com/1.0/network" />
@@ -54,12 +55,15 @@ PhoneGap Build Configuration
     <!-- <plugin name="cordova-plugin-wininsoft-file-opener2" source="npm" /> -->
     
     <!-- https://www.npmjs.com/package/cordova-open -->
-    <!-- <plugin name="cordova-open" source="npm" /> -->
+    <plugin name="cordova-open" source="npm" />
     
     <!-- https://github.com/markeeftb/FileOpener -->
-    <plugin spec="https://github.com/markeeftb/FileOpener.git" source="git" />
+    <!-- <plugin spec="https://github.com/markeeftb/FileOpener.git" source="git" /> -->
     
-    <!-- -->
+    <!-- https://www.npmjs.com/package/cordova-plugin-android-permissions -->
+    <plugin name="cordova-plugin-android-permissions" source="npm" />
+    
+    <!-- ================================ -->
     
     <preference name="BackgroundColor" value="0x00000000"/>
     <platform name="android">
