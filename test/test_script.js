@@ -600,6 +600,46 @@ STS_GOOGLE_PLAY = {
     openActivity: STS_GOOGLE_CHROME.openActivity,
 };
 
+
+// ------------------
+
+STS_YOUTUBE = {
+    action: "app.open.youtube",
+    needle: "https://youtu.be/",
+    icon_type: "youtube",
+    isSendFrom: function (intent) {
+        return (typeof (intent.action) === "string"
+            && intent.action === "android.intent.action.SEND"
+            && typeof (intent.extras) === "object"
+            && typeof (intent.extras["android.intent.extra.SUBJECT"]) === "string"
+            && typeof (intent.extras["android.intent.extra.TEXT"]) === "string"
+            && intent.extras["android.intent.extra.TEXT"].startsWith(this.needle) === true
+            && intent.extras["android.intent.extra.TEXT"].indexOf(this.needle) > -1);
+    },
+    createShortcut: function (intent) {
+        var _subject = intent.extras["android.intent.extra.SUBJECT"];
+        var _head_needle = "在 YouTube 上觀看「";
+        if (_subject.startsWith(_head_needle)) {
+            _subject = _subject.substring(_head_needle.length, _subject.length);
+        }
+        var _foot_needle = "」";
+        if (_subject.endsWith(_foot_needle)) {
+            _subject = _subject.substring(0, _subject.length - _foot_needle.length);
+        }
+        var _text = intent.extras["android.intent.extra.TEXT"];
+        var _url = _text.substring(_text.indexOf(this.needle), _text.length).trim();
+        
+        var _extras = {
+            "action": this.action,
+            "url": _url
+        };
+
+        createShortcut(_subject, _extras, this.icon_type); 
+        navigator.app.exitApp();
+    },
+    openActivity: STS_GOOGLE_CHROME.openActivity,
+};
+
 // ------------------------------------
 
 IS_SEND_FROM_QUEUE = [
@@ -607,6 +647,7 @@ IS_SEND_FROM_QUEUE = [
     STS_BILIBILI_VIDEO,
     STS_GOOGLE_MAP,
     STS_GOOGLE_PLAY,
+    STS_YOUTUBE,
     STS_GOOGLE_CHROME,
     STS_FLIPERLINK,
     STS_GREADER,
@@ -622,4 +663,5 @@ OPEN_ACTIVITY_QUEUE = [
     STS_GREADER,
     STS_GOOGLE_MAP,
     STS_GOOGLE_PLAY,
+    STS_YOUTUBE,
 ];
