@@ -89,6 +89,9 @@ PhoneGap Build Configuration
     <!-- https://github.com/apache/cordova-plugin-file-transfer -->
     <plugin spec="https://github.com/apache/cordova-plugin-file-transfer.git" source="git" />
     
+    <!-- https://www.npmjs.com/package/cordova-plugin-progress-indicator -->
+    <plugin name="cordova-plugin-progress-indicator" source="npm" />
+    
     <!-- ================================ -->
     
     <preference name="BackgroundColor" value="0x00000000"/>

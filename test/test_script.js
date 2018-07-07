@@ -802,38 +802,28 @@ STS_APK = {
                 } 
             );
         };
+
+        var fileTransfer = new FileTransfer();
+        var fileURL = "cdvfile://localhost/temporary/tmp.apk";
+        var uri = encodeURI(_url);
         
-        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
-            //console.log('file system open: ' + fs.name);
-            fs.root.getFile('tmp.apk', {create: true, exclusive: false}, function (fileEntry) {
-                //console.log('fileEntry is file? ' + fileEntry.isFile.toString());
-                var oReq = new XMLHttpRequest();
-                // Make sure you add the domain name to the Content-Security-Policy <meta> element.
-                oReq.open("GET", _url, true);
-                // Define how you want the XHR data to come back
-                oReq.responseType = "blob";
-                oReq.onload = function (oEvent) {
-                    var blob = oReq.response; // Note: not oReq.responseText
-                    if (blob) {
-                        // Create a URL based on the blob, and set an <img> tag's src to it.
-                        var _local_url = window.URL.createObjectURL(blob);
-                        document.getElementById('bot-img').src = url;
-                        // Or read the data with a FileReader
-                        var reader = new FileReader();
-                        reader.addEventListener("loadend", function () {
-                            // reader.result contains the contents of blob as text
-                        });
-                        reader.readAsText(blob);
-                    } else
-                        console.error('we didnt get an XHR response!');
-                };
-                oReq.send(null);
-            }, function (err) {
-                console.error('error getting file! ' + err);
-            });
-        }, function (err) {
-            console.error('error getting persistent fs! ' + err);
-        });
+        //$("body").append("<h1>Downloading Please wait</h1>");
+        //$("body").addClass("loading");
+        SpinnerDialog.show();
+
+        fileTransfer.download(
+                uri,
+                fileURL,
+                function (entry) {
+                    var _local_url = entry.toURL();
+                    _open(_local_url);
+                    //alert("download complete: " + );
+                },
+                function (error) {
+                    alert("download error: " + JSON.stringify(error));
+                },
+                false
+        );
     },
 };
 
