@@ -5,17 +5,17 @@ intent_handler = function (intent) {
     if (typeof(intent.extras) === "object" 
             && typeof(intent.extras["pgb_share_to_shortcut.pulipuli.info.action"]) === "string" ) {
         
-        $.post("http://pc.pulipuli.info/phonegap-build-projects/PhoneGapBuild-ShareToShortcut/test/post.php?filename=shortcut", {
-            data: JSON.stringify(intent, null, "\t")
-        });
+        //$.post("http://pc.pulipuli.info/phonegap-build-projects/PhoneGapBuild-ShareToShortcut/test/post.php?filename=shortcut", {
+        //    data: JSON.stringify(intent, null, "\t")
+        //});
         
         openActivity(intent);
         return;
     }
     else {
-        $.post("http://pc.pulipuli.info/phonegap-build-projects/PhoneGapBuild-ShareToShortcut/test/post.php?filename=send", {
-            data: JSON.stringify(intent, null, "\t")
-        });
+        //$.post("http://pc.pulipuli.info/phonegap-build-projects/PhoneGapBuild-ShareToShortcut/test/post.php?filename=send", {
+        //    data: JSON.stringify(intent, null, "\t")
+        //});
     }
     
     // ---------------------------
