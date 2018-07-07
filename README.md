@@ -12,4 +12,8 @@ An Android APP for sharing to become a shortcut.
 
 # Reference
 - Main icon: http://www.iconninja.com/shortcut-icon-145526
-- Share icon: http://www.iconninja.com/share-icon-160558
+- Share ic0on: http://www.iconninja.com/share-icon-160558
+
+# TODO
+- Simple share url
+- Chrome to Share url
