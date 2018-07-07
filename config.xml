@@ -51,6 +51,9 @@ PhoneGap Build Configuration
     <!-- https://www.npmjs.com/package/cordova-plugin-shortcuts-android -->
     <plugin name="cordova-plugin-shortcuts-android" source="npm" />
     
+    <!-- https://www.npmjs.com/package/cordova-plugin-android-permissions -->
+    <plugin name="cordova-plugin-android-permissions" source="npm" />
+    
     <!-- https://github.com/pwlin/cordova-plugin-file-opener2 -->
     <!-- <plugin name="cordova-plugin-wininsoft-file-opener2" source="npm" /> -->
     
@@ -58,10 +61,8 @@ PhoneGap Build Configuration
     <plugin name="cordova-open" source="npm" />
     
     <!-- https://github.com/markeeftb/FileOpener -->
-    <!-- <plugin spec="https://github.com/markeeftb/FileOpener.git" source="git" /> -->
+    <plugin spec="https://github.com/markeeftb/FileOpener.git" source="git" />
     
-    <!-- https://www.npmjs.com/package/cordova-plugin-android-permissions -->
-    <plugin name="cordova-plugin-android-permissions" source="npm" />
     
     <!-- ================================ -->
     

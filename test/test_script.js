@@ -721,21 +721,53 @@ STS_PDF = {
     },
     openActivity: function (_intent) {
         var _data = _intent.extras["pgb_share_to_shortcut.pulipuli.info.data"];
+        _data = _data.replace("///", "/");
         alert(_data);
-        try {
-            window.plugins.fileOpener.open(_data, function (e) {
-                alert(e);
-            }, function (e) {
-                alert(e);
-            });
+        var open = cordova.plugins.disusered.open;
+        
+        function success() {
+            alert('Success');
+            
+            navigator.app.exitApp();
+      }
+
+      function error(code) {
+        if (code === 1) {
+          alert('No file handler found');
+        } else {
+          alert('Undefined error: ' + code);
         }
-        catch (e) {
-            alert(e);
+      }
+        
+        var permissions = cordova.plugins.permissions;
+        permissions.hasPermission(permissions.READ_EXTERNAL_STORAGE, function( status ){
+            if ( status.hasPermission ) {
+              alert("Yes :D ");
+              open(_data, success, error);
+              //alert("ok");
+            }
+            else {
+              alert("No :( ");
+            }
+          });
+        
+        
+      
+      permissions.requestPermission(permissions.READ_EXTERNAL_STORAGE, success, error);
+
+        function error() {
+          console.warn('Camera permission is not turned on');
         }
-        //alert(_data);
-        //alert(_url);
-        //window.open(_url, "_system");
-        //navigator.app.exitApp();
+
+        function success( status ) {
+          if( !status.hasPermission ) {
+              error();
+          }
+            //alert("OK");
+            //open(_data, success, error);
+        }
+        
+        
     },
 };
 
