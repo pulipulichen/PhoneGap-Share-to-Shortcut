@@ -320,6 +320,23 @@ getURLtoTitle = function (_url, _callback) {
     });
 };
 
+getURLtoHTML = function (_url, _selector, _callback) {
+    $.ajax({
+        url: _url,
+        async: true,
+        success: function (data) {
+            var _head = data.indexOf("<body");
+            var _foot = data.indexOf("</body>", _head) + 7;
+            var _title = "";
+            if (_head > -1 && _foot > -1) {
+                var _body = data.substring(_head, _foot).trim();
+                _title = $(_body).find(_selector).html();
+            }
+            _callback(_title);
+        }
+    });
+};
+
 // --------------------------------
 
 // --------------------------------
@@ -766,9 +783,9 @@ STS_APK = {
         // https://build.phonegap.com/apps/3228957/download/android
         // https://build.phonegap.com/apps/3228957/builds
         var _build_url = _url.replace(this.needle_foot, "/builds");
-        getURLtoTitle(_build_url, function (_subject) {
+        getURLtoHTML(_build_url, "h1", function (_subject) {
             // Share To Shortcut- Adobe PhoneGap Build
-            _subject = _subject.replace("- Adobe PhoneGap Build", "").trim();
+            _subject = _subject.substring(0, _subject.lastIndexOf("<small>")).trim();
             
             var _extras = {
                 "action": _this.action,
@@ -784,7 +801,7 @@ STS_APK = {
         var _url = _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"];
         //
         //_url = "file:///storage/emulated/0/Download/a.apk";
-        alert(_url);
+        //alert(_url);
         
         var _open = function (_local_url) {
             cordova.plugins.fileOpener2.open(
