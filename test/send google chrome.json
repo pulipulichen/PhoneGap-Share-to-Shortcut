@@ -1,0 +1,19 @@
+{
+	"clipItems": [
+		{
+			"uri": "content://com.android.chrome.FileProvider/BlockedFile_81651290422445",
+			"type": "image/jpeg",
+			"extension": "jpg"
+		}
+	],
+	"type": "text/plain",
+	"extras": {
+		"android.intent.extra.SUBJECT": "哔哩哔哩",
+		"android.intent.extra.TEXT": "http://d.bilibili.com/download_app.html?download_url=%2F%2Fdl.hdslb.com%2Fmobile%2Fupload%2FiBiliPlayer-internation-bilibili.apk&schema=bilibili%3A%2F%2Fbangumi%2Fseason%2F6422%3Furl_from_h5%3D1",
+		"org.chromium.chrome.extra.TASK_ID": 25648,
+		"share_screenshot_as_stream": "content://com.android.chrome.FileProvider/BlockedFile_81651290422445"
+	},
+	"action": "android.intent.action.SEND",
+	"flags": 461897729,
+	"component": "ComponentInfo{pgb_share_to_shortcut.pulipuli.info/pgb_share_to_shortcut.pulipuli.info.ShareToShortcut}"
+}

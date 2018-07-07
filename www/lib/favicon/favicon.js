@@ -104,5 +104,23 @@ function Favicon(alt) {
 getFavicon = function (_url, _callback) {
     var favicon = new Favicon;
 
-    favicon.get(_url, _callback);
+    var _load = false;
+    var _exception_timer = setTimeout(function () {
+        if (_load === true) {
+            return;
+        }
+        
+        _load = true;
+        _callback(null);        
+    }, 3000);
+    
+    favicon.get(_url, function (_favicon_url) {
+        if (_load === true) {
+            return;
+        }
+        
+        clearTimeout(_exception_timer);
+        _load = true;
+        _callback(_favicon_url);
+    });
 };

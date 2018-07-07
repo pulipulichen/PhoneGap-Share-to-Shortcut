@@ -2,7 +2,6 @@ intent_handler = function (intent) {
     //alert("換了 可以嗎？");
     //alert(JSON.stringify(intent));
     
-    
     if (typeof(intent.extras) === "object" 
             && typeof(intent.extras["pgb_share_to_shortcut.pulipuli.info.action"]) === "string" ) {
         
@@ -43,6 +42,7 @@ intent_handler = function (intent) {
 
     // 先處理chrome share過來的
     if (STS_GOOGLE_CHROME.isSendFrom(intent) ) {
+        //alert("google chrome");
         STS_GOOGLE_CHROME.createShortcut(intent);
         return;
     }
@@ -51,7 +51,14 @@ intent_handler = function (intent) {
     
     // for flyperlink
     if (STS_FLIPERLINK.isSendFrom(intent) ) {
+        //alert("STS_FLIPERLINK");
         STS_FLIPERLINK.createShortcut(intent);
+        return;
+    }
+    
+    if (STS_GREADER.isSendFrom(intent) ) {
+        //alert("STS_GREADER");
+        STS_GREADER.createShortcut(intent);
         return;
     }
     
@@ -294,6 +301,10 @@ openActivity = function (_intent) {
         STS_FEEDLY.openActivity(_intent);
         return;
     }
+    else if (STS_GREADER.isActivity(_intent)) {
+        STS_GREADER.openActivity(_intent);
+        return;
+    }
     
     var _config = {
         action: _intent.extras["pgb_share_to_shortcut.pulipuli.info.action"],
@@ -373,19 +384,20 @@ getURLtoTitle = function (_url, _callback) {
 STS_GOOGLE_CHROME = {
     action: "app.open.googlechrome",
     isSendFrom: function (intent) {
-        return typeof (intent.action) === "string"
+        return (typeof (intent.action) === "string"
             && intent.action === "android.intent.action.SEND"
             && typeof (intent.extras) === "object"
             && typeof (intent.extras["android.intent.extra.SUBJECT"]) === "string"
             && typeof (intent.extras["android.intent.extra.TEXT"]) === "string"
-            && (intent.extras["android.intent.extra.TEXT"].startsWith("http://") || intent.extras["android.intent.extra.TEXT"].startsWith("https://"));
+            && (intent.extras["android.intent.extra.TEXT"].startsWith("http://") || intent.extras["android.intent.extra.TEXT"].startsWith("https://"))
+            && typeof (intent.extras["share_screenshot_as_stream"]) === "string");
     },
     createShortcut: function (intent) {
         var _subject = intent.extras["android.intent.extra.SUBJECT"];
         var _text = intent.extras["android.intent.extra.TEXT"];
         
         var _extras = {
-            "action": STS_GOOGLE_CHROME.action,
+            "action": this.action,
             "url": _text
         };
         
@@ -416,7 +428,7 @@ STS_GOOGLE_CHROME = {
         }
     },
     isActivity: function (_intent) {
-        return (_intent.extras["pgb_share_to_shortcut.pulipuli.info.action"] === STS_GOOGLE_CHROME.action);
+        return (_intent.extras["pgb_share_to_shortcut.pulipuli.info.action"] === this.action);
     },
     openActivity: function (_intent) {
         //var _url = _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"].replace("http://", "");
@@ -447,6 +459,7 @@ STS_FLIPERLINK = {
         return typeof (intent.action) === "string"
             && intent.action === "android.intent.action.SEND"
             && typeof (intent.extras) === "object"
+            && typeof (intent.extras["android.intent.extra.SUBJECT"]) === "undefined"
             && typeof (intent.extras["android.intent.extra.TEXT"]) === "string"
             && (intent.extras["android.intent.extra.TEXT"].startsWith("http://") || intent.extras["android.intent.extra.TEXT"].startsWith("https://"));
     },
@@ -515,6 +528,52 @@ STS_FEEDLY = {
                 navigator.app.exitApp();
             });
         });
+    },
+     isActivity: function (_intent) {
+        return (_intent.extras["pgb_share_to_shortcut.pulipuli.info.action"] === this.action);
+    },
+    openActivity: function (_intent) {
+        var _url = _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"];
+        window.open(_url, "_system");
+        navigator.app.exitApp();
+    },
+};
+
+// ------------------------------
+
+STS_GREADER = {
+    action: "window.open.greader",
+    isSendFrom: function (intent) {
+        return (typeof (intent.action) === "string"
+            && intent.action === "android.intent.action.SEND"
+            && typeof (intent.extras) === "object"
+            && typeof (intent.extras["android.intent.extra.SUBJECT"]) === "string"
+            && typeof (intent.extras["android.intent.extra.TEXT"]) === "string"
+            && intent.extras["android.intent.extra.TEXT"].startsWith("http") === true
+            );
+    },
+    createShortcut: function (intent) {
+        var _subject = intent.extras["android.intent.extra.SUBJECT"];
+        var _text = intent.extras["android.intent.extra.TEXT"];
+        
+        var _extras = {
+            "action": this.action,
+            "url": _text
+        };
+        
+        alert(_text);
+        
+        try {
+            getFavicon(_text, function(_favicon_url) {
+                getURLtoBase64(_favicon_url, function (_base64) {
+                    //alert(_icon_type);
+                    createShortcut(_subject, _extras, _base64); 
+                    navigator.app.exitApp();
+                });
+            });
+        } catch (e) {
+            alert(e);
+        }
     },
      isActivity: function (_intent) {
         return (_intent.extras["pgb_share_to_shortcut.pulipuli.info.action"] === this.action);
