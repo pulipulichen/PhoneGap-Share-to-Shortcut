@@ -2,10 +2,30 @@ intent_handler = function (intent) {
     //alert("換了 可以嗎？");
     alert(JSON.stringify(intent));
     
-    window.plugins.Shortcut.CreateShortcut({
-     	text: "Text to show",
-     	extraSubject: 'YOUR_DATA'
-    });
+    var shortcut = {
+        id: 'my_shortcut_1',
+        shortLabel: 'Short description',
+        longLabel: 'Longer string describing the shortcut',
+        //iconBitmap: '<Bitmap for the shortcut icon, base64 encoded>',
+        intent: {
+            action: 'android.intent.action.RUN',
+            categories: [
+                'android.intent.category.TEST', // Built-in Android category
+                'MY_CATEGORY' // Custom categories are also supported
+            ],
+            flags: 67108864, // FLAG_ACTIVITY_CLEAR_TOP
+            data: 'myapp://path/to/launch?param=value', // Must be a well-formed URI
+            extras: {
+                'android.intent.extra.SUBJECT': 'Hello world!', // Built-in Android extra (string)
+                'MY_BOOLEAN': true, // Custom extras are also supported (boolean, number and string only)
+            }
+        }
+    }
+    window.plugins.Shortcuts.setDynamic([shortcut], function() {
+        window.alert('Shortcuts were applied successfully');
+    }, function(error) {
+        window.alert('Error: ' + error);
+    })
     
     return;
     
