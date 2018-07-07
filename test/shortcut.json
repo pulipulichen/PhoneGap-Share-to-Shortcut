@@ -1,7 +1,7 @@
 {
 	"extras": {
-		"pgb_share_to_shortcut.pulipuli.info.url": "https://www.ptt.cc/bbs/Hearthstone/M.1529138413.A.154.html",
-		"pgb_share_to_shortcut.pulipuli.info.action": "window.open.greader"
+		"pgb_share_to_shortcut.pulipuli.info.url": "https://goo.gl/maps/ciEQV6Dr7zo",
+		"pgb_share_to_shortcut.pulipuli.info.action": "app.open.googlemap"
 	},
 	"action": "android.intent.action.VIEW",
 	"flags": 343932928,

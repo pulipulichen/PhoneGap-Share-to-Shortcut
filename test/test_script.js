@@ -37,6 +37,10 @@ intent_handler = function (intent) {
         STS_BILIBILI_VIDEO.createShortcut(intent);
         return;
     }
+    if (STS_GOOGLE_MAP.isSendFrom(intent) ) {
+        STS_GOOGLE_MAP.createShortcut(intent);
+        return;
+    }
     
     // ----------------------------
 
@@ -305,6 +309,10 @@ openActivity = function (_intent) {
         STS_GREADER.openActivity(_intent);
         return;
     }
+    else if (STS_GOOGLE_MAP.isActivity(_intent)) {
+        STS_GOOGLE_MAP.openActivity(_intent);
+        return;
+    }
     
     var _config = {
         action: _intent.extras["pgb_share_to_shortcut.pulipuli.info.action"],
@@ -387,29 +395,11 @@ STS_GOOGLE_CHROME = {
             "url": _text
         };
         
-        var _icon_type = "search";
-        if (typeof (intent.extras["android.intent.extra.TEXT"]) === "string") {
-            //alert(intent.extras["share_screenshot_as_stream"]);
-            //_icon_type = intent.extras["share_screenshot_as_stream"];
-            /*
-            toDataUrl(intent.extras["share_screenshot_as_stream"], function (_base64) {
-                _icon_type = _base64;
-                alert(_icon_type);
-                createShortcut(_subject, _extras, _icon_type); 
-                navigator.app.exitApp();
-            });
-            */
-            getFaviconBase64(_favicon_url, function (_base64) {
-                _icon_type = _base64;
-                //alert(_icon_type);
-                createShortcut(_subject, _extras, _icon_type); 
-                navigator.app.exitApp();
-            });
-        }
-        else {
-            createShortcut(_subject, _extras, _icon_type); 
+        getFaviconBase64(_text, function (_base64) {
+            //alert(_icon_type);
+            createShortcut(_subject, _extras, _base64); 
             navigator.app.exitApp();
-        }
+        });
     },
     isActivity: function (_intent) {
         return (_intent.extras["pgb_share_to_shortcut.pulipuli.info.action"] === this.action);
@@ -601,7 +591,6 @@ STS_BILIBILI_BANGUMI = {
     },
 };
 
-
 // -----------------------------
 
 STS_BILIBILI_VIDEO = {
@@ -633,6 +622,45 @@ STS_BILIBILI_VIDEO = {
         };
 
         createShortcut(_subject, _extras, "bilibili"); 
+        navigator.app.exitApp();
+    },
+     isActivity: function (_intent) {
+        return (_intent.extras["pgb_share_to_shortcut.pulipuli.info.action"] === this.action);
+    },
+    openActivity: function (_intent) {
+        var _url = _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"];
+        //alert(_url);
+        window.open(_url, "_system");
+        navigator.app.exitApp();
+    },
+};
+
+
+// -----------------------------
+
+STS_GOOGLE_MAP = {
+    action: "app.open.googlemap",
+    needle: "https://goo.gl/maps/",
+    isSendFrom: function (intent) {
+        return (typeof (intent.action) === "string"
+            && intent.action === "android.intent.action.SEND"
+            && typeof (intent.extras) === "object"
+            && typeof (intent.extras["android.intent.extra.SUBJECT"]) === "string"
+            && typeof (intent.extras["android.intent.extra.TEXT"]) === "string"
+            && intent.extras["android.intent.extra.TEXT"].startsWith("https://") === false
+            && intent.extras["android.intent.extra.TEXT"].indexOf(this.needle) > -1);
+    },
+    createShortcut: function (intent) {
+        var _subject = intent.extras["android.intent.extra.SUBJECT"];
+        var _text = intent.extras["android.intent.extra.TEXT"];
+        var _url = _text.substring(_text.indexOf(this.needle), _text.length).trim();
+        
+        var _extras = {
+            "action": this.action,
+            "url": _url
+        };
+
+        createShortcut(_subject, _extras, "googlemap"); 
         navigator.app.exitApp();
     },
      isActivity: function (_intent) {
