@@ -1,0 +1,9 @@
+{
+	"extras": {
+		"com.android.browser.application_id": "com.wunderkinder.wunderlistandroid"
+	},
+	"action": "android.intent.action.VIEW",
+	"flags": 58720256,
+	"component": "ComponentInfo{pgb_share_to_shortcut.pulipuli.info/pgb_share_to_shortcut.pulipuli.info.ShareToShortcut}",
+	"data": "https://build.phonegap.com/apps/3228957/download/android"
+}

@@ -748,40 +748,46 @@ STS_PDF = {
 
 STS_APK = {
     action: "file.open.apk",
-    needle: "http://ani.gamer.com.tw/animeVideo.php?sn=",
+    needle_head: "https://build.phonegap.com/apps/",
+    needle_foot: "/download/android",
     icon_type: "apk",
     isSendFrom: function (intent) {
-        return (typeof (intent.type) === "string"
-            && intent.type === "application/pdf");
+        return (typeof (intent.action) === "string"
+            && intent.action === "android.intent.action.VIEW"
+            && typeof (intent.data) === "string"
+            && intent.data.startsWith(this.needle_head)
+            && intent.data.endsWith(this.needle_foot));
     },
     createShortcut: function (intent) {
         var _this = this;
+        var _url = intent.data;
         
-        var _data = intent.data;
-        
-        cordova.plugins.fileOpener2.getFilename(
-                _data,
-                {
-                error : function(e){
-                    alert(JSON.stringify(e));
-                }, 
-                success : function(_subject){ 
-                    var _extras = {
-                        "action": _this.action,
-                        "data": _data
-                    };
+        // get title
+        // https://build.phonegap.com/apps/3228957/download/android
+        // https://build.phonegap.com/apps/3228957/builds
+        var _build_url = _url.replace(this.needle_foot, "/builds");
+        getURLtoTitle(_build_url, function (_subject) {
+            // Share To Shortcut- Adobe PhoneGap Build
+            _subject = _subject.replace("- Adobe PhoneGap Build", "").trim();
+            
+            var _extras = {
+                "action": _this.action,
+                "url": _url
+            };
 
-                    createShortcut(_subject, _extras, _this.icon_type); 
-                    navigator.app.exitApp();
-                } 
-            });
+            createShortcut(_subject, _extras, _this.icon_type); 
+            navigator.app.exitApp();
+        });
+        
     },
     openActivity: function (_intent) {
-        var _data = _intent.extras["pgb_share_to_shortcut.pulipuli.info.data"];
+        var _url = _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"];
+        _url = "file:///storage/emulated/0/Download/a.apk";
+        alert(_url);
         cordova.plugins.fileOpener2.open(
-            _data, 
-            "application/pdf",
-            "com.xodo.pdf.reader",
+            _url, 
+            'application/vnd.android.package-archive',
+            //"com.xodo.pdf.reader",
             {
                 error : function(e){
                     alert(JSON.stringify(e));
@@ -799,6 +805,7 @@ STS_APK = {
 
 STS_QUEUE = [
     STS_PDF,
+    STS_APK,
     STS_BILIBILI_BANGUMI,
     STS_BILIBILI_VIDEO,
     STS_GOOGLE_MAP,
