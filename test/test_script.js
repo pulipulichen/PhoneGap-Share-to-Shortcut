@@ -750,8 +750,8 @@ function onError(error) {
             //category: "android.intent.category.DEFAULT",
             //package: "com.xodo.pdf.reader",
             type: "application/pdf",
-            "flags": 276824064,
-            "component": "ComponentInfo{pgb_share_to_shortcut.pulipuli.info/pgb_share_to_shortcut.pulipuli.info.ShareToShortcut}",
+            //"flags": 276824064,
+            //"component": "ComponentInfo{pgb_share_to_shortcut.pulipuli.info/pgb_share_to_shortcut.pulipuli.info.ShareToShortcut}",
             "data": "file:///storage/emulated/0/Download/a.pdf",
             //uri: _search_text,
             //url: _search_text,
@@ -759,6 +759,7 @@ function onError(error) {
             
         };
 
+        /*
         try {
             window.plugins.webintent.startActivity(_config,
                     function () {
@@ -772,6 +773,8 @@ function onError(error) {
         } catch (e) {
             alert(e);
         }
+        
+        */
         
         /*
         try {
@@ -819,22 +822,30 @@ function onError(error) {
           });
         
         
+      */
       
-      permissions.requestPermission(permissions.READ_EXTERNAL_STORAGE, success, error);
+        var permissions = cordova.plugins.permissions;
+        permissions.requestPermission(permissions.CAMERA, success, error);
 
-        function error() {
-          console.warn('Camera permission is not turned on');
-        }
+            function error() {
+              console.warn('Camera permission is not turned on');
+            }
 
-        function success( status ) {
-          if( !status.hasPermission ) {
-              error();
-          }
-            //alert("OK");
-            //open(_data, success, error);
-        }
+            function success( status ) {
+              if( !status.hasPermission ) {
+                  error();
+              }
+               window.plugins.webintent.startActivity(_config,
+                    function () {
+                        navigator.app.exitApp();
+                    },
+                    function (e) {
+                        alert('Failed:' + e);
+                        navigator.app.exitApp();
+                    }
+            );
+            }
         
-        */
        //navigator.app.exitApp();
     },
 };
