@@ -1,0 +1,14 @@
+{
+	"clipItems": [
+		{
+			"uri": "file:///sdcard/com.facebook.orca/fb_temp/.nomedia"
+		}
+	],
+	"type": "text/*",
+	"extras": {
+		"android.intent.extra.STREAM": "file:///sdcard/com.facebook.orca/fb_temp/.nomedia"
+	},
+	"action": "android.intent.action.SEND",
+	"flags": 461897729,
+	"component": "ComponentInfo{pgb_share_to_shortcut.pulipuli.info/pgb_share_to_shortcut.pulipuli.info.ShareToShortcut}"
+}

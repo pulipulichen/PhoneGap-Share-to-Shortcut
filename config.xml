@@ -86,6 +86,16 @@ PhoneGap Build Configuration
             <intent-filter android:label="📌 Shortcut">
                 <action
 					android:name="android.intent.action.VIEW"/>
+				<action
+					android:name="android.intent.action.EDIT"/>
+				<category
+					android:name="android.intent.category.DEFAULT"/>
+				<data
+					android:mimeType="application/pdf"/>
+            </intent-filter>
+            <intent-filter android:label="📌 Shortcut">
+                <action
+					android:name="android.intent.action.VIEW"/>
 				<category
 					android:name="android.intent.category.DEFAULT"/>
 				<data
