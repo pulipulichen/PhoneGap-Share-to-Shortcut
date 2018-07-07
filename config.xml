@@ -52,7 +52,7 @@ PhoneGap Build Configuration
     <!-- https://github.com/pwlin/cordova-plugin-file-opener2 -->
     <plugin spec="https://github.com/pwlin/cordova-plugin-file-opener2.git" source="git" />
     
-    <!-- ------------------------------------------ -->
+    <!-- -->
     
     <preference name="BackgroundColor" value="0x00000000"/>
     <platform name="android">
