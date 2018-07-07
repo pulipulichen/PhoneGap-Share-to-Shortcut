@@ -67,6 +67,9 @@ PhoneGap Build Configuration
     <!-- https://github.com/Smile-SA/cordova-plugin-fileopener -->
     <plugin spec="https://github.com/Smile-SA/cordova-plugin-fileopener.git" source="git" />
     
+    <!-- https://github.com/ahmadaghazadeh/sevensky-cordova-plugin-intent -->
+    <plugin spec="https://github.com/ahmadaghazadeh/sevensky-cordova-plugin-intent.git" source="git" />
+    
     
     <!-- ================================ -->
     

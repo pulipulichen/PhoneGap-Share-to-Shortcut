@@ -721,34 +721,40 @@ STS_PDF = {
     },
     openActivity: function (_intent) {
         var _data = _intent.extras["pgb_share_to_shortcut.pulipuli.info.data"];
-        //_data = _data.replace("///", "/");
-        
+        _data = "file:///storage/emulated/0/Download/a.pdf";
         alert(_data);
+        //_data = _data.replace("///", "/");
+        /*
+        
+        var onSuccess = function(data) {
+            if (typeof(data) === "object") {
+                data = JSON.stringify(data);
+            }
+    alert('onSuccess message: ' + data);
+};
+
+// onError Callback receives a json object
+//
+function onError(error) {
+    alert('onSuccess message: ' + error.message);
+}
+        window.cordova.plugins.FileOpener.canOpenFile(_data, onSuccess, onError);
+        window.cordova.plugins.FileOpener.openFile("file:///storage/emulated/0/Download/a.pdf", onSuccess, onError);
+        */
+        
         var _config = {
             //action: "android.app.SearchManager.INTENT_ACTION_GLOBAL_SEARCH",
             action: "android.intent.action.VIEW",
-            category: "android.intent.category.DEFAULT",
+            //category: "android.intent.category.DEFAULT",
             //package: "com.xodo.pdf.reader",
             type: "application/pdf",
             "flags": 276824064,
             "component": "ComponentInfo{pgb_share_to_shortcut.pulipuli.info/pgb_share_to_shortcut.pulipuli.info.ShareToShortcut}",
-            uri: "file:///storage/emulated/0/Download/a.pdf",
+            "data": "file:///storage/emulated/0/Download/a.pdf",
             //uri: _search_text,
             //url: _search_text,
             //pacakge: "com.google.android.googlequicksearchbox",
-            /*
-            extras: {
-                //"android.intent.extra.SUBJECT": _search_text,
-                //"android.intent.extra.TEXT": _data,
-                "data": _data,
-                //"ACTION_MSG": 1,
-                //"ACTION_MSG": 1,
-                //"query": _search_text,
-                //"SearchManager": {
-                //    "QUERY": _search_text,
-                //}
-            }
-            */
+            
         };
 
         try {
@@ -827,7 +833,7 @@ STS_PDF = {
         }
         
         */
-       navigator.app.exitApp();
+       //navigator.app.exitApp();
     },
 };
 
