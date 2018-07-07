@@ -36,13 +36,13 @@ intent_handler = function (intent) {
         var _text = intent.extras["android.intent.extra.TEXT"];
         
         var _extras = {
-            "action": 'window.open',
+            "action": 'window.open.googlechrome',
             "url": _text
         };
         
         var _icon_type = "search";
         if (typeof (intent.extras["android.intent.extra.TEXT"]) === "string") {
-            alert(intent.extras["share_screenshot_as_stream"]);
+            //alert(intent.extras["share_screenshot_as_stream"]);
             //_icon_type = intent.extras["share_screenshot_as_stream"];
             /*
             toDataUrl(intent.extras["share_screenshot_as_stream"], function (_base64) {
@@ -52,10 +52,10 @@ intent_handler = function (intent) {
                 navigator.app.exitApp();
             });
             */
-            getFavicon(_text, function(url) {
-                toDataUrl(url, function (_base64) {
+            getFavicon(_text, function(_favicon_url) {
+                getURLtoBase64(_favicon_url, function (_base64) {
                     _icon_type = _base64;
-                    alert(_icon_type);
+                    //alert(_icon_type);
                     createShortcut(_subject, _extras, _icon_type); 
                     navigator.app.exitApp();
                 });
@@ -67,7 +67,37 @@ intent_handler = function (intent) {
         }
         return;
     }
+            
+    // -----------------------------        
+    
+    // for flylink
+    if (typeof (intent.action) === "string"
+            && intent.action === "android.intent.action.SEND"
+            && typeof (intent.extras) === "object"
+            && typeof (intent.extras["android.intent.extra.TEXT"]) === "string"
+            && (intent.extras["android.intent.extra.TEXT"].startsWith("http://") || intent.extras["android.intent.extra.TEXT"].startsWith("https://")) ) {
+        
+        var _text = intent.extras["android.intent.extra.TEXT"];
+        getURLtoTitle(_text, function (_subject) {
+            
+            var _extras = {
+                "action": 'window.open',
+                "url": _text
+            };
 
+            getFavicon(_text, function(_favicon_url) {
+                getURLtoBase64(_favicon_url, function (_base64) {
+                    createShortcut(_subject, _extras, _base64); 
+                    navigator.app.exitApp();
+                });
+            });
+        });
+
+        return;
+    }
+            
+    // -----------------------------
+    
     var _search_items = [];
 
     if (typeof (intent.extras) === "object") {
@@ -280,9 +310,28 @@ createShortcut = function (_title, _extras, _icon_type) {
 
 
 openActivity = function (_intent) {
-    if (_intent.extras["pgb_share_to_shortcut.pulipuli.info.action"] === "window.open") {
+    if (_intent.extras["pgb_share_to_shortcut.pulipuli.info.action"] === "window.open.googlechrome") {
+        //var _url = _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"].replace("http://", "");
+        //var _url = "googlechrome:" + _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"].replace("http://", "");
+        //_url = "intent://" + _url + "#Intent;scheme=http;package=com.android.chrome;end";
+        var _url = "googlechrome://navigate?url=" + _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"];
+        //alert(_url);
+        window.open(_url, "_system");
+        /*
+        window.plugins.webintent.startActivity({
+            action: window.plugins.webintent.ACTION_VIEW,
+            url: "googlechrome://navigate?url=http://blog.pulipuli.info",
+            scheme: "googlechrome"
+        },
+            function() {},
+            function() {alert('Failed to open URL via Android Intent')}
+        );
+        */
+        navigator.app.exitApp();
+        return;
+    }
+    else if (_intent.extras["pgb_share_to_shortcut.pulipuli.info.action"] === "window.open") {
         var _url = _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"];
-        alert(_url);
         window.open(_url, "_system");
         navigator.app.exitApp();
         return;
@@ -326,7 +375,7 @@ hasString = function (_item) {
             && _item.trim() !== "");
 };
 
-function toDataUrl(url, callback) {
+getURLtoBase64 = function (url, callback) {
     var xhr = new XMLHttpRequest();
     xhr.onload = function() {
         var reader = new FileReader();
@@ -338,4 +387,24 @@ function toDataUrl(url, callback) {
     xhr.open('GET', url);
     xhr.responseType = 'blob';
     xhr.send();
-}
+};
+
+getURLtoTitle = function (_url, _callback) {
+    $.ajax({
+        url: _url,
+        async: true,
+        success: function (data) {
+            //alert(data);
+            //var matches = data.match(/<title>(.*?)<\/title>/);
+            //var doc = new DOMParser().parseFromString(data, "text/html");
+            //var title = $(jQuery.parseHTML(data)).html();
+            var _head = data.indexOf("<title>") + 7;
+            var _foot = data.indexOf("</title>", _head);
+            var title = null;
+            if (_head > -1 && _foot > -1) {
+                title = data.substring(_head, _foot).trim();
+            }
+            _callback(title);
+        }
+    });
+};

@@ -15,5 +15,12 @@ An Android APP for sharing to become a shortcut.
 - Share ic0on: http://www.iconninja.com/share-icon-160558
 
 # TODO
-- Simple share url
-- Chrome to Share url
+* Chrome to Share url
+* Flylink share
+- feedly share
+- gReader share
+- YouTube share
+- bilibili share
+- 巴哈share
+- Google Drive share?
+
