@@ -1,14 +1,14 @@
 # PhoneGapBuild-ShareToShortcut
 An Android APP for sharing to become a shortcut.
 
-- GitHub: https://github.com/pulipulichen/PhoneGapBuild-ShareToSearch
-- PhoneGap Build: https://build.phonegap.com/apps/3178114/builds
+- GitHub: https://github.com/pulipulichen/PhoneGapBuild-ShareToShortcut
+- PhoneGap Build: https://build.phonegap.com/apps/3228957/builds
     * https://build.phonegap.com/apps
     * https://build.phonegap.com/people/sign_in
 
-- Install: https://bit.ly/2xlN7dA (小寫l)
-    * https://build.phonegap.com/apps/3178114/download/android
-![Install](https://chart.googleapis.com/chart?chs=116x116&cht=qr&chl=https://build.phonegap.com/apps/3178114/install/bCx9pLRkjNSGtLDUBL9z&chld=L|1&choe=UTF-8)
+- Install: https://goo.gl/JAGmUy (小寫l)
+    * https://build.phonegap.com/apps/3228957/download/android
+![Install](https://chart.googleapis.com/chart?chs=116x116&cht=qr&chl=https://build.phonegap.com/apps/3228957/install/jAuG33sd1JgqxRQ2xedN&chld=L|1&choe=UTF-8)
 
 # Reference
 - Main icon: http://www.iconninja.com/shortcut-icon-145526

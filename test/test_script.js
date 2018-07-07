@@ -2,6 +2,13 @@ intent_handler = function (intent) {
     //alert("換了 可以嗎？");
     alert(JSON.stringify(intent));
     
+    window.plugins.Shortcut.CreateShortcut({
+     	text: "Text to show",
+     	extraSubject: 'YOUR_DATA'
+    });
+    
+    return;
+    
     if (typeof (intent.action) === "string"
             && intent.action === "android.intent.action.MAIN") {
         // 沒有要檢索的東西，回家吧。
