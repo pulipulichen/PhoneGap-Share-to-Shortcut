@@ -244,7 +244,15 @@ createShortcut = function (_title, _extras, _icon_type) {
         window.alert('Error: ' + error);
     });
     */
-    window.plugins.Shortcuts.addPinned(_shortcut);
+    window.plugins.Shortcuts.addPinned(_shortcut, function () {
+        
+    }, function (error) {
+        window.plugins.Shortcuts.setDynamic([_shortcut], function() {
+            window.alert('Shortcuts were applied successfully');
+        }, function(error) {
+            window.alert('Error: ' + error);
+        });
+    });
     
     //navigator.app.exitApp();
     //return;
