@@ -70,6 +70,19 @@ PhoneGap Build Configuration
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:mimeType="text/plain"/>
             </intent-filter>
+            <intent-filter android:label="📌 Shortcut">
+                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.EDIT"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data
+                        android:scheme="file"
+                        android:host="*"
+                        android:pathPattern=".*\.pdf"/>
+                <data
+                        android:scheme="file"
+                        android:host="*"
+                        android:pathPattern=".*\.PDF"/>
+            </intent-filter>
         </config-file>
     </platform>
 </widget>
