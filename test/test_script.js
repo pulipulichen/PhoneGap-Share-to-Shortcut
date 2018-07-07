@@ -725,7 +725,7 @@ STS_PDF = {
         //_data = "file:///storage/emulated/0/Download/a.pdf";
         alert(_data);
         
-        cordova.plugins.fileOpener2.open(
+        cordova.plugins.fileOpener2.openApp(
             _data, 
             "application/pdf",
             //"com.xodo.pdf.reader",
