@@ -248,9 +248,9 @@ createShortcut = function (_title, _extras, _icon_type) {
         
     }, function (error) {
         window.plugins.Shortcuts.setDynamic([_shortcut], function() {
-            window.alert('Shortcuts were applied successfully');
+            
         }, function(error) {
-            window.alert('Error: ' + error);
+            //window.alert('Error: ' + error);
         });
     });
     
