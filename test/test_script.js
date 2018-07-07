@@ -1,12 +1,16 @@
 intent_handler = function (intent) {
     //alert("換了 可以嗎？");
-    alert(JSON.stringify(intent));
+    //alert(JSON.stringify(intent));
+    $.post("http://pc.pulipuli.info/phonegap-build-projects/PhoneGapBuild-ShareToShortcut/test/post.php", {
+        data: JSON.stringify(intent)
+    });
     
+    /*
     var shortcut = {
         id: 'my_shortcut_1',
         shortLabel: 'Short description',
-        longLabel: 'Longer string describing the shortcut',
-        //iconBitmap: '<Bitmap for the shortcut icon, base64 encoded>',
+        //longLabel: 'Longer string describing the shortcut',
+        //iconBitmap: '<Bitmap for the shortcut icon, base64 encoded>', // Defaults to the main application icon
         intent: {
             action: 'android.intent.action.RUN',
             categories: [
@@ -14,19 +18,44 @@ intent_handler = function (intent) {
                 'MY_CATEGORY' // Custom categories are also supported
             ],
             flags: 67108864, // FLAG_ACTIVITY_CLEAR_TOP
-            data: 'myapp://path/to/launch?param=value', // Must be a well-formed URI
+            data: 'pgb://path/to/launch?param=value', // Must be a well-formed URI
             extras: {
                 'android.intent.extra.SUBJECT': 'Hello world!', // Built-in Android extra (string)
                 'MY_BOOLEAN': true, // Custom extras are also supported (boolean, number and string only)
             }
         }
     }
-    window.plugins.Shortcuts.setDynamic([shortcut], function() {
-        window.alert('Shortcuts were applied successfully');
+    */
+    var shortcut = {
+        id: 'my_shortcut_4',
+        shortLabel: '1432Short description',
+        //longLabel: 'Longer string describing the shortcut',
+        //iconBitmap: '<Bitmap for the shortcut icon, base64 encoded>', // Defaults to the main application icon
+        intent: {
+            action: 'android.intent.action.WEB_SEARCH',
+            /*
+            categories: [
+                'android.intent.category.TEST', // Built-in Android category
+                'MY_CATEGORY' // Custom categories are also supported
+            ],
+            flags: 67108864, // FLAG_ACTIVITY_CLEAR_TOP
+            data: 'pgb://path/to/launch?param=value', // Must be a well-formed URI
+            */
+            extras: {
+                //'android.intent.extra.SUBJECT': 'Hello world!', // Built-in Android extra (string)
+                //'MY_BOOLEAN': true, // Custom extras are also supported (boolean, number and string only)
+                "query": "Pokemon Go"
+            }
+        }
+    }
+    
+    window.plugins.Shortcuts.addPinned(shortcut, function() {
+        window.alert('Shortcut pinned successfully');
     }, function(error) {
         window.alert('Error: ' + error);
     })
     
+    navigator.app.exitApp();
     return;
     
     if (typeof (intent.action) === "string"
