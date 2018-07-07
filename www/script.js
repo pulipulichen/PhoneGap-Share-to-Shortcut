@@ -400,6 +400,7 @@ STS_GOOGLE_CHROME = {
             "url": _url
         };
         
+        SpinnerDialog.show();
         getFaviconBase64(_text, function (_base64) {
             //alert(_icon_type);
             createShortcut(_subject, _extras, _base64); 
@@ -435,6 +436,7 @@ STS_FLIPERLINK = {
                 "url": _text
             };
 
+            SpinnerDialog.show();
             getFaviconBase64(_text, function (_base64) {
                 createShortcut(_subject, _extras, _base64); 
                 navigator.app.exitApp();
@@ -476,6 +478,7 @@ STS_FEEDLY = {
             "url": _url
         };
 
+        SpinnerDialog.show();
         getFaviconBase64(_url, function (_base64) {
             createShortcut(_subject, _extras, _base64); 
             navigator.app.exitApp();
@@ -506,6 +509,7 @@ STS_GREADER = {
             "url": _text
         };
         
+        SpinnerDialog.show();
         getFaviconBase64(_text, function (_base64) {
             //alert(_icon_type);
             createShortcut(_subject, _extras, _base64); 
