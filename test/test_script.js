@@ -721,9 +721,68 @@ STS_PDF = {
     },
     openActivity: function (_intent) {
         var _data = _intent.extras["pgb_share_to_shortcut.pulipuli.info.data"];
-        _data = _data.replace("///", "/");
+        //_data = _data.replace("///", "/");
+        
         alert(_data);
+        var _config = {
+            //action: "android.app.SearchManager.INTENT_ACTION_GLOBAL_SEARCH",
+            action: "android.intent.action.VIEW",
+            category: "android.intent.category.DEFAULT",
+            //package: "com.xodo.pdf.reader",
+            type: "application/pdf",
+            "flags": 276824064,
+            "component": "ComponentInfo{pgb_share_to_shortcut.pulipuli.info/pgb_share_to_shortcut.pulipuli.info.ShareToShortcut}",
+            uri: "file:///storage/emulated/0/Download/a.pdf",
+            //uri: _search_text,
+            //url: _search_text,
+            //pacakge: "com.google.android.googlequicksearchbox",
+            /*
+            extras: {
+                //"android.intent.extra.SUBJECT": _search_text,
+                //"android.intent.extra.TEXT": _data,
+                "data": _data,
+                //"ACTION_MSG": 1,
+                //"ACTION_MSG": 1,
+                //"query": _search_text,
+                //"SearchManager": {
+                //    "QUERY": _search_text,
+                //}
+            }
+            */
+        };
+
+        try {
+            window.plugins.webintent.startActivity(_config,
+                    function () {
+                        navigator.app.exitApp();
+                    },
+                    function (e) {
+                        alert('Failed:' + e);
+                        navigator.app.exitApp();
+                    }
+            );
+        } catch (e) {
+            alert(e);
+        }
+        
+        /*
+        try {
+            window.open(_data, "_system");
+        } catch (e) { alert(e) }
+        */
+        /*
+        try {
+            window.resolveLocalFileSystemURL(_data, function (fs) {
+                var nativePath = fs.toURL(); 
+                alert(nativePath);
+            });
+        }
+        catch (e) {alert(e)}
+        */
+        
+        /*
         var open = cordova.plugins.disusered.open;
+        //var open = window.resolveLocalFileSystemURL;
         
         function success() {
             alert('Success');
@@ -767,7 +826,8 @@ STS_PDF = {
             //open(_data, success, error);
         }
         
-        
+        */
+       navigator.app.exitApp();
     },
 };
 

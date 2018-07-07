@@ -64,6 +64,9 @@ PhoneGap Build Configuration
     <!-- https://github.com/markeeftb/FileOpener -->
     <plugin spec="https://github.com/markeeftb/FileOpener.git" source="git" />
     
+    <!-- https://github.com/Smile-SA/cordova-plugin-fileopener -->
+    <plugin spec="https://github.com/Smile-SA/cordova-plugin-fileopener.git" source="git" />
+    
     
     <!-- ================================ -->
     
@@ -97,8 +100,6 @@ PhoneGap Build Configuration
             </intent-filter>
             <intent-filter android:label="📌 Shortcut">
                 <action android:name="android.intent.action.VIEW"/>
-                <action android:name="android.intent.action.EDIT"/>
-                <category android:name="android.intent.category.DEFAULT"/>
                 <data
                         android:scheme="file"
                         android:host="*"
