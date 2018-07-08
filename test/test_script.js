@@ -1,4 +1,4 @@
-DEBUG = false;
+DEBUG = true;
 
 intent_handler = function (intent) {
     //alert("換了 可以嗎？");
@@ -26,51 +26,9 @@ intent_handler = function (intent) {
     if (typeof (intent.action) === "string"
             && intent.action === "android.intent.action.MAIN") {
         // 沒有要檢索的東西，回家吧。
-        //CTS_CLIPBOARD.process();
-        
-        var config = {
-            title: "Create a shortcut",
-            items: [],
-            doneButtonLabel: "Create",
-            cancelButtonLabel: "Cancel"
-        };
-        
-        for (var _i = 0; _i < CTS_LIST.length; _i++) {
-            config.items.push({
-                text: CTS_LIST[_i].display,
-                value: _i
-            });
-        }
-
-// Show the picker
-        window.plugins.listpicker.showPicker(config,
-                function (item) {
-                    //alert("You have selected " + item);
-                    var _cts = CTS_LIST[item];
-                    var _subject = _cts.shortcut_text;
-                    var _icon_type = _cts.icon_type;
-                    var _url = _cts.url;
-                    if (typeof(_url) === "object") {
-                        _url = JSON.stringify(_url);
-                    }
-                    var _extras = {
-                        "action": STS_FLIPERLINK.action,
-                        "url": _url
-                    };
-                    //alert(_url);
-                    createShortcut(_subject, _extras, _icon_type); 
-                    navigator.app.exitApp();
-                },
-                function () {
-                    //alert("You have cancelled");
-                    navigator.app.exitApp();
-                }
-        );
-        
-        
-        //if (DEBUG === true) {
-        //    CTS_TEST.createShortcut();
-        //}
+        CTS_CLIPBOARD.process(function () {
+            CTS_CUSTOM_SHORTCUT.process();
+        });
         return;
     }
     
@@ -249,9 +207,8 @@ createShortcut = function (_title, _extras, _icon_type) {
     if (typeof(ICON_BASE64[_icon]) === "string") {
         _icon = ICON_BASE64[_icon];
     }
+    //alert(_icon);
     
-    
-   
     var _shortcut = {
         id: 'pgb-share-to-shortcut.pulipuli.info_' + (new Date().getTime()),
         shortLabel: _title,
@@ -278,15 +235,23 @@ createShortcut = function (_title, _extras, _icon_type) {
         window.alert('Error: ' + error);
     });
     */
-    window.plugins.Shortcuts.addPinned(_shortcut, function () {
-        
-    }, function (error) {
-        window.plugins.Shortcuts.setDynamic([_shortcut], function() {
-            
-        }, function(error) {
-            //window.alert('Error: ' + error);
+    //alert(1);
+    //alert(_shortcut);
+    try {
+        window.plugins.Shortcuts.addPinned(_shortcut, function () {
+            navigator.app.exitApp();
+        }, function (error) {
+            //alert(error);
+            window.plugins.Shortcuts.setDynamic([_shortcut], function() {
+                navigator.app.exitApp();
+            }, function(error) {
+                //window.alert('Error: ' + error);
+                alert(error);
+            });
         });
-    });
+    } catch (e) {
+        alert(e);
+    }
     
     //navigator.app.exitApp();
     //return;
@@ -675,7 +640,7 @@ CTS_LIST = [
 // --------------------------------
 
 CTS_CLIPBOARD = {
-    process: function () {
+    process: function (_callback) {
         //alert("檢查CLIPBOARD");
         //alert(typeof(cordova.plugins.clipboard.paste));
         cordova.plugins.clipboard.paste(function (_text) { 
@@ -686,11 +651,15 @@ CTS_CLIPBOARD = {
                 var _cb = CLIPBOARD_LIST[_i];
                 if (_cb.isClipboardFrom(_text)) {
                     _cb.createShortcut(_text);
-                    break;
+                    //cordova.plugins.clipboard.copy("");
+                    //navigator.app.exitApp();
+                    return;
                 }
             }
 
-            navigator.app.exitApp();
+            if (typeof(_callback) === "function") {
+                _callback();
+            }
         });
     }
 };
@@ -699,22 +668,26 @@ CTS_FACEBOOK = {
     needle_head: "https://www.facebook.com/",
     isClipboardFrom: function (_text) {
         // https://www.facebook.com/100000601780771/posts/2145127208850651/
+        // https://www.facebook.com/1654388834/posts/10215594510729894/
         //alert(_text);
         return (_text.startsWith(this.needle_head));
     },
     createShortcut: function (_text) {
         var _title_url = _text;
         // fb://facewebmodal/f?href=https://www.facebook.com/533105913/posts/10155739441090914/ 
-        var _url = "fb://facewebmodal/f?href=" + _title_url;
+        //var _url = "fb://facewebmodal/f?href=" + _title_url;
+        var _url = _title_url;
         var _icon_type = "facebook";
         
         var _extras = {
             "action": STS_FLIPERLINK.action,
             "url": _url
         };
-
-        createShortcut("FB " + getDateTime(), _extras, _icon_type); 
-        navigator.app.exitApp();
+        //alert("FB " + getDateTime());
+        createShortcut("FB" + getDateTime(), _extras, _icon_type); 
+        
+        //CTS_TEST.createShortcut();
+        //navigator.app.exitApp();
     },
 };
 
@@ -739,6 +712,49 @@ getDateTime = function () {
 CLIPBOARD_LIST = [
     CTS_FACEBOOK
 ];
+
+CTS_CUSTOM_SHORTCUT = {
+    process: function () {
+        var config = {
+            title: "Create a shortcut",
+            items: [],
+            doneButtonLabel: "Create",
+            cancelButtonLabel: "Cancel"
+        };
+
+        for (var _i = 0; _i < CTS_LIST.length; _i++) {
+            config.items.push({
+                text: CTS_LIST[_i].display,
+                value: _i
+            });
+        }
+
+        // Show the picker
+        window.plugins.listpicker.showPicker(config,
+                function (item) {
+                    //alert("You have selected " + item);
+                    var _cts = CTS_LIST[item];
+                    var _subject = _cts.shortcut_text;
+                    var _icon_type = _cts.icon_type;
+                    var _url = _cts.url;
+                    if (typeof (_url) === "object") {
+                        _url = JSON.stringify(_url);
+                    }
+                    var _extras = {
+                        "action": STS_FLIPERLINK.action,
+                        "url": _url
+                    };
+                    //alert(_url);
+                    createShortcut(_subject, _extras, _icon_type);
+                    navigator.app.exitApp();
+                },
+                function () {
+                    //alert("You have cancelled");
+                    navigator.app.exitApp();
+                }
+        );
+    }
+};
 
 // --------------------------------
 STS_GOOGLE_CHROME = {
@@ -769,6 +785,7 @@ STS_GOOGLE_CHROME = {
     },
     openActivity: function (_intent) {
         var _url = _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"];
+        _url = "http://pornhub.com/video?c=111";
         //alert(_url);
         if (_url.startsWith("{") === false) {
             window.open(_url, "_system");
