@@ -47,6 +47,9 @@ PhoneGap Build Configuration
     <!-- <plugin spec="https://github.com/cordova-misc/cordova-webintent.git" source="git" /> -->
     <plugin spec="https://github.com/pulipulichen/cordova-webintent.git" source="git" />
     
+    <!-- https://github.com/calclavia/Start-App -->
+    <plugin spec="https://github.com/calclavia/Start-App.git" source="git" />
+    
     <!-- https://github.com/napolitano/cordova-plugin-intent -->
     <plugin spec="https://github.com/napolitano/cordova-plugin-intent.git" source="git" />
     

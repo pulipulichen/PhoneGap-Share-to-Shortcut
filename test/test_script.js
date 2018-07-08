@@ -402,7 +402,10 @@ CTS_TEST = {
                 //url: _search_text,
                 //pacakge: "com.google.android.googlequicksearchbox",
                 action: "android.intent.action.MAIN",
-                package: "com.bimilyoncu.sscoderss.floatingplayerforyoutube"
+                //category: "android.intent.category.LAUNCHER",
+                package: "com.bimilyoncu.sscoderss.floatingplayerforyoutube",
+                //type: "application/pdf"
+                
                 //extras: {
                 //    "query": _search_text,
                 //}
