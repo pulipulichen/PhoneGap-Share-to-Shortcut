@@ -26,7 +26,6 @@ intent_handler = function (intent) {
     if (typeof (intent.action) === "string"
             && intent.action === "android.intent.action.MAIN") {
         // 沒有要檢索的東西，回家吧。
-        
         CTS_CLIPBOARD.process(intent);
         return;
     }
@@ -388,8 +387,9 @@ CTS_CLIPBOARD = {
         //alert("檢查CLIPBOARD");
         //alert(typeof(cordova.plugins.clipboard.paste));
         try {
+            //alert("aaa");
             cordova.plugins.clipboard.paste(function (_text) { 
-                //alert(text); 
+                //alert(_text); 
                 debugMessage("clipboard", _text);
                 
                 for (var _i = 0; _i < CLIPBOARD_LIST.length; _i++) {
@@ -413,23 +413,41 @@ CTS_FACEBOOK = {
     needle_head: "https://www.facebook.com/",
     isClipboardFrom: function (_text) {
         // https://www.facebook.com/100000601780771/posts/2145127208850651/
-        return (_text.startsWith(_text));
+        //alert(_text);
+        return (_text.startsWith(this.needle_head));
     },
     createShortcut: function (_text) {
         var _title_url = _text;
         // fb://facewebmodal/f?href=https://www.facebook.com/533105913/posts/10155739441090914/ 
         var _url = "fb://facewebmodal/f?href=" + _title_url;
         var _icon_type = "facebook";
-        getURLtoTitle(_title_url, function (_subject) {
-            
-            var _extras = {
-                "action": this.action,
-                "url": _url
-            };
-            createShortcut(_subject, _extras, _icon_type); 
-            navigator.app.exitApp();
-        });
+        
+        var _extras = {
+            "action": STS_FLIPERLINK.action,
+            "url": _url
+        };
+
+        createShortcut("FB " + getDateTime(), _extras, _icon_type); 
+        navigator.app.exitApp();
     },
+};
+
+getDateTime = function () {
+    var date = new Date();
+    var mm = date.getMonth() + 1; // getMonth() is zero-based
+    var dd = date.getDate();
+    var hh = date.getHours();
+    var min = date.getMinutes();
+
+    return [
+        mm,
+        "/",
+        dd,
+        " ",
+        hh,
+        ":",
+        min
+    ].join('');
 };
 
 CLIPBOARD_LIST = [
