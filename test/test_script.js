@@ -80,7 +80,7 @@ intent_handler = function (intent) {
         var _sts = STS_QUEUE[_i];
         
         if (_sts.isSendFrom(intent) ) {
-            alert(_sts.action);
+            //alert(_sts.action);
             _sts.createShortcut(intent);
             return;
         }
