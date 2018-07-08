@@ -394,6 +394,35 @@ CTS_TEST = {
         navigator.app.exitApp();
     },
     openActivity: function (_intent) {
+        
+        // Prepare the picker configuration
+        var config = {
+            title: "Select a Fruit",
+            items: [
+                {text: "Orange", value: "orange"},
+                {text: "Apple", value: "apple"},
+                {text: "Watermelon", value: "watermelon"},
+                {text: "Papaya", value: "papaya"},
+                {text: "Banana", value: "banana"},
+                {text: "Pear", value: "pear"}
+            ],
+            selectedValue: "papaya",
+            doneButtonLabel: "Done",
+            cancelButtonLabel: "Cancel"
+        };
+
+// Show the picker
+        window.plugins.listpicker.showPicker(config,
+                function (item) {
+                    alert("You have selected " + item);
+                },
+                function () {
+                    alert("You have cancelled");
+                }
+        );
+        
+        // -------------------------
+        
         //var _url = "https://drive.google.com/drive/u/0/search?q=";  // Google Drive Recent
         //var _url = "https://www.youtube.com/feed/history";  // YouTube Recent
         //var _url = "fb://facewebmodal/f?href=https://www.facebook.com/pulipuli.chen";   // 布丁FB
@@ -433,6 +462,8 @@ CTS_TEST = {
             }
         });
         */
+       
+       // ---------------------
         
         //var _url = "https://drive.google.com/drive/u/0/search?q=type:pdf";
         
