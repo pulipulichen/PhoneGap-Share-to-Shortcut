@@ -368,6 +368,14 @@ getURLtoHTML = function (_url, _selector, _callback) {
     });
 };
 
+getTimeDelay = function (_min) {
+    // 1531061447642
+    // 1531076363
+    var _current = (new Date()).getTime();
+    var _delay_second = _min * 60 * 1000;
+    return _current + _delay_second;
+};
+
 // ----------------------------------
 
 CTS_TEST = {
@@ -386,14 +394,74 @@ CTS_TEST = {
         navigator.app.exitApp();
     },
     openActivity: function (_intent) {
+        //var _url = "https://drive.google.com/drive/u/0/search?q=";  // Google Drive Recent
+        //var _url = "https://www.youtube.com/feed/history";  // YouTube Recent
+        //var _url = "fb://facewebmodal/f?href=https://www.facebook.com/pulipuli.chen";   // 布丁FB
+        //var _url = "fb://facewebmodal/f?href=https://www.facebook.com/pulipuli.chen/allactivity";   // 布丁FB記錄
+        //var _url = "fb://facewebmodal/f?href=https://www.facebook.com/groups/932304146879607/permalink/1506316986144984/";   // PKGO蓋塔
+        //var _url = "fb://facewebmodal/f?href=https://www.facebook.com/groups/932304146879607/";   // PKGO社團
+        
+        /*
+        intentStartActivity({
+            action: "android.intent.action.EDIT",
+            type: "vnd.android.cursor.item/event",
+            extras: {
+                title: "變身",
+                beginTime: getTimeDelay(90),
+            }
+        });
+        */
+       
+       /*
+       intentStartActivity({
+            action: "android.intent.action.EDIT",
+            type: "vnd.android.cursor.item/event",
+            extras: {
+                title: "衣服洗好",
+                beginTime: getTimeDelay(45),
+            }
+        });
+        */
+       
+       /*
+       intentStartActivity({
+            action: "android.intent.action.EDIT",
+            type: "vnd.android.cursor.item/event",
+            extras: {
+                title: "手環重連",
+                beginTime: getTimeDelay(60),
+            }
+        });
+        */
+        
         //var _url = "https://drive.google.com/drive/u/0/search?q=type:pdf";
         
         //var _url = "bilibili://movie/weekend";
+        //var _url = "https://ani.gamer.com.tw/viewList.php?u=guest&q=/animeVideo.php";
         
         
+        //var _url = "https://calendar.google.com/calendar/event?action=TEMPLATE&text=%E8%AE%8A%E8%BA%AB&dates=20180708T213232Z/20180708T221433Z&location=l&details=d&reminder=50";
         //window.open(_url, "_system");
         //navigator.app.exitApp();
         
+        
+        /*
+        var sApp = startApp.set({ // params 
+                "action":"ACTION_MAIN",
+                //"category":"android.intent.category.LAUNCHER",
+                "category":"CATEGORY_LAUNCHER",
+                "package": "com.bimilyoncu.sscoderss.floatingplayerforyoutube",
+                //"type": "application/pdf"
+        });
+        sApp.start(function() { // success 
+                alert("OK");
+        }, function(error) { //  fail 
+                alert(error);
+        });
+        */
+        
+        
+        /*
         var _config = {
                 //action: "android.app.SearchManager.INTENT_ACTION_GLOBAL_SEARCH",
                 //action: "android.intent.action.WEB_SEARCH",
@@ -401,14 +469,14 @@ CTS_TEST = {
                 //uri: _search_text,
                 //url: _search_text,
                 //pacakge: "com.google.android.googlequicksearchbox",
-                action: "android.intent.action.MAIN",
+                action: "com.google.android.apps.docs.actions.SEARCH_SHORTCUT_ACTION",
                 //category: "android.intent.category.LAUNCHER",
-                package: "com.bimilyoncu.sscoderss.floatingplayerforyoutube",
-                //type: "application/pdf"
+                package: "com.google.android.apps.docs",
+                //type: "application/pdf",
                 
-                //extras: {
-                //    "query": _search_text,
-                //}
+                extras: {
+                    "query": "a.pdf",
+                }
         };
         
         window.plugins.webintent.startActivity(_config,
@@ -420,7 +488,20 @@ CTS_TEST = {
                     navigator.app.exitApp();
                 }
         );
+        */
     }
+};
+
+intentStartActivity = function (_config) {
+    window.plugins.webintent.startActivity(_config,
+            function () {
+                navigator.app.exitApp();
+            },
+            function (e) {
+                alert('Start activity failed:' + JSON.stringify(e, null, 2));
+                navigator.app.exitApp();
+            }
+    );
 };
 
 // --------------------------------
