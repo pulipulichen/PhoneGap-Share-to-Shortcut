@@ -1,4 +1,4 @@
-DEBUG = true;
+DEBUG = false;
 
 intent_handler = function (intent) {
     //alert("換了 可以嗎？");
@@ -241,13 +241,15 @@ createShortcut = function (_title, _extras, _icon_type) {
         window.plugins.Shortcuts.addPinned(_shortcut, function () {
             navigator.app.exitApp();
         }, function (error) {
-            //alert(error);
+            alert(error);
+            /*
             window.plugins.Shortcuts.setDynamic([_shortcut], function() {
                 navigator.app.exitApp();
             }, function(error) {
                 //window.alert('Error: ' + error);
                 alert(error);
             });
+            */
         });
     } catch (e) {
         alert(e);
@@ -650,8 +652,8 @@ CTS_CLIPBOARD = {
             for (var _i = 0; _i < CLIPBOARD_LIST.length; _i++) {
                 var _cb = CLIPBOARD_LIST[_i];
                 if (_cb.isClipboardFrom(_text)) {
+                    cordova.plugins.clipboard.copy("");
                     _cb.createShortcut(_text);
-                    //cordova.plugins.clipboard.copy("");
                     //navigator.app.exitApp();
                     return;
                 }
@@ -675,8 +677,8 @@ CTS_FACEBOOK = {
     createShortcut: function (_text) {
         var _title_url = _text;
         // fb://facewebmodal/f?href=https://www.facebook.com/533105913/posts/10155739441090914/ 
-        //var _url = "fb://facewebmodal/f?href=" + _title_url;
-        var _url = _title_url;
+        var _url = "fb://facewebmodal/f?href=" + _title_url;
+        //var _url = _title_url;
         var _icon_type = "facebook";
         
         var _extras = {
@@ -785,7 +787,7 @@ STS_GOOGLE_CHROME = {
     },
     openActivity: function (_intent) {
         var _url = _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"];
-        _url = "http://pornhub.com/video?c=111";
+        
         //alert(_url);
         if (_url.startsWith("{") === false) {
             window.open(_url, "_system");
