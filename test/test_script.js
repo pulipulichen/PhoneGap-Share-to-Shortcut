@@ -1,28 +1,23 @@
+DEBUG = true;
+
 intent_handler = function (intent) {
     //alert("換了 可以嗎？");
     //alert(JSON.stringify(intent));
     
-    DEBUG = true;
+    
     
     if (typeof(intent.extras) === "object" 
             && typeof(intent.extras["pgb_share_to_shortcut.pulipuli.info.action"]) === "string" ) {
         
-        if (DEBUG) {
-            $.post("http://pc.pulipuli.info/phonegap-build-projects/PhoneGapBuild-ShareToShortcut/test/post.php?filename=shortcut", {
-                data: JSON.stringify(intent, null, "\t")
-            });
-        }
+        
+        debugMessage("shortcut", intent);
         
         openActivity(intent);
         return;
     }
     else {
         
-        if (DEBUG) {
-            $.post("http://pc.pulipuli.info/phonegap-build-projects/PhoneGapBuild-ShareToShortcut/test/post.php?filename=send", {
-                data: JSON.stringify(intent, null, "\t")
-            });
-        }
+        debugMessage("send", intent);
         
     }
     
@@ -311,6 +306,23 @@ openActivity = function (_intent) {
     }
 };
 
+// --------------
+
+debugMessage = function (_filename, _data) {
+    if (DEBUG !== true) {
+        return;
+    }
+    
+    if (typeof(_data) === "object") {
+        _data = JSON.stringify(_data, null, "\t");
+    }
+    
+    $.post("http://pc.pulipuli.info/phonegap-build-projects/PhoneGapBuild-ShareToShortcut/test/post.php?filename=" + _filename, {
+        data: _data
+    });
+};
+    
+
 
 hasString = function (_item) {
     return (typeof (_item) === "string"
@@ -354,6 +366,21 @@ getURLtoHTML = function (_url, _selector, _callback) {
     });
 };
 
+// ----------------------------------
+
+CTS_TEST = {
+    action: "cts.test",
+    createShortcut: function (intent) {
+        var _subject = "STS TEST";
+        var _extras = {
+            "action": STS_FLIPERLINK.action,
+            //"url": _url
+        };
+        createShortcut(_subject, _extras, "test"); 
+        navigator.app.exitApp();
+    }
+};
+
 // --------------------------------
 
 CTS_CLIPBOARD = {
@@ -361,8 +388,17 @@ CTS_CLIPBOARD = {
         //alert("檢查CLIPBOARD");
         //alert(typeof(cordova.plugins.clipboard.paste));
         try {
-            cordova.plugins.clipboard.paste(function (text) { 
-                alert(text); 
+            cordova.plugins.clipboard.paste(function (_text) { 
+                //alert(text); 
+                debugMessage("clipboard", _text);
+                
+                for (var _i = 0; _i < CLIPBOARD_LIST.length; _i++) {
+                    var _cb = CLIPBOARD_LIST[_i];
+                    if (_cb.isClipboardFrom(_text)) {
+                        _cb.createShortcut(_text);
+                        break;
+                    }
+                }
 
                 navigator.app.exitApp();
             });
@@ -372,6 +408,33 @@ CTS_CLIPBOARD = {
         }
     }
 };
+
+CTS_FACEBOOK = {
+    needle_head: "https://www.facebook.com/",
+    isClipboardFrom: function (_text) {
+        // https://www.facebook.com/100000601780771/posts/2145127208850651/
+        return (_text.startsWith(_text));
+    },
+    createShortcut: function (_text) {
+        var _title_url = _text;
+        // fb://facewebmodal/f?href=https://www.facebook.com/533105913/posts/10155739441090914/ 
+        var _url = "fb://facewebmodal/f?href=" + _title_url;
+        var _icon_type = "facebook";
+        getURLtoTitle(_title_url, function (_subject) {
+            
+            var _extras = {
+                "action": this.action,
+                "url": _url
+            };
+            createShortcut(_subject, _extras, _icon_type); 
+            navigator.app.exitApp();
+        });
+    },
+};
+
+CLIPBOARD_LIST = [
+    CTS_FACEBOOK
+];
 
 // --------------------------------
 STS_GOOGLE_CHROME = {
