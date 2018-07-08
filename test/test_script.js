@@ -27,9 +27,50 @@ intent_handler = function (intent) {
             && intent.action === "android.intent.action.MAIN") {
         // 沒有要檢索的東西，回家吧。
         //CTS_CLIPBOARD.process();
-        if (DEBUG === true) {
-            CTS_TEST.createShortcut();
+        
+        var config = {
+            title: "Create a shortcut",
+            items: [],
+            doneButtonLabel: "Create",
+            cancelButtonLabel: "Cancel"
+        };
+        
+        for (var _i = 0; _i < CTS_LIST.length; _i++) {
+            config.items.push({
+                text: CTS_LIST[_i].display,
+                value: _i
+            });
         }
+
+// Show the picker
+        window.plugins.listpicker.showPicker(config,
+                function (item) {
+                    //alert("You have selected " + item);
+                    var _cts = CTS_LIST[item];
+                    var _subject = _cts.shortcut_text;
+                    var _icon_type = _cts.icon_type;
+                    var _url = _cts.url;
+                    if (typeof(_url) === "object") {
+                        _url = JSON.stringify(_url);
+                    }
+                    var _extras = {
+                        "action": STS_FLIPERLINK.action,
+                        "url": _url
+                    };
+                    //alert(_url);
+                    createShortcut(_subject, _extras, _icon_type); 
+                    navigator.app.exitApp();
+                },
+                function () {
+                    //alert("You have cancelled");
+                    navigator.app.exitApp();
+                }
+        );
+        
+        
+        //if (DEBUG === true) {
+        //    CTS_TEST.createShortcut();
+        //}
         return;
     }
     
@@ -75,19 +116,6 @@ intent_handler = function (intent) {
                 }
             }
         }
-        /*
-         if (_has_string(_extras["android.intent.extra.SUBJECT"])) {
-         _search_items.push(_extras["android.intent.extra.SUBJECT"].trim());
-         }
-         if (_has_string(_extras["android.intent.extra.TEXT"])) {
-         _search_items.push(_extras["android.intent.extra.TEXT"].trim());
-         }
-         if (_has_string(_extras["android.intent.extra.PROCESS_TEXT"])) {
-         _search_items.push(_extras["android.intent.extra.PROCESS_TEXT"].trim());
-         }
-         */
-        
-        //alert(JSON.stringify(_search_items));
     }
 
     var _test_url = _search_items.join(" ");
@@ -132,7 +160,7 @@ intent_handler = function (intent) {
                 "action": 'android.intent.action.WEB_SEARCH',
                 "extras.query": _url_list[i]
             };
-            createShortcut("測試", _extras, "search"); 
+            //createShortcut("測試", _extras, "search"); 
         }
         navigator.app.exitApp();
         return;
@@ -194,7 +222,6 @@ intent_handler = function (intent) {
 };
 
 createShortcut = function (_title, _extras, _icon_type) {
-    
     /*
     var shortcut = {
         id: 'my_shortcut_1',
@@ -376,6 +403,19 @@ getTimeDelay = function (_min) {
     return _current + _delay_second;
 };
 
+intentStartActivity = function (_config) {
+    window.plugins.webintent.startActivity(_config,
+            function () {
+                navigator.app.exitApp();
+            },
+            function (e) {
+                alert('Start activity failed:' + JSON.stringify(e, null, 2));
+                navigator.app.exitApp();
+            }
+    );
+};
+
+
 // ----------------------------------
 
 CTS_TEST = {
@@ -404,7 +444,19 @@ CTS_TEST = {
                 {text: "Watermelon", value: "watermelon"},
                 {text: "Papaya", value: "papaya"},
                 {text: "Banana", value: "banana"},
-                {text: "Pear", value: "pear"}
+                {text: "Pear", value: "pear"},
+                {text: "Orange", value: "orange"},
+                {text: "Apple", value: "apple"},
+                {text: "Watermelon", value: "watermelon"},
+                {text: "Papaya", value: "papaya"},
+                {text: "Banana", value: "banana"},
+                {text: "Pear", value: "pear"},
+                {text: "Orange", value: "orange"},
+                {text: "Apple", value: "apple"},
+                {text: "Watermelon", value: "watermelon"},
+                {text: "Papaya", value: "papaya"},
+                {text: "Banana", value: "banana"},
+                {text: "Pear", value: "pear"},
             ],
             selectedValue: "papaya",
             doneButtonLabel: "Done",
@@ -523,17 +575,101 @@ CTS_TEST = {
     }
 };
 
-intentStartActivity = function (_config) {
-    window.plugins.webintent.startActivity(_config,
-            function () {
-                navigator.app.exitApp();
-            },
-            function (e) {
-                alert('Start activity failed:' + JSON.stringify(e, null, 2));
-                navigator.app.exitApp();
-            }
-    );
+CTS_GOOGLE_DRIVE_RECENT = {
+    display: "🕐 Google Drive Recent",
+    shortcut_text: "GDrive Recent",
+    icon_type: "gdrive_pdf_recent",
+    url: "https://drive.google.com/drive/u/0/search?q="
 };
+
+CTS_YOUTUBE_RECENT = {
+    display: "🕐 YouTube Recent",
+    shortcut_text: "YouTube Recent",
+    icon_type: "youtube_recent",
+    url: "https://www.youtube.com/feed/history"
+};
+
+CTS_FB_PULIPULI = {
+    display: "🏠 FB pulipuli.chen",
+    shortcut_text: "FB布丁",
+    icon_type: "facebook",
+    url: "fb://facewebmodal/f?href=https://www.facebook.com/pulipuli.chen"
+};
+
+CTS_FB_PULIPULI_ACTIVITY = {
+    display: "🕐 FB pulipuli.chen activity",
+    shortcut_text: "FB活動",
+    icon_type: "facebook",
+    url: "fb://facewebmodal/f?href=https://www.facebook.com/pulipuli.chen/allactivity"
+};
+
+CTS_FB_PKGO_GROUP_CP = {
+    display: "🎱 FB PKGO蓋塔",
+    shortcut_text: "PKGO蓋塔",
+    icon_type: "facebook",
+    url: "fb://facewebmodal/f?href=https://www.facebook.com/groups/932304146879607/permalink/1506316986144984/"
+};
+
+CTS_FB_PKGO_GROUP = {
+    display: "🎱 FB PKGO社團",
+    shortcut_text: "PKGO社團",
+    icon_type: "facebook",
+    url: "fb://facewebmodal/f?href=https://www.facebook.com/groups/932304146879607/"
+};
+
+CTS_EVENT_TRANSFORM = {
+    display: "⏳ 變身(90分後)",
+    shortcut_text: "變身",
+    icon_type: "hourglass",
+    url: {
+            action: "android.intent.action.EDIT",
+            type: "vnd.android.cursor.item/event",
+            extras: {
+                title: "變身",
+                beginTime: getTimeDelay(90),
+            }
+    }
+};
+
+CTS_EVENT_LAUNDRY = {
+    display: "⏳ 衣服洗好(45分後)",
+    shortcut_text: "衣服洗好",
+    icon_type: "hourglass",
+    url: {
+            action: "android.intent.action.EDIT",
+            type: "vnd.android.cursor.item/event",
+            extras: {
+                title: "衣服洗好",
+                beginTime: getTimeDelay(45),
+            }
+    }
+};
+
+CTS_EVENT_PKGO_PLUS = {
+    display: "⏳ 手環重連(60分後)",
+    shortcut_text: "手環重連",
+    icon_type: "hourglass",
+    url: {
+            action: "android.intent.action.EDIT",
+            type: "vnd.android.cursor.item/event",
+            extras: {
+                title: "手環重連",
+                beginTime: getTimeDelay(60),
+            }
+    }
+};
+
+CTS_LIST = [
+    CTS_GOOGLE_DRIVE_RECENT,
+    CTS_YOUTUBE_RECENT,
+    CTS_FB_PULIPULI,
+    CTS_FB_PULIPULI_ACTIVITY,
+    CTS_FB_PKGO_GROUP_CP,
+    CTS_FB_PKGO_GROUP,
+    CTS_EVENT_TRANSFORM,
+    CTS_EVENT_LAUNDRY,
+    CTS_EVENT_PKGO_PLUS,
+];
 
 // --------------------------------
 
@@ -633,8 +769,14 @@ STS_GOOGLE_CHROME = {
     openActivity: function (_intent) {
         var _url = _intent.extras["pgb_share_to_shortcut.pulipuli.info.url"];
         //alert(_url);
-        window.open(_url, "_system");
-        navigator.app.exitApp();
+        if (_url.startsWith("{") === false) {
+            window.open(_url, "_system");
+            navigator.app.exitApp();
+        }
+        else {
+            var _intent_config = JSON.parse(_url);
+            intentStartActivity(_intent_config);
+        }
     },
 };
 
