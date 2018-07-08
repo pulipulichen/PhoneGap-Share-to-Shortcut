@@ -26,7 +26,10 @@ intent_handler = function (intent) {
     if (typeof (intent.action) === "string"
             && intent.action === "android.intent.action.MAIN") {
         // 沒有要檢索的東西，回家吧。
-        CTS_CLIPBOARD.process(intent);
+        //CTS_CLIPBOARD.process();
+        if (DEBUG === true) {
+            CTS_TEST.createShortcut();
+        }
         return;
     }
     
@@ -369,43 +372,74 @@ getURLtoHTML = function (_url, _selector, _callback) {
 
 CTS_TEST = {
     action: "cts.test",
-    createShortcut: function (intent) {
+    isSendFrom: function () {
+        return true;
+    },
+    createShortcut: function () {
         var _subject = "STS TEST";
+        //var _url = "https://drive.google.com/drive/u/0/search?q=type:pdf";
         var _extras = {
-            "action": STS_FLIPERLINK.action,
+            "action": this.action,
             //"url": _url
         };
         createShortcut(_subject, _extras, "test"); 
         navigator.app.exitApp();
+    },
+    openActivity: function (_intent) {
+        //var _url = "https://drive.google.com/drive/u/0/search?q=type:pdf";
+        
+        //var _url = "bilibili://movie/weekend";
+        
+        
+        //window.open(_url, "_system");
+        //navigator.app.exitApp();
+        
+        var _config = {
+                //action: "android.app.SearchManager.INTENT_ACTION_GLOBAL_SEARCH",
+                //action: "android.intent.action.WEB_SEARCH",
+                //data: _search_text,
+                //uri: _search_text,
+                //url: _search_text,
+                //pacakge: "com.google.android.googlequicksearchbox",
+                action: "android.intent.action.MAIN",
+                package: "com.bimilyoncu.sscoderss.floatingplayerforyoutube"
+                //extras: {
+                //    "query": _search_text,
+                //}
+        };
+        
+        window.plugins.webintent.startActivity(_config,
+                function () {
+                    navigator.app.exitApp();
+                },
+                function (e) {
+                    alert('Failed:' + JSON.stringify(e, null, 2));
+                    navigator.app.exitApp();
+                }
+        );
     }
 };
 
 // --------------------------------
 
 CTS_CLIPBOARD = {
-    process: function (_intent) {
+    process: function () {
         //alert("檢查CLIPBOARD");
         //alert(typeof(cordova.plugins.clipboard.paste));
-        try {
-            //alert("aaa");
-            cordova.plugins.clipboard.paste(function (_text) { 
-                //alert(_text); 
-                debugMessage("clipboard", _text);
-                
-                for (var _i = 0; _i < CLIPBOARD_LIST.length; _i++) {
-                    var _cb = CLIPBOARD_LIST[_i];
-                    if (_cb.isClipboardFrom(_text)) {
-                        _cb.createShortcut(_text);
-                        break;
-                    }
-                }
+        cordova.plugins.clipboard.paste(function (_text) { 
+            //alert(_text); 
+            debugMessage("clipboard", _text);
 
-                navigator.app.exitApp();
-            });
-        }
-        catch (e) {
-            alert(e);
-        }
+            for (var _i = 0; _i < CLIPBOARD_LIST.length; _i++) {
+                var _cb = CLIPBOARD_LIST[_i];
+                if (_cb.isClipboardFrom(_text)) {
+                    _cb.createShortcut(_text);
+                    break;
+                }
+            }
+
+            navigator.app.exitApp();
+        });
     }
 };
 
@@ -988,4 +1022,5 @@ STS_QUEUE = [
     STS_FLIPERLINK,
     STS_GREADER,
     STS_FEEDLY,
+    CTS_TEST,
 ];
