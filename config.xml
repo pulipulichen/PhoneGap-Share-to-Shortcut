@@ -95,8 +95,8 @@ PhoneGap Build Configuration
     <!-- https://github.com/jasonmamy/cordova-wheel-selector-plugin -->
     <plugin spec="https://github.com/jasonmamy/cordova-wheel-selector-plugin.git" source="git" />
     
-    <!-- https://github.com/danielsogl/cordova-plugin-clipboard -->
-    <plugin spec="https://github.com/danielsogl/cordova-plugin-clipboard.git" source="git" />
+    <!-- https://www.npmjs.com/package/cordova-universal-clipboard -->
+    <plugin name="cordova-universal-clipboard" source="npm" />
     
     <!-- ================================ -->
     

@@ -2,20 +2,28 @@ intent_handler = function (intent) {
     //alert("換了 可以嗎？");
     //alert(JSON.stringify(intent));
     
+    DEBUG = true;
+    
     if (typeof(intent.extras) === "object" 
             && typeof(intent.extras["pgb_share_to_shortcut.pulipuli.info.action"]) === "string" ) {
         
-        //$.post("http://pc.pulipuli.info/phonegap-build-projects/PhoneGapBuild-ShareToShortcut/test/post.php?filename=shortcut", {
-        //    data: JSON.stringify(intent, null, "\t")
-        //});
+        if (DEBUG) {
+            $.post("http://pc.pulipuli.info/phonegap-build-projects/PhoneGapBuild-ShareToShortcut/test/post.php?filename=shortcut", {
+                data: JSON.stringify(intent, null, "\t")
+            });
+        }
         
         openActivity(intent);
         return;
     }
     else {
-        //$.post("http://pc.pulipuli.info/phonegap-build-projects/PhoneGapBuild-ShareToShortcut/test/post.php?filename=send", {
-        //    data: JSON.stringify(intent, null, "\t")
-        //});
+        
+        if (DEBUG) {
+            $.post("http://pc.pulipuli.info/phonegap-build-projects/PhoneGapBuild-ShareToShortcut/test/post.php?filename=send", {
+                data: JSON.stringify(intent, null, "\t")
+            });
+        }
+        
     }
     
     // ---------------------------
@@ -23,7 +31,8 @@ intent_handler = function (intent) {
     if (typeof (intent.action) === "string"
             && intent.action === "android.intent.action.MAIN") {
         // 沒有要檢索的東西，回家吧。
-        navigator.app.exitApp();
+        
+        CTS_CLIPBOARD.process(intent);
         return;
     }
     
@@ -346,6 +355,23 @@ getURLtoHTML = function (_url, _selector, _callback) {
 };
 
 // --------------------------------
+
+CTS_CLIPBOARD = {
+    process: function (_intent) {
+        //alert("檢查CLIPBOARD");
+        //alert(typeof(cordova.plugins.clipboard.paste));
+        try {
+            cordova.plugins.clipboard.paste(function (text) { 
+                alert(text); 
+
+                navigator.app.exitApp();
+            });
+        }
+        catch (e) {
+            alert(e);
+        }
+    }
+};
 
 // --------------------------------
 STS_GOOGLE_CHROME = {
