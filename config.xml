@@ -92,6 +92,12 @@ PhoneGap Build Configuration
     <!-- https://www.npmjs.com/package/cordova-plugin-progress-indicator -->
     <plugin name="cordova-plugin-progress-indicator" source="npm" />
     
+    <!-- https://github.com/jasonmamy/cordova-wheel-selector-plugin -->
+    <plugin spec="https://github.com/jasonmamy/cordova-wheel-selector-plugin.git" source="git" />
+    
+    <!-- https://github.com/danielsogl/cordova-plugin-clipboard -->
+    <plugin spec="https://github.com/danielsogl/cordova-plugin-clipboard.git" source="git" />
+    
     <!-- ================================ -->
     
     <preference name="BackgroundColor" value="0x00000000"/>
