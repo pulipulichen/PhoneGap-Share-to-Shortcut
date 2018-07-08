@@ -80,6 +80,7 @@ intent_handler = function (intent) {
         var _sts = STS_QUEUE[_i];
         
         if (_sts.isSendFrom(intent) ) {
+            alert(_sts.action);
             _sts.createShortcut(intent);
             return;
         }
@@ -794,10 +795,11 @@ STS_FLIPERLINK = {
     },
     createShortcut: function (intent) {
         var _text = intent.extras["android.intent.extra.TEXT"];
+        var _this = this;
         getURLtoTitle(_text, function (_subject) {
             
             var _extras = {
-                "action": this.action,
+                "action": _this.action,
                 "url": _text
             };
 

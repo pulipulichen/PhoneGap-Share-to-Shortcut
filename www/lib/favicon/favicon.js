@@ -145,6 +145,23 @@ getURLtoBase64 = function (url, callback) {
 };
 
 getFaviconBase64 = function (url, callback) {
+    if (url.startsWith("https://www.youtube.com/") || url.startsWith("https://youtu.be/")) {
+        callback("youtube");
+        return;
+    }
+    else if (url.startsWith("https://play.google.com/store/apps/details?id=")) {
+        callback("googleplay");
+        return;
+    }
+    else if (url.startsWith("https://goo.gl/maps/")) {
+        callback("googlemap");
+        return;
+    }
+    else if (url.startsWith("https://www.facebook.com/")) {
+        callback("facebook");
+        return;
+    }
+    
     getFavicon(url, function (favicon_url) {
         getURLtoBase64(favicon_url, callback);
     });

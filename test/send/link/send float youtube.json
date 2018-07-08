@@ -1,0 +1,14 @@
+{
+	"clipItems": [
+		{
+			"text": "https://www.youtube.com/watch?v=rIEA3Eq8j5Y"
+		}
+	],
+	"type": "text/plain",
+	"extras": {
+		"android.intent.extra.TEXT": "https://www.youtube.com/watch?v=rIEA3Eq8j5Y"
+	},
+	"action": "android.intent.action.SEND",
+	"flags": 58720257,
+	"component": "ComponentInfo{pgb_share_to_shortcut.pulipuli.info/pgb_share_to_shortcut.pulipuli.info.ShareToShortcut}"
+}
