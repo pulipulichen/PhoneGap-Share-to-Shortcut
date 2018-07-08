@@ -30,7 +30,7 @@ var FILTER_SUBJECT = [
     "Text Scanner"
 ];
 
-DEBUG = true;
+DEBUG = false;
 
 intent_handler = function (intent) {
     //alert("換了 可以嗎？");
