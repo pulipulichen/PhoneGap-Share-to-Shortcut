@@ -605,14 +605,14 @@ CTS_FB_PULIPULI_ACTIVITY = {
 };
 
 CTS_FB_PKGO_GROUP_CP = {
-    display: "🎱 FB PKGO蓋塔",
+    display: "🧚 FB PKGO蓋塔",
     shortcut_text: "PKGO蓋塔",
     icon_type: "facebook",
     url: "fb://facewebmodal/f?href=https://www.facebook.com/groups/932304146879607/permalink/1506316986144984/"
 };
 
 CTS_FB_PKGO_GROUP = {
-    display: "🎱 FB PKGO社團",
+    display: "🧚 FB PKGO社團",
     shortcut_text: "PKGO社團",
     icon_type: "facebook",
     url: "fb://facewebmodal/f?href=https://www.facebook.com/groups/932304146879607/"
@@ -663,8 +663,8 @@ CTS_EVENT_PKGO_PLUS = {
 CTS_LIST = [
     CTS_GOOGLE_DRIVE_RECENT,
     CTS_YOUTUBE_RECENT,
-    CTS_FB_PULIPULI,
     CTS_FB_PULIPULI_ACTIVITY,
+    CTS_FB_PULIPULI,
     CTS_FB_PKGO_GROUP_CP,
     CTS_FB_PKGO_GROUP,
     CTS_EVENT_TRANSFORM,
