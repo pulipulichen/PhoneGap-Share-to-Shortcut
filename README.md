@@ -15,3 +15,4 @@ An Android APP for sharing to become a shortcut.
 - Share ic0on: http://www.iconninja.com/share-icon-160558
 
 # TODO
+- Google Drive整合尚未完成 https://github.com/pulipulichen/cordova-plugin-jc-googledrive/blob/master/android/GoogleDrive.java
