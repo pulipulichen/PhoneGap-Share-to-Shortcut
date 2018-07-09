@@ -4,7 +4,23 @@ intent_handler = function (intent) {
     //alert("換了 可以嗎？");
     //alert(JSON.stringify(intent));
     
-    
+    var fpath = "file:///storage/emulated/0/Download/a.pdf";
+    alert(fpath);
+    try {
+        window.plugins.gdrive.uploadFile(fpath,
+           function (response) {
+              //simple response message with the status
+              alert(JSON.stringify(response));
+           },
+           function (error){
+             alert(error);
+           }
+        );
+    }
+    catch (e) {
+        alert(e);
+    }
+    return;
     
     if (typeof(intent.extras) === "object" 
             && typeof(intent.extras["pgb_share_to_shortcut.pulipuli.info.action"]) === "string" ) {
