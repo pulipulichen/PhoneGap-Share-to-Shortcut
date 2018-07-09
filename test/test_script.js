@@ -379,7 +379,10 @@ intentStartActivity = function (_config) {
     if (typeof(_config.extras) === "object") {
         var _extras = _config.extras;
         if (typeof(_extras["beginTime"]) === "string") {
-            eval('_extras["beginTime"] = ' + _extras["beginTime"]);dddd
+            eval('_extras["beginTime"] = ' + _extras["beginTime"]);
+        }
+    }
+    window.plugins.webintent.startActivity(_config,
             function () {
                 navigator.app.exitApp();
             },
