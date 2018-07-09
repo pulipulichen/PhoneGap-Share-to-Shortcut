@@ -19,22 +19,6 @@ intent_handler = function (intent) {
     );
     */
     
-    /*
-    var toLocalDest = "cdvfile://localhost/persistent/b.pdf";
-    var fileid = "1TSbj3xPnzwKyQnVmvFmRTM3XDuCTXSQf";
-    alert(fileid);
-    window.plugins.gdrive.downloadFile(toLocalDest, fileid,
-       function (response) {
-           alert(JSON.stringify(response));
-           navigator.app.exitApp();
-       },
-       function (error){
-         alert("error: " +JSON.stringify(error));
-         navigator.app.exitApp();
-       }
-    );
-    return;
-    */
     // ------------------------------
     
     if (typeof(intent.extras) === "object" 
@@ -47,10 +31,43 @@ intent_handler = function (intent) {
         return;
     }
     else {
-        
         debugMessage("send", intent);
-        
     }
+    
+    // ----------------------------
+    
+    /*
+    var toLocalDest = "cdvfile://localhost/temporary/tmp.pdf";
+    //var toLocalDest = "file:///storage/emulated/0/Download/b.pdf";
+    var fileid = "1TSbj3xPnzwKyQnVmvFmRTM3XDuCTXSQf";
+    alert(fileid);
+    window.plugins.gdrive.downloadFile(toLocalDest, fileid,
+       function (response) {
+           alert("ok: " + JSON.stringify(response));
+           navigator.app.exitApp();
+       },
+       function (error){
+         alert("error: " +JSON.stringify(error));
+         navigator.app.exitApp();
+       }
+    );
+    */
+    
+    /*
+    var fpath = "file:///storage/emulated/0/Download/a.pdf";
+    alert(fpath);
+    window.plugins.gdrive.uploadFile(fpath,
+            function (response) {
+                //simple response message with the status
+                alert(JSON.stringify(response));
+            },
+            function (error) {
+                aler(error);
+            }
+    );
+    */
+   
+    //return;
     
     // ---------------------------
     
@@ -318,8 +335,8 @@ openActivity = function (_intent) {
         var _key = _i.substring(_i.indexOf(".") + 1, _i.length);
         var _value = _intent_extras[_i];
         
-        if (_key === "beginTime") {
-            alert(_value);
+        if (["beginTime", "dtstart", "endTime", "dtend"].indexOf(_key) > 0) {
+            //alert(_value);
             eval("_value = " + _value.split('\"').join(""));
         }
         _config.extras[_key] = _value;

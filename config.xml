@@ -48,7 +48,7 @@ PhoneGap Build Configuration
     <plugin spec="https://github.com/pulipulichen/cordova-webintent.git" source="git" />
     
     <!-- https://github.com/calclavia/Start-App -->
-    <plugin spec="https://github.com/calclavia/Start-App.git" source="git" />
+    <!-- <plugin spec="https://github.com/calclavia/Start-App.git" source="git" /> -->
     
     <!-- https://github.com/napolitano/cordova-plugin-intent -->
     <plugin spec="https://github.com/napolitano/cordova-plugin-intent.git" source="git" />
@@ -63,13 +63,13 @@ PhoneGap Build Configuration
     <!-- <plugin name="cordova-plugin-wininsoft-file-opener2" source="npm" /> -->
     
     <!-- https://www.npmjs.com/package/cordova-open -->
-    <plugin name="cordova-open" source="npm" />
+    <!-- <plugin name="cordova-open" source="npm" /> -->
     
     <!-- https://github.com/markeeftb/FileOpener -->
-    <plugin spec="https://github.com/markeeftb/FileOpener.git" source="git" />
+    <!-- <plugin spec="https://github.com/markeeftb/FileOpener.git" source="git" /> -->
     
     <!-- https://github.com/Smile-SA/cordova-plugin-fileopener -->
-    <plugin spec="https://github.com/Smile-SA/cordova-plugin-fileopener.git" source="git" />
+    <!-- <plugin spec="https://github.com/Smile-SA/cordova-plugin-fileopener.git" source="git" /> -->
     
     <!-- https://github.com/ahmadaghazadeh/sevensky-cordova-plugin-intent -->
     <!-- <plugin spec="https://github.com/ahmadaghazadeh/sevensky-cordova-plugin-intent.git" source="git" /> -->
@@ -102,7 +102,7 @@ PhoneGap Build Configuration
     <plugin name="cordova-universal-clipboard" source="npm" />
     
     <!-- https://github.com/pulipulichen/cordova-plugin-jc-googledrive -->
-    <plugin spec="https://github.com/pulipulichen/cordova-plugin-jc-googledrive.git" source="git" />
+    <!-- <plugin spec="https://github.com/pulipulichen/cordova-plugin-jc-googledrive.git" source="git" /> -->
 
     <!-- ================================ -->
     

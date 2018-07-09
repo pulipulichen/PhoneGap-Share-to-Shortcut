@@ -318,8 +318,8 @@ openActivity = function (_intent) {
         var _key = _i.substring(_i.indexOf(".") + 1, _i.length);
         var _value = _intent_extras[_i];
         
-        if (_key === "beginTime") {
-            alert(_value);
+        if (["beginTime", "dtstart", "endTime", "dtend"].indexOf(_key) > 0) {
+            //alert(_value);
             eval("_value = " + _value.split('\"').join(""));
         }
         _config.extras[_key] = _value;
