@@ -5,16 +5,35 @@ intent_handler = function (intent) {
     //alert(JSON.stringify(intent));
     
     // -----------------------------
-    
-    var fpath = "file:///storage/emulated/0/Download/a.txt";
+    /*
+    var fpath = "file:///storage/emulated/0/Download/a.pdf";
+    alert(fpath);
     window.plugins.gdrive.uploadFile(fpath,
             function (response) {
                 //simple response message with the status
+                alert(JSON.stringify(response));
             },
             function (error) {
-                console.log(error);
+                aler(error);
             }
     );
+    */
+    
+    
+    var toLocalDest = "cdvfile://localhost/persistent/b.pdf";
+    var fileid = "1TSbj3xPnzwKyQnVmvFmRTM3XDuCTXSQf";
+    alert(fileid);
+    window.plugins.gdrive.downloadFile(toLocalDest, fileid,
+       function (response) {
+           alert(JSON.stringify(response));
+           navigator.app.exitApp();
+       },
+       function (error){
+         alert("error: " +JSON.stringify(error));
+         navigator.app.exitApp();
+       }
+    );
+    return;
     
     // ------------------------------
     
