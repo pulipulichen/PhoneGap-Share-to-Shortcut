@@ -4,18 +4,14 @@ intent_handler = function (intent) {
     //alert("換了 可以嗎？");
     //alert(JSON.stringify(intent));
     
-    var fpath = "file:///storage/emulated/0/Download/a.pdf";
+    var filePath = "file:///storage/emulated/0/Download/a.pdf";
     alert(fpath);
     try {
-        window.plugins.gdrive.uploadFile(fpath,
-           function (response) {
-              //simple response message with the status
-              alert(JSON.stringify(response));
-           },
-           function (error){
-             alert(error);
-           }
-        );
+        googleDrive.uploadFile( function(success) { 
+            alert("All file has been successfully uploaded: " + JSON.stringify(success)); 
+        }, function(error) { 
+            alert("Something went wrong. Please try again...: " + JSON.stringify(error)); 
+        }, filePath);
     }
     catch (e) {
         alert(e);

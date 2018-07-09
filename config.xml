@@ -102,8 +102,7 @@ PhoneGap Build Configuration
     <plugin name="cordova-universal-clipboard" source="npm" />
     
     <!-- https://github.com/jaypratapsingh/GoogleDrive -->
-    <plugin spec="https://github.com/jaypratapsingh/GoogleDrive.git" source="git" />
-    
+    <plugin name="GoogleDrive" source="npm" />
     <!-- ================================ -->
     
     <preference name="BackgroundColor" value="0x00000000"/>
