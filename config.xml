@@ -101,8 +101,8 @@ PhoneGap Build Configuration
     <!-- https://www.npmjs.com/package/cordova-universal-clipboard -->
     <plugin name="cordova-universal-clipboard" source="npm" />
     
-    <!-- https://github.com/hiddentao/cordova-plugin-filepath -->
-    <plugin spec="https://github.com/hiddentao/cordova-plugin-filepath.git" source="git" />
+    <!-- https://www.npmjs.com/package/cordova-plugin-jc-googledrive -->
+    <plugin name="cordova-plugin-jc-googledrive" source="npm" />
 
     <!-- ================================ -->
     
