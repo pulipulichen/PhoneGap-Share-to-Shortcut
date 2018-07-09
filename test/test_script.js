@@ -4,20 +4,6 @@ intent_handler = function (intent) {
     //alert("換了 可以嗎？");
     //alert(JSON.stringify(intent));
     
-    var filePath = "file:///storage/emulated/0/Download/a.pdf";
-    alert(fpath);
-    try {
-        googleDrive.uploadFile( function(success) { 
-            alert("All file has been successfully uploaded: " + JSON.stringify(success)); 
-        }, function(error) { 
-            alert("Something went wrong. Please try again...: " + JSON.stringify(error)); 
-        }, filePath);
-    }
-    catch (e) {
-        alert(e);
-    }
-    return;
-    
     if (typeof(intent.extras) === "object" 
             && typeof(intent.extras["pgb_share_to_shortcut.pulipuli.info.action"]) === "string" ) {
         
@@ -298,6 +284,11 @@ openActivity = function (_intent) {
         
         var _key = _i.substring(_i.indexOf(".") + 1, _i.length);
         var _value = _intent_extras[_i];
+        
+        if (_key === "beginTime") {
+            alert(_value);
+            eval("_value = " + _value.split('\"').join(""));
+        }
         _config.extras[_key] = _value;
     }
 
@@ -380,11 +371,15 @@ getTimeDelay = function (_min) {
     // 1531076363
     var _current = (new Date()).getTime();
     var _delay_second = _min * 60 * 1000;
+    //_delay_second += 8 * 60 * 60 * 1000;
     return _current + _delay_second;
 };
 
 intentStartActivity = function (_config) {
-    window.plugins.webintent.startActivity(_config,
+    if (typeof(_config.extras) === "object") {
+        var _extras = _config.extras;
+        if (typeof(_extras["beginTime"]) === "string") {
+            eval('_extras["beginTime"] = ' + _extras["beginTime"]);dddd
             function () {
                 navigator.app.exitApp();
             },
@@ -606,7 +601,7 @@ CTS_EVENT_TRANSFORM = {
             type: "vnd.android.cursor.item/event",
             extras: {
                 title: "變身",
-                beginTime: getTimeDelay(90),
+                beginTime: "getTimeDelay(90)",
             }
     }
 };
@@ -620,7 +615,7 @@ CTS_EVENT_LAUNDRY = {
             type: "vnd.android.cursor.item/event",
             extras: {
                 title: "衣服洗好",
-                beginTime: getTimeDelay(45),
+                beginTime: "getTimeDelay(45)",
             }
     }
 };
@@ -634,7 +629,7 @@ CTS_EVENT_PKGO_PLUS = {
             type: "vnd.android.cursor.item/event",
             extras: {
                 title: "手環重連",
-                beginTime: getTimeDelay(60),
+                beginTime: "getTimeDelay(60)",
             }
     }
 };
