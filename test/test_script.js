@@ -19,7 +19,7 @@ intent_handler = function (intent) {
     );
     */
     
-    
+    /*
     var toLocalDest = "cdvfile://localhost/persistent/b.pdf";
     var fileid = "1TSbj3xPnzwKyQnVmvFmRTM3XDuCTXSQf";
     alert(fileid);
@@ -34,7 +34,7 @@ intent_handler = function (intent) {
        }
     );
     return;
-    
+    */
     // ------------------------------
     
     if (typeof(intent.extras) === "object" 
