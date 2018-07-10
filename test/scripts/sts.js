@@ -537,6 +537,53 @@ STS_APK = {
     },
 };
 
+STS_URL = {
+    action: "window.open.url",
+    extractURL: function (intent) {
+        if (typeof(intent.extras) === "object") {
+            var _needles =  ["http://", "https://"];
+            for (var _key in intent.extras) {
+                var _value = intent.extras[_key];
+                
+                for (var _i = 0; _i < _needles.length; _i++) {
+                    var _needle = _needles[_i];
+                    if (_value.indexOf(_needle) > -1) {
+                        var _url = _value.substring(_value.indexOf(_needle), _value.length);
+                        if (_url.indexOf(" ") > -1) {
+                            _url = _url.substr(0, _url.indexOf(" "));
+                        }
+                        _url = _url.trim();
+                        return _url;
+                    }
+                }
+            }
+        }
+    },
+    isSendFrom: function (intent) {
+        //  只要extras裡面包含了url都算
+        var _url = this.extractURL(intent);
+        alert(_url);
+        return (_url !== undefined);
+    },
+    createShortcut: function (intent) {
+        var _url = this.extractURL(intent);
+        var _this = this;
+        getURLtoTitle(_url, function (_subject) {
+            
+            var _extras = {
+                "action": _this.action,
+                "url": _url
+            };
+
+            getFaviconBase64(_url, function (_base64) {
+                createShortcut(_subject, _extras, _base64); 
+                navigator.app.exitApp();
+            });
+        });
+    },
+    openActivity: STS_GOOGLE_CHROME.openActivity,
+};
+
 // ------------------------------------
 
 STS_QUEUE = [
@@ -552,5 +599,6 @@ STS_QUEUE = [
     STS_FLIPERLINK,
     STS_GREADER,
     STS_FEEDLY,
+    STS_URL,
     CTS_TEST,
 ];
