@@ -649,4 +649,4 @@ STS_QUEUE = [
     CTS_TEST,
 ];
 
-alert("sts: " + typeof(STS_QUEUE));
+//alert("sts: " + typeof(STS_QUEUE));
