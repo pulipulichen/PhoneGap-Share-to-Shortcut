@@ -1,0 +1,11 @@
+{
+	"type": "text/plain",
+	"extras": {
+		"android.intent.extra.HTML_TEXT": "東森新聞: 強颱瑪莉亞步步逼近！23:30發布陸上颱警報.\nhttps://news.ebc.net.tw/news.php?nid=120165",
+		"android.intent.extra.SUBJECT": "東森新聞: 強颱瑪莉亞步步逼近！23:30發布陸上颱警報",
+		"android.intent.extra.TEXT": "東森新聞: 強颱瑪莉亞步步逼近！23:30發布陸上颱警報.\nhttps://news.ebc.net.tw/news.php?nid=120165"
+	},
+	"action": "android.intent.action.SEND",
+	"flags": 343932928,
+	"component": "ComponentInfo{pgb_share_to_shortcut.pulipuli.info/pgb_share_to_shortcut.pulipuli.info.ShareToShortcut}"
+}

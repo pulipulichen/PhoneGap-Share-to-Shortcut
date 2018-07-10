@@ -4,6 +4,11 @@ CTS_TEST = {
         return true;
     },
     createShortcut: function () {
+        if (DEBUG === false) {
+            navigator.app.exitApp();
+            return;
+        }
+        
         var _subject = "STS TEST";
         //var _url = "https://drive.google.com/drive/u/0/search?q=type:pdf";
         var _extras = {

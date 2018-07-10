@@ -110,6 +110,46 @@ STS_FEEDLY = {
     openActivity: STS_GOOGLE_CHROME.openActivity,
 };
 
+
+// ------------------------------
+
+STS_GOOGLE_NEWS = {
+    action: "window.open.google_news",
+    isSendFrom: function (intent) {
+        return (typeof (intent.action) === "string"
+            && intent.action === "android.intent.action.SEND"
+            && typeof (intent.extras) === "object"
+            && typeof (intent.extras["android.intent.extra.SUBJECT"]) === "string"
+            && typeof (intent.extras["android.intent.extra.TEXT"]) === "string"
+            && intent.extras["android.intent.extra.TEXT"].startsWith("http") === false
+            && intent.extras["android.intent.extra.TEXT"].indexOf("http") > 1
+            );
+    },
+    createShortcut: function (intent) {
+        var _text = intent.extras["android.intent.extra.TEXT"];
+        
+        var _pos = _text.lastIndexOf("http://");
+        if (_pos === -1) {
+            _pos = _text.lastIndexOf("https://");
+        }
+        
+        var _url  = _text.substring(_pos, _text.length).trim();
+        var _subject = _text.substring(0, _pos).trim();
+        
+        //alert(_url);
+        var _extras = {
+            "action": this.action,
+            "url": _url
+        };
+
+        getFaviconBase64(_url, function (_base64) {
+            createShortcut(_subject, _extras, _base64); 
+            navigator.app.exitApp();
+        });
+    },
+    openActivity: STS_GOOGLE_CHROME.openActivity,
+};
+
 // ------------------------------
 
 STS_GREADER = {
@@ -542,6 +582,7 @@ STS_URL = {
     extractURL: function (intent) {
         if (typeof(intent.extras) === "object") {
             var _needles =  ["http://", "https://"];
+            var _needles_foot =  [" ", "\n"];
             for (var _key in intent.extras) {
                 var _value = intent.extras[_key];
                 
@@ -549,9 +590,13 @@ STS_URL = {
                     var _needle = _needles[_i];
                     if (_value.indexOf(_needle) > -1) {
                         var _url = _value.substring(_value.indexOf(_needle), _value.length);
-                        if (_url.indexOf(" ") > -1) {
-                            _url = _url.substr(0, _url.indexOf(" "));
+                        for (var _j = 0; _j < _needles_foot.length; _j++) {
+                            var _needle_foot = _needles_foot[_j];
+                            if (_url.indexOf(_needle_foot) > -1) {
+                                _url = _url.substr(0, _url.indexOf(_needle_foot));
+                            }
                         }
+                        
                         _url = _url.trim();
                         return _url;
                     }
@@ -562,6 +607,7 @@ STS_URL = {
     isSendFrom: function (intent) {
         //  只要extras裡面包含了url都算
         var _url = this.extractURL(intent);
+        //alert(_url);
         return (_url !== undefined);
     },
     createShortcut: function (intent) {
@@ -597,6 +643,7 @@ STS_QUEUE = [
     STS_GOOGLE_CHROME,
     STS_FLIPERLINK,
     STS_GREADER,
+    STS_GOOGLE_NEWS,
     STS_FEEDLY,
     STS_URL,
     CTS_TEST,

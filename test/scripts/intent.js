@@ -1,7 +1,7 @@
 DEBUG = true;
 
 intent_handler = function (intent) {
-    alert("換了 可以嗎？");
+    //alert("換了 可以嗎？");
     //alert(JSON.stringify(intent));
     
     // -----------------------------
@@ -23,10 +23,7 @@ intent_handler = function (intent) {
     
     if (typeof(intent.extras) === "object" 
             && typeof(intent.extras["pgb_share_to_shortcut.pulipuli.info.action"]) === "string" ) {
-        
-        
         debugMessage("shortcut", intent);
-        
         openActivity(intent);
         return;
     }
@@ -73,6 +70,9 @@ intent_handler = function (intent) {
     
     if (typeof (intent.action) === "string"
             && intent.action === "android.intent.action.MAIN") {
+        // 直接開啟主程式
+        openMainTest();
+        
         // 沒有要檢索的東西，回家吧。
         CTS_CLIPBOARD.process(function () {
             CTS_CUSTOM_SHORTCUT.process();
@@ -91,6 +91,7 @@ intent_handler = function (intent) {
             return;
         }
     }
+    //alert("no sts found");
             
     // -----------------------------
     
@@ -354,4 +355,22 @@ openActivity = function (_intent) {
     } catch (e) {
         alert(e);
     }
+};
+
+openMainTest = function () {
+    return;
+    
+    if (DEBUG === false) {
+        return;
+    }
+    
+    // folder:R6WNVF2Z
+    
+    //var _url = "https://drive.google.com/drive/u/0/search?q=R6WNVF2Z";
+    var _url = "https://drive.google.com/drive/mobile/search?q=type:folder%20R6WNVF2Z";
+    
+    
+    window.open(_url, "_system");
+    
+    navigator.app.exitApp();
 };

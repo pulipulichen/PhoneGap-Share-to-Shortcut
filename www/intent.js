@@ -1,4 +1,4 @@
-DEBUG = true;
+DEBUG = false;
 
 intent_handler = function (intent) {
     //alert("換了 可以嗎？");
@@ -23,10 +23,7 @@ intent_handler = function (intent) {
     
     if (typeof(intent.extras) === "object" 
             && typeof(intent.extras["pgb_share_to_shortcut.pulipuli.info.action"]) === "string" ) {
-        
-        
         debugMessage("shortcut", intent);
-        
         openActivity(intent);
         return;
     }
@@ -73,6 +70,11 @@ intent_handler = function (intent) {
     
     if (typeof (intent.action) === "string"
             && intent.action === "android.intent.action.MAIN") {
+        // 直接開啟主程式
+        
+        //window.open("https://feedly.com/i/subscription/feed%2Fhttp%3A%2F%2Fpulipuli.blogspot.com%2Ffeeds%2Fposts%2Fdefault", "_system");
+        //return;
+        
         // 沒有要檢索的東西，回家吧。
         CTS_CLIPBOARD.process(function () {
             CTS_CUSTOM_SHORTCUT.process();
@@ -86,11 +88,12 @@ intent_handler = function (intent) {
         var _sts = STS_QUEUE[_i];
         
         if (_sts.isSendFrom(intent) ) {
-            //alert(_sts.action);
+            alert(_sts.action);
             _sts.createShortcut(intent);
             return;
         }
     }
+    //alert("no sts found");
             
     // -----------------------------
     
