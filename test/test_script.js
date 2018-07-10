@@ -1,4 +1,4 @@
-DEBUG = false;
+DEBUG = true;
 
 intent_handler = function (intent) {
     //alert("換了 可以嗎？");
