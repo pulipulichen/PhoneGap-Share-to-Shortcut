@@ -648,3 +648,5 @@ STS_QUEUE = [
     STS_URL,
     CTS_TEST,
 ];
+
+alert("sts: " + typeof(STS_QUEUE));
