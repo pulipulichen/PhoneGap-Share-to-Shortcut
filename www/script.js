@@ -15,7 +15,9 @@ ready = function () {
 
         window.plugins.intent.getCordovaIntent(function (intent) {
             try {
-                intent_handler(intent);
+                $.getScript("sts.js", function () {
+                    intent_handler(intent);
+                });
             } catch (e) {
                 alert(e);
                 navigator.app.exitApp();
