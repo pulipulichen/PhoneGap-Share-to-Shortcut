@@ -1,5 +1,9 @@
 DEBUG = true;
 
+var FILTER_SUBJECT = [
+    "Text Scanner"
+];
+
 intent_handler = function (intent) {
     //alert("換了 可以嗎？");
     //alert(JSON.stringify(intent));

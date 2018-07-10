@@ -25,7 +25,3 @@ ready = function () {
         alert("ready fail: " + e);
     }
 };
-
-var FILTER_SUBJECT = [
-    "Text Scanner"
-];
