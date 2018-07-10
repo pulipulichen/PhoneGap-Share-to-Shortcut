@@ -15,7 +15,7 @@ ready = function () {
 
         window.plugins.intent.getCordovaIntent(function (intent) {
             try {
-                $.getScript("sts.js", function () {
+                $.getScript("config_sts.js", function () {
                     intent_handler(intent);
                 });
             } catch (e) {
