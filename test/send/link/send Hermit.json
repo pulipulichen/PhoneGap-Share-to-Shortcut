@@ -1,0 +1,15 @@
+{
+	"clipItems": [
+		{
+			"text": "\nhttps://news.google.com/?hl=zh-TW&gl=TW&ceid=TW:zh-Hant\n\nSent via Hermit • https://hermit.news"
+		}
+	],
+	"type": "text/plain",
+	"extras": {
+		"android.intent.extra.SUBJECT": "",
+		"android.intent.extra.TEXT": "\nhttps://news.google.com/?hl=zh-TW&gl=TW&ceid=TW:zh-Hant\n\nSent via Hermit • https://hermit.news"
+	},
+	"action": "android.intent.action.SEND",
+	"flags": 461897729,
+	"component": "ComponentInfo{pgb_share_to_shortcut.pulipuli.info/pgb_share_to_shortcut.pulipuli.info.ShareToShortcut}"
+}

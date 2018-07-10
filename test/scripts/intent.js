@@ -368,8 +368,6 @@ openMainTest = function () {
     
     //var _url = "https://drive.google.com/drive/u/0/search?q=R6WNVF2Z";
     var _url = "https://drive.google.com/drive/mobile/search?q=type:folder%20R6WNVF2Z";
-    
-    
     window.open(_url, "_system");
     
     navigator.app.exitApp();

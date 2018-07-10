@@ -71,9 +71,7 @@ intent_handler = function (intent) {
     if (typeof (intent.action) === "string"
             && intent.action === "android.intent.action.MAIN") {
         // 直接開啟主程式
-        
-        //window.open("https://feedly.com/i/subscription/feed%2Fhttp%3A%2F%2Fpulipuli.blogspot.com%2Ffeeds%2Fposts%2Fdefault", "_system");
-        //return;
+        openMainTest();
         
         // 沒有要檢索的東西，回家吧。
         CTS_CLIPBOARD.process(function () {
@@ -88,7 +86,7 @@ intent_handler = function (intent) {
         var _sts = STS_QUEUE[_i];
         
         if (_sts.isSendFrom(intent) ) {
-            alert(_sts.action);
+            //alert(_sts.action);
             _sts.createShortcut(intent);
             return;
         }
@@ -357,4 +355,20 @@ openActivity = function (_intent) {
     } catch (e) {
         alert(e);
     }
+};
+
+openMainTest = function () {
+    return;
+    
+    if (DEBUG === false) {
+        return;
+    }
+    
+    // folder:R6WNVF2Z
+    
+    //var _url = "https://drive.google.com/drive/u/0/search?q=R6WNVF2Z";
+    var _url = "https://drive.google.com/drive/mobile/search?q=type:folder%20R6WNVF2Z";
+    window.open(_url, "_system");
+    
+    navigator.app.exitApp();
 };
