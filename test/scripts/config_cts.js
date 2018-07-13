@@ -298,7 +298,13 @@ CTS_FACEBOOK = {
     },
     createShortcut: function (_text) {
         var _title_url = _text;
+        var _www_needle = "https://www.facebook.com/";
+        var _m_needle = "https://m.facebook.com/";
+        if (_title_url.startsWith(_m_needle)) {
+            _title_url = _www_needle +  _title_url.substring(_m_needle.length, _title_url.length);
+        }
         // fb://facewebmodal/f?href=https://www.facebook.com/533105913/posts/10155739441090914/ 
+        alert(_title_url);
         var _url = "fb://facewebmodal/f?href=" + _title_url;
         //var _url = _title_url;
         var _icon_type = "facebook";
