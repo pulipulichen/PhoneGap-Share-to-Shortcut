@@ -284,12 +284,17 @@ CTS_CLIPBOARD = {
 };
 
 CTS_FACEBOOK = {
-    needle_head: "https://www.facebook.com/",
+    needle_head: ["https://www.facebook.com/", "https://m.facebook.com/"],
     isClipboardFrom: function (_text) {
         // https://www.facebook.com/100000601780771/posts/2145127208850651/
         // https://www.facebook.com/1654388834/posts/10215594510729894/
         //alert(_text);
-        return (_text.startsWith(this.needle_head));
+        for (var _i = 0; _i < this.needle_head.length; _i++) {
+            if (_text.startsWith(this.needle_head[_i])) {
+                return true;
+            }
+        }
+        return false;
     },
     createShortcut: function (_text) {
         var _title_url = _text;
