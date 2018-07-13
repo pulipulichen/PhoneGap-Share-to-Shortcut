@@ -300,11 +300,14 @@ CTS_FACEBOOK = {
         var _title_url = _text;
         var _www_needle = "https://www.facebook.com/";
         var _m_needle = "https://m.facebook.com/";
+        var _url = "fb://facewebmodal/f?href=" + _title_url;
         if (_title_url.startsWith(_m_needle)) {
-            _title_url = _www_needle +  _title_url.substring(_m_needle.length, _title_url.length);
+            //_title_url = _www_needle +  _title_url.substring(_m_needle.length, _title_url.length);
+            _url = _title_url;
         }
         // fb://facewebmodal/f?href=https://www.facebook.com/533105913/posts/10155739441090914/ 
-        var _url = "fb://facewebmodal/f?href=" + _title_url;
+        
+        
         //var _url = _title_url;
         var _icon_type = "facebook";
         
