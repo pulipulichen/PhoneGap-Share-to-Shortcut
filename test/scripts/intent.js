@@ -53,9 +53,17 @@ intent_handler = function (intent) {
        }
     );
     */
-    var _url = "fb://facewebmodal/f?href=https://www.facebook.com/groups/932304146879607?view=permalink&id=1506316986144984";
-    window.open(_url, "_system");
-    return;
+    //var _url = "fb://facewebmodal/f?href=https://www.facebook.com/groups/932304146879607?view=permalink&id=1506316986144984";
+    //var _url = "fb://facewebmodal/f?href=https://m.facebook.com/groups/932304146879607?view=permalink&id=1506316986144984";
+    //var _url = "https://www.facebook.com/groups/932304146879607?view=permalink&id=1506316986144984";
+    //var _url = "https://m.facebook.com/groups/932304146879607?view=permalink&id=1506316986144984";
+    //var _url = "https://www.facebook.com/groups/932304146879607/permalink/1613249845451697/";
+    //var _url = "fb://facewebmodal/f?href=https://www.facebook.com/groups/932304146879607/permalink/1613249845451697/";
+    //var _url = "fb://facewebmodal/f?href=https://www.facebook.com/permalink.php?story_fbid=932304146879607&id=1613249845451697/";
+    //https://www.facebook.com/permalink.php?story_fbid=2151992711751662&id=1711897745761163
+    //alert(_url);window.open(_url, "_system");
+    //navigator.app.exitApp();
+    //return;
     /*
     var fpath = "file:///storage/emulated/0/Download/a.pdf";
     alert(fpath);
