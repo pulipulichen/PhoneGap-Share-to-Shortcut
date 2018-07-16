@@ -53,7 +53,9 @@ intent_handler = function (intent) {
        }
     );
     */
-    
+    var _url = "fb://facewebmodal/f?href=https://www.facebook.com/groups/932304146879607?view=permalink&id=1506316986144984";
+    window.open(_url, "_system");
+    return;
     /*
     var fpath = "file:///storage/emulated/0/Download/a.pdf";
     alert(fpath);
