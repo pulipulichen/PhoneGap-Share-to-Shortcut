@@ -463,8 +463,8 @@ STS_PDF = {
                         // 我只要取出後面的
                         // A hierarchical model for developing e-textbook to .pdf
                         var _pos = _subject.indexOf(" - ");
-                        _pos = _subject.indexOf(" - ",  _pos+1);
-                        _subject = _subject.substring(_pos+1, _subject.length);
+                        _pos = _subject.indexOf(" - ",  _pos+3);
+                        _subject = _subject.substring(_pos+3, _subject.length).trim();
                     } 
 
                     createShortcut(_subject, _extras, _this.icon_type); 
