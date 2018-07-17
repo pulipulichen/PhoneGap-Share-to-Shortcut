@@ -439,58 +439,83 @@ STS_PDF = {
         return (typeof (intent.type) === "string"
             && intent.type === "application/pdf");
     },
+    getFilename: function (_data, _callback) {
+        _data = _data.trim();
+        if (_data.startsWith("file:///")) {
+            // 取最後一個 /
+            var _filename = _data.substring(_data.lastIndexOf("/")+1, _data.length);
+            if (typeof(_callback) === "function") {
+                _callback(_filename);
+            }
+        }
+        else {
+            cordova.plugins.permissions.requestPermission("android.permission.READ_EXTERNAL_STORAGE", function () {
+                cordova.plugins.fileOpener2.getFilename(
+                    _data,
+                    {
+                        error : function(e){
+                            alert("fileOpener2 error: " + JSON.stringify(e));
+                        },
+                        success : function(_subject){
+                            if (typeof (_callback) === "function") {
+                            _callback(_subject);
+                        }
+                    }
+                });
+            });
+        }
+    },
     createShortcut: function (intent) {
         var _this = this;
-        alert(JSON.stringify(intent));
+        //alert(JSON.stringify(intent));
         var _data = intent.data;
         
-        cordova.plugins.fileOpener2.getFilename(
-                _data,
-                {
-                error : function(e){
-                    alert(JSON.stringify(e));
-                }, 
-                success : function(_subject){ 
-                    var _extras = {
-                        "action": _this.action,
-                        "data": _data
-                    };
-                    
-                    // 如果是來自於Zotero的_subject
-                    // Choi 與 Lam - 2018 - A hierarchical model for developing e-textbook to .pdf
-                    //alert([_subject, _subject.split(" - ").length]);
-                    if (_subject.split(" - ").length > 2) {
-                        // 我只要取出後面的
-                        // A hierarchical model for developing e-textbook to .pdf
-                        var _pos = _subject.indexOf(" - ");
-                        _pos = _subject.indexOf(" - ",  _pos+3);
-                        _subject = _subject.substring(_pos+3, _subject.length).trim();
-                    } 
+        _this.getFilename(_data, function(_subject){ 
+            var _extras = {
+                "action": _this.action,
+                "data": _data
+            };
 
-                    createShortcut(_subject, _extras, _this.icon_type); 
-                    navigator.app.exitApp();
-                } 
-            });
+            // 如果是來自於Zotero的_subject
+            // Choi 與 Lam - 2018 - A hierarchical model for developing e-textbook to .pdf
+            //alert([_subject, _subject.split(" - ").length]);
+            if (_subject.split(" - ").length > 2) {
+                // 我只要取出後面的
+                // A hierarchical model for developing e-textbook to .pdf
+                var _pos = _subject.indexOf(" - ");
+                _pos = _subject.indexOf(" - ",  _pos+3);
+                _subject = _subject.substring(_pos+3, _subject.length).trim();
+            } 
+            //alert(JSON.stringify(_extras));
+
+            createShortcut(_subject, _extras, _this.icon_type); 
+            navigator.app.exitApp();
+        });
     },
     openActivity: function (_intent) {
         var _data = _intent.extras["pgb_share_to_shortcut.pulipuli.info.data"];
+        //alert(_data);
         
         var _open = function (_package) {
-            
-            cordova.plugins.fileOpener2.open(
-                _data, 
-                "application/pdf",
-                _package,
-                {
-                    error : function(e){
-                        alert(JSON.stringify(e));
-                        navigator.app.exitApp();
-                    }, 
-                    success : function(){ 
-                        navigator.app.exitApp();
+            cordova.plugins.permissions.requestPermission("android.permission.READ_EXTERNAL_STORAGE", function () {
+                cordova.plugins.fileOpener2.open(
+                    _data, 
+                    "application/pdf",
+                    _package,
+                    {
+                        error : function(e){
+                            alert(JSON.stringify(e));
+                            navigator.app.exitApp();
+                        }, 
+                        success : function(){ 
+                            navigator.app.exitApp();
+                        } 
                     } 
-                } 
-            );
+                );
+            }, function () {
+                alert("error");
+            });
+            
         };
         
         cordova.plugins.fileOpener2.appIsInstalled("com.xodo.pdf.reader", {
@@ -548,20 +573,22 @@ STS_APK = {
         //alert(_url);
         
         var _open = function (_local_url) {
-            cordova.plugins.fileOpener2.open(
-                _local_url, 
-                "application/vnd.android.package-archive",
-                //"com.xodo.pdf.reader",
-                {
-                    error : function(e){
-                        alert(JSON.stringify(e));
-                        navigator.app.exitApp();
-                    }, 
-                    success : function(){ 
-                        navigator.app.exitApp();
+            cordova.plugins.permissions.requestPermission("android.permission.READ_EXTERNAL_STORAGE", function () {
+                cordova.plugins.fileOpener2.open(
+                    _local_url, 
+                    "application/vnd.android.package-archive",
+                    //"com.xodo.pdf.reader",
+                    {
+                        error : function(e){
+                            alert(JSON.stringify(e));
+                            navigator.app.exitApp();
+                        }, 
+                        success : function(){ 
+                            navigator.app.exitApp();
+                        } 
                     } 
-                } 
-            );
+                );
+            });
         };
 
         var fileTransfer = new FileTransfer();
