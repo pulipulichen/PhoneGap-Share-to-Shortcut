@@ -441,7 +441,7 @@ STS_PDF = {
     },
     createShortcut: function (intent) {
         var _this = this;
-        
+        alert(JSON.stringify(intent));
         var _data = intent.data;
         
         cordova.plugins.fileOpener2.getFilename(
