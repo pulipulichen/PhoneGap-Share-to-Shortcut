@@ -5,7 +5,7 @@ var FILTER_SUBJECT = [
 ];
 
 intent_handler = function (intent) {
-    //alert("換了 可以嗎？ 沒有換");
+    //alert("換了 可以嗎？ 沒有換沒換沒換");
     //alert(JSON.stringify(intent));
     //alert("intent: " + typeof(STS_QUEUE));
     
