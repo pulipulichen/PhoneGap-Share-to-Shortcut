@@ -479,13 +479,10 @@ STS_PDF = {
             // 如果是來自於Zotero的_subject
             // Choi 與 Lam - 2018 - A hierarchical model for developing e-textbook to .pdf
             //alert([_subject, _subject.split(" - ").length]);
-            if (_subject.split(" - ").length > 2) {
-                // 我只要取出後面的
-                // A hierarchical model for developing e-textbook to .pdf
-                var _pos = _subject.indexOf(" - ");
-                _pos = _subject.indexOf(" - ",  _pos+3);
+            while (_subject.lastIndexOf(" - ") > -1) {
+                var _pos = _subject.lastIndexOf(" - ");
                 _subject = _subject.substring(_pos+3, _subject.length).trim();
-            } 
+            }
             //alert(JSON.stringify(_extras));
 
             createShortcut(_subject, _extras, _this.icon_type); 

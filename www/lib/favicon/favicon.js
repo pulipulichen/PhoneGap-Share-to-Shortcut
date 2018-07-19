@@ -165,8 +165,32 @@ getFaviconBase64 = function (url, callback) {
         callback("googlemap");
         return;
     }
+    else if (url.startsWith("https://google.com/maps/")) {
+        callback("googlemap");
+        return;
+    }
     else if (url.startsWith("https://www.facebook.com/")) {
         callback("facebook");
+        return;
+    }
+    else if (url.startsWith("https://docs.google.com/forms/")) {
+        callback("google_form");
+        return;
+    }
+    else if (url.startsWith("https://docs.google.com/document/")) {
+        callback("google_doc");
+        return;
+    }
+    else if (url.startsWith("https://docs.google.com/spreadsheets/")) {
+        callback("google_sheet");
+        return;
+    }
+    else if (url.startsWith("https://docs.google.com/presentation/")) {
+        callback("google_presentation");
+        return;
+    }
+    else if (url.startsWith("https://drive.google.com/file/")) {
+        callback("google_drive");
         return;
     }
     
