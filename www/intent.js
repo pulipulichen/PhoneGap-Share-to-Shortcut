@@ -292,6 +292,8 @@ createShortcut = function (_title, _extras, _icon_type) {
     //alert(1);
     //alert(_shortcut);
     try {
+        debugMessage('addPinned.json', _shortcut)
+        
         window.plugins.Shortcuts.addPinned(_shortcut, function () {
             navigator.app.exitApp();
         }, function (error) {

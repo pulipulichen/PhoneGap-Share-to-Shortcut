@@ -19,8 +19,13 @@ STS_GOOGLE_CHROME = {
             && typeof (intent.extras["share_screenshot_as_stream"]) === "string");
     },
     createShortcut: function (intent) {
-        var _subject = intent.extras["android.intent.extra.SUBJECT"];
-        var _text = intent.extras["android.intent.extra.TEXT"];
+      var _subject = "WEB";
+      if (typeof(intent.extras["android.intent.extra.SUBJECT"]) === 'string') {
+        _subject = intent.extras["android.intent.extra.SUBJECT"];
+      }
+        
+        //var _text = intent.extras["android.intent.extra.TEXT"];
+        var _text = intentExtractURL(intent)
         var _url = "googlechrome://navigate?url=" + _text;
         var _extras = {
             "action": this.action,
