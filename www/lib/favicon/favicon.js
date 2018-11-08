@@ -144,6 +144,44 @@ getURLtoBase64 = function (url, callback) {
     xhr.send();
 };
 
+getURLtoCanvaseBase64 = function (url, callback) { 
+      var canvasWidth = 256
+      var canvasHeight = 256
+      $('<canvas id="canvas" width="' + canvasWidth + '" height="' + canvasHeight + '" style="display: none"></canvas>')
+              .appendTo('body')
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+      
+      var img = new Image();   // Create new img element
+      //img.setAttribute('crossOrigin', 'anonymous');
+      img.addEventListener("load", function() {
+        var imgWidth = img.width
+        var imgHeight = img.height
+        //console.log([imgWidth, imgHeight])
+        var scale = (canvasWidth / imgWidth)
+        if (imgWidth < imgHeight) {
+          scale = (canvasHeight / imgHeight)
+        }
+        var ctxWidth = imgWidth * scale
+        var ctxHeight = imgHeight * scale
+        var ctxTop = (canvasHeight - ctxHeight) / 2
+        var ctxLeft = (canvasWidth - ctxWidth) / 2
+        //console.log([ctxTop, ctxLeft, ctxWidth, ctxHeight])
+        ctx.drawImage(img,ctxLeft,ctxTop, ctxWidth, ctxHeight);
+        
+        var canvas = document.getElementById("canvas");
+        var dataURL = canvas.toDataURL('image/png');
+        //console.log(dataURL);
+        //$('<textarea></textarea>').val(dataURL).appendTo('body')
+        if (typeof(callback) === 'function') {
+          callback(dataURL)
+        }
+      }, false);
+      
+      img.setAttribute('crossOrigin', 'anonymous');
+      img.src = url; // Set source path
+}
+
 getFaviconBase64 = function (url, callback) {
     if (url.startsWith("https://www.youtube.com/")) {
         var _v = getAllUrlParams(url).v;

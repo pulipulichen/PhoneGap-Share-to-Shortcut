@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+  <head>
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="lib/jquery-3.3.1.min.js"></script>
+    <script src="lib/favicon/favicon.js"></script>
+  </head>
+  <body style="padding: 0; margin: 0;">
+    <script>
+getURLtoCanvaseBase64 = function (url, callback) { 
+      var canvasWidth = 256
+      var canvasHeight = 256
+      $('<canvas id="canvas" width="' + canvasWidth + '" height="' + canvasHeight + '" style="display: none"></canvas>')
+              .appendTo('body')
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+      
+      var img = new Image();   // Create new img element
+      //img.setAttribute('crossOrigin', 'anonymous');
+      img.addEventListener("load", function() {
+        var imgWidth = img.width
+        var imgHeight = img.height
+        //console.log([imgWidth, imgHeight])
+        var scale = (canvasWidth / imgWidth)
+        if (imgWidth < imgHeight) {
+          scale = (canvasHeight / imgHeight)
+        }
+        var ctxWidth = imgWidth * scale
+        var ctxHeight = imgHeight * scale
+        var ctxTop = (canvasHeight - ctxHeight) / 2
+        var ctxLeft = (canvasWidth - ctxWidth) / 2
+        //console.log([ctxTop, ctxLeft, ctxWidth, ctxHeight])
+        ctx.drawImage(img,ctxLeft,ctxTop, ctxWidth, ctxHeight);
+        
+        var canvas = document.getElementById("canvas");
+        var dataURL = canvas.toDataURL('image/png');
+        //console.log(dataURL);
+        //$('<textarea></textarea>').val(dataURL).appendTo('body')
+        if (typeof(callback) === 'function') {
+          callback(dataURL)
+        }
+      }, false);
+      
+      img.setAttribute('crossOrigin', 'anonymous');
+      img.src = url; // Set source path
+}
+
+
+      var url = 'http://pc.pulipuli.info/public/h.jpg'
+      getURLtoCanvaseBase64(url, function (b) {
+        console.log(b)
+        window.open(b, '_blank')
+      })
+    </script>
+  </body>
+</html>
