@@ -382,6 +382,8 @@ STS_YOUTUBE = {
         //var favicon_url = "https://process.filestackapi.com/AhTgLagciQByzXpFGRI0Az/resize=width:256,height:256,fit:crop/https://i.ytimg.com/vi/" + _v + "/hqdefault.jpg";
         var favicon_url = "https://i.ytimg.com/vi/" + _v + "/hqdefault.jpg";
         
+        alert(favicon_url)
+        
         getURLtoCanvasBase64(favicon_url, function (_icon) {
             createShortcut(_subject, _extras, _icon); 
             navigator.app.exitApp();

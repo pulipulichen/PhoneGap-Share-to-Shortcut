@@ -180,6 +180,7 @@ getURLtoCanvasBase64 = function (url, callback) {
       
       img.setAttribute('crossOrigin', 'anonymous');
       img.src = url; // Set source path
+      alert(url)
 }
 
 getFaviconBase64 = function (url, callback) {
