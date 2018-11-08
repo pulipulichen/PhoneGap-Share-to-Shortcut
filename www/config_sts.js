@@ -633,7 +633,7 @@ STS_URL = {
     isSendFrom: function (intent) {
         //  只要extras裡面包含了url都算
         var _url = this.extractURL(intent);
-        //alert(_url);
+        alert(_url);
         return (_url !== undefined);
     },
     createShortcut: function (intent) {
