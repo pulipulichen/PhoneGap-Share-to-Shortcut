@@ -4,3 +4,5 @@
 /test/send.json
 /test/shortcut.json
 /test/clipboard.json
+/test/addPinned.json.json
+/test/*.json
