@@ -183,20 +183,22 @@ getURLtoCanvasBase64 = function (url, callback) {
       
       img.setAttribute('crossOrigin', 'anonymous');
       img.src = url; // Set source path
-      alert(url)
+      //alert(url)
 }
 
 getFaviconBase64 = function (url, callback) {
     if (url.startsWith("https://www.youtube.com/")) {
         var _v = getAllUrlParams(url).v;
-        var favicon_url = "https://process.filestackapi.com/AhTgLagciQByzXpFGRI0Az/resize=width:256,height:256,fit:crop/https://i.ytimg.com/vi/" + _v + "/hqdefault.jpg";
-        getURLtoBase64(favicon_url, callback);
+        //var favicon_url = "https://process.filestackapi.com/AhTgLagciQByzXpFGRI0Az/resize=width:256,height:256,fit:crop/https://i.ytimg.com/vi/" + _v + "/hqdefault.jpg";
+        var favicon_url = "https://i.ytimg.com/vi/" + _v + "/hqdefault.jpg";
+        getURLtoCanvasBase64(favicon_url, callback);
         return;
     }
     else if (url.startsWith("https://youtu.be/")) {
         var _v = url.substring(url.lastIndexOf("/")+1, url.length);
-        var favicon_url = "https://process.filestackapi.com/AhTgLagciQByzXpFGRI0Az/resize=width:256,height:256,fit:crop/https://i.ytimg.com/vi/" + _v + "/hqdefault.jpg";
-        getURLtoBase64(favicon_url, callback);
+        //var favicon_url = "https://process.filestackapi.com/AhTgLagciQByzXpFGRI0Az/resize=width:256,height:256,fit:crop/https://i.ytimg.com/vi/" + _v + "/hqdefault.jpg";
+        var favicon_url = "https://i.ytimg.com/vi/" + _v + "/hqdefault.jpg";
+        getURLtoCanvasBase64(favicon_url, callback);
         return;
     }
     else if (url.startsWith("https://play.google.com/store/apps/details?id=")) {
@@ -237,7 +239,7 @@ getFaviconBase64 = function (url, callback) {
     }
     
     getFavicon(url, function (favicon_url) {
-        getURLtoBase64(favicon_url, callback);
+        getURLtoCanvasBase64(favicon_url, callback);
     });
 };
 

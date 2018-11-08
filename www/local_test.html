@@ -14,7 +14,7 @@ and open the template in the editor.
   </head>
   <body style="padding: 0; margin: 0;">
     <script>
-getURLtoCanvaseBase64 = function (url, callback) { 
+getURLtoCanvasBase64 = function (url, callback) { 
       var canvasWidth = 256
       var canvasHeight = 256
       $('<canvas id="canvas" width="' + canvasWidth + '" height="' + canvasHeight + '" style="display: none"></canvas>')
@@ -57,7 +57,7 @@ getURLtoCanvaseBase64 = function (url, callback) {
 
 
       var url = 'http://localhost/public/h.jpg'
-      getURLtoCanvaseBase64(url, function (b) {
+      getURLtoCanvasBase64(url, function (b) {
         console.log(b)
         //window.open(b, '_blank')
       })
