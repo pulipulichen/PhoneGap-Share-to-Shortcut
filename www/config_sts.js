@@ -4,6 +4,11 @@
 STS_GOOGLE_CHROME = {
     action: "app.open.googlechrome",
     isSendFrom: function (intent) {
+      var url = intentExtractURL(intent)
+      if (url.startsWith('https://docs.google.com/forms/d/')) {
+        return true
+      }
+      
         return (typeof (intent.action) === "string"
             && intent.action === "android.intent.action.SEND"
             && typeof (intent.extras) === "object"
@@ -623,29 +628,7 @@ STS_APK = {
 STS_URL = {
     action: "window.open.url",
     extractURL: function (intent) {
-        if (typeof(intent.extras) === "object") {
-            var _needles =  ["http://", "https://"];
-            var _needles_foot =  [" ", "\n"];
-            for (var _key in intent.extras) {
-                var _value = intent.extras[_key];
-                
-                for (var _i = 0; _i < _needles.length; _i++) {
-                    var _needle = _needles[_i];
-                    if (_value.indexOf(_needle) > -1) {
-                        var _url = _value.substring(_value.indexOf(_needle), _value.length);
-                        for (var _j = 0; _j < _needles_foot.length; _j++) {
-                            var _needle_foot = _needles_foot[_j];
-                            if (_url.indexOf(_needle_foot) > -1) {
-                                _url = _url.substr(0, _url.indexOf(_needle_foot));
-                            }
-                        }
-                        
-                        _url = _url.trim();
-                        return _url;
-                    }
-                }
-            }
-        }
+      return intentExtractURL(intent)
     },
     isSendFrom: function (intent) {
         //  只要extras裡面包含了url都算

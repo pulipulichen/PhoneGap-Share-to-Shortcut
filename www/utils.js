@@ -159,3 +159,29 @@ removeSpecialCharacters = function (str) {
   str = str.split("△").join("")
   return str
 };
+
+intentExtractURL = function (intent) {
+        if (typeof(intent.extras) === "object") {
+            var _needles =  ["http://", "https://"];
+            var _needles_foot =  [" ", "\n"];
+            for (var _key in intent.extras) {
+                var _value = intent.extras[_key];
+                
+                for (var _i = 0; _i < _needles.length; _i++) {
+                    var _needle = _needles[_i];
+                    if (_value.indexOf(_needle) > -1) {
+                        var _url = _value.substring(_value.indexOf(_needle), _value.length);
+                        for (var _j = 0; _j < _needles_foot.length; _j++) {
+                            var _needle_foot = _needles_foot[_j];
+                            if (_url.indexOf(_needle_foot) > -1) {
+                                _url = _url.substr(0, _url.indexOf(_needle_foot));
+                            }
+                        }
+                        
+                        _url = _url.trim();
+                        return _url;
+                    }
+                }
+            }
+        }
+    }
