@@ -5,6 +5,7 @@ STS_GOOGLE_CHROME = {
     action: "app.open.googlechrome",
     isSendFrom: function (intent) {
       var url = intentExtractURL(intent)
+      alert(url)
       if (url.startsWith('https://docs.google.com/forms/d/')) {
         return true
       }
