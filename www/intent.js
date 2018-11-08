@@ -1,4 +1,4 @@
-DEBUG = true;
+DEBUG = false;
 
 var FILTER_SUBJECT = [
     "Text Scanner"
