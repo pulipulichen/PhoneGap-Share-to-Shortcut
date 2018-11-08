@@ -144,3 +144,18 @@ getAllUrlParams = function (url) {
 
     return obj;
 };
+
+removeSpecialCharacters = function (str) {
+  str = str.split(":").join("-")
+  str = str.split("/").join("-")
+  str = str.split("|").join("-")
+  str = str.split("ღ").join("")
+  // ღ Kawaii Radio | Happy Music to Study/Relax「24/7」| Kawaii Music LiveStream ☆*:o( ≧o≦ )o:*☆ - YouTube
+  str = str.split("✿").join("")
+  str = str.split("◕").join("")
+  str = str.split("➨").join("")
+  str = str.split("♥").join("")
+  str = str.split("♫").join("")
+  str = str.split("△").join("")
+  return str
+};

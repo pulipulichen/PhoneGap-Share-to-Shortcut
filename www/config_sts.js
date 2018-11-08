@@ -352,6 +352,8 @@ STS_YOUTUBE = {
     },
     createShortcut: function (intent) {
         var _subject = intent.extras["android.intent.extra.SUBJECT"];
+        _subject = removeSpecialCharacters(_subject)
+        
         var _head_needle = "在 YouTube 上觀看「";
         if (_subject.startsWith(_head_needle)) {
             _subject = _subject.substring(_head_needle.length, _subject.length);
