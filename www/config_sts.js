@@ -1,3 +1,6 @@
+/**
+ * STS = Share to Shartcut
+ */
 STS_GOOGLE_CHROME = {
     action: "app.open.googlechrome",
     isSendFrom: function (intent) {
