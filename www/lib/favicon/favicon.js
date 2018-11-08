@@ -144,7 +144,7 @@ getURLtoBase64 = function (url, callback) {
     xhr.send();
 };
 
-getURLtoCanvaseBase64 = function (url, callback) { 
+getURLtoCanvasBase64 = function (url, callback) { 
       var canvasWidth = 256
       var canvasHeight = 256
       $('<canvas id="canvas" width="' + canvasWidth + '" height="' + canvasHeight + '" style="display: none"></canvas>')
