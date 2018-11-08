@@ -386,6 +386,7 @@ STS_YOUTUBE = {
         
         getURLtoCanvasBase64(favicon_url, function (_icon) {
             alert(_subject)
+            //_icon = 
             alert(_icon)
             createShortcut(_subject, _extras, _icon); 
             navigator.app.exitApp();

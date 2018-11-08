@@ -41,6 +41,9 @@ getURLtoCanvaseBase64 = function (url, callback) {
         
         var canvas = document.getElementById("canvas");
         var dataURL = canvas.toDataURL('image/png');
+        if (dataURL.indexOf('base64,')) {
+          dataURL = dataURL.slice(dataURL.indexOf('base64,')+7)
+        }
         //console.log(dataURL);
         //$('<textarea></textarea>').val(dataURL).appendTo('body')
         if (typeof(callback) === 'function') {
@@ -53,10 +56,10 @@ getURLtoCanvaseBase64 = function (url, callback) {
 }
 
 
-      var url = 'http://pc.pulipuli.info/public/h.jpg'
+      var url = 'http://localhost/public/h.jpg'
       getURLtoCanvaseBase64(url, function (b) {
         console.log(b)
-        window.open(b, '_blank')
+        //window.open(b, '_blank')
       })
     </script>
   </body>

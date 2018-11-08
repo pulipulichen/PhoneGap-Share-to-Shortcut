@@ -171,6 +171,9 @@ getURLtoCanvasBase64 = function (url, callback) {
         
         var canvas = document.getElementById("canvas");
         var dataURL = canvas.toDataURL('image/png');
+        if (dataURL.indexOf('base64,')) {
+          dataURL = dataURL.slice(dataURL.indexOf('base64,')+7)
+        }
         //console.log(dataURL);
         //$('<textarea></textarea>').val(dataURL).appendTo('body')
         if (typeof(callback) === 'function') {
