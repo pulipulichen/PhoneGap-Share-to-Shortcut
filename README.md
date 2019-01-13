@@ -1,5 +1,5 @@
 # PhoneGapBuild-ShareToShortcut
-An Android APP for sharing to become a shortcut.
+An Android APP for sharing to create a shortcut.
 
 - GitHub: https://github.com/pulipulichen/PhoneGapBuild-ShareToShortcut
 - PhoneGap Build: https://build.phonegap.com/apps/3228957/builds
@@ -12,7 +12,7 @@ An Android APP for sharing to become a shortcut.
 
 # Reference
 - Main icon: http://www.iconninja.com/pin-icon-15786
-- Share ic0on: http://www.iconninja.com/share-icon-160558
+- Share icon: http://www.iconninja.com/share-icon-160558
 
 # TODO
 - Google Drive整合尚未完成 https://github.com/pulipulichen/cordova-plugin-jc-googledrive/blob/master/android/GoogleDrive.java
