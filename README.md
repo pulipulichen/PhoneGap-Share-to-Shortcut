@@ -5,6 +5,7 @@ An Android APP for sharing to create a shortcut.
 - PhoneGap Build: https://build.phonegap.com/apps/3228957/builds
     * https://build.phonegap.com/apps
     * https://build.phonegap.com/people/sign_in
+    * https://build.phonegap.com/apps/3228957/download/android
 
 - Install: https://goo.gl/JAGmUy (小寫l)
     * https://build.phonegap.com/apps/3228957/download/android

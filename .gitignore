@@ -6,3 +6,4 @@
 /test/clipboard.json
 /test/addPinned.json.json
 /test/*.json
+/nbproject/private/
